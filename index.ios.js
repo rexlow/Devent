@@ -17,7 +17,7 @@ class Devent extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Welcome to React Native!
+          Welcome to Devent!
         </Text>
         <Text style={styles.instructions}>
           To get started, edit index.ios.js
