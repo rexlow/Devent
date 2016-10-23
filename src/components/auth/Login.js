@@ -1,43 +1,41 @@
 import React, { Component } from 'react';
 import {
   View,
-  Text
+  Text,
+  TouchableOpacity
 } from 'react-native';
+import { Input } from './../common';
 
-import MaterialsIcon from 'react-native-vector-icons/MaterialIcons';
-import { Kohana } from 'react-native-textinput-effects';
 
-class Login extends Component {
-
+export default class Login extends Component {
+  state = { email: '', password: ''};
   render(){
-    const { mainContainer, upperPart, middlePart, bottomPart, loginText, registerText } = styles;
+    const { mainContainer, upperPart, middlePart, middleRegister, middleLogin, bottomPart, loginText, registerText } = styles;
+
     return(
       <View style={mainContainer}>
         <View style={upperPart}>
-          <Kohana
-            style={{ backgroundColor: 'transparent', height: 50 }}
-            label={'Email'}
-            iconClass={MaterialsIcon}
-            iconName={'email'}
-            iconColor={'#1976D2'}
-            labelStyle={{ color: '#FFFFFF' }}
-            inputStyle={{ color: '#FFFFFF' }}
-          />
-          <Kohana
-            style={{ backgroundColor: 'transparent', height: 50 }}
-            label={'Password'}
-            iconClass={MaterialsIcon}
-            iconName={'vpn-key'}
-            iconColor={'#1976D2'}
-            labelStyle={{ color: '#FFFFFF' }}
-            inputStyle={{ color: '#FFFFFF' }}
-          />
+          <Input
+            label="Email"
+            iconName="email"
+            placeholder="john@apple.com"
+            onChangeText={email => this.setState({ email })}
+            value={this.state.email} />
+          <Input
+            label="Password"
+            iconName="vpn-key"
+            placeholder="password"
+            onChangeText={password => this.setState({ password })}
+            value={this.state.password}
+            secureTextEntry />
         </View>
         <View style={middlePart}>
-          <Text style={loginText}>Login</Text>
-        </View>
-        <View style={bottomPart}>
-          <Text style={registerText}>Haven't registered?</Text>
+          <TouchableOpacity style={middleRegister}>
+            <Text style={loginText}>Register</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={middleLogin}>
+            <Text style={loginText}>Login</Text>
+          </TouchableOpacity>
         </View>
       </View>
     )
@@ -51,11 +49,21 @@ const styles = {
     justifyContent: 'center',
   },
   upperPart: {
-    flex: 6,
+    flex: 7,
     paddingTop: 20
   },
   middlePart: {
     flex: 3,
+    flexDirection: 'row'
+  },
+  middleRegister: {
+    flex: 1,
+    backgroundColor: '#E040FB',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  middleLogin: {
+    flex: 1,
     backgroundColor: '#FF4081',
     justifyContent: 'center',
     alignItems: 'center'
@@ -78,5 +86,3 @@ const styles = {
     color: '#FFFFFF'
   }
 }
-
-export default Login;
