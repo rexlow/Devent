@@ -3,21 +3,12 @@ import React, { Component } from 'react';
 import firebase from 'firebase';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-
-import {
-  View,
-  Text,
-  StatusBar
-} from 'react-native';
-import { Spinner } from './components/common';
+import ReduxThunk from 'redux-thunk'
+import reducers from './reducers';
 
 import Router from './Router';
 
-import Login from './components/auth/Login';
-import Main from './components/Main';
-
 class App extends Component {
-  state = { loggedIn: null }
 
   componentWillMount() {
     firebase.initializeApp({
@@ -27,42 +18,16 @@ class App extends Component {
       storageBucket: "devent-7da1c.appspot.com",
       messagingSenderId: "870675382955"
     });
-
-    // monitor user auth activity
-    firebase.auth().onAuthStateChanged((user) => {
-      if(user) {
-        this.setState({ loggedIn: true });
-      } else {
-        this.setState({ loggedIn: false });
-      }
-    });
-  }
-
-  renderContent() {
-    switch (this.state.loggedIn) {
-      case true:
-        return <Main />;
-      case false:
-        return <Login />;
-      default:
-        return <Spinner />
-    }
   }
 
   render() {
-    return (
-      <View style={styles.mainContainer}>
-        <StatusBar barStyle="light-content" />
-        <Router />
-      </View>
-    );
-  }
-}
+    const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
 
-const styles = {
-  mainContainer: {
-    flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.75)'
+    return (
+      <Provider store={store}>
+        <Router />
+      </Provider>
+    );
   }
 }
 
