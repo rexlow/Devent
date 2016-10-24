@@ -1,22 +1,16 @@
 import React, { Component } from 'react';
-import firebase from 'firebase';
 import {
   View,
-  Text,
-  StatusBar,
-  TouchableOpacity
+  Text
 } from 'react-native';
+import { Spinner } from './common';
 
-
-class Main extends Component {
+class SplashScreen extends Component {
   render(){
-    console.log('Main');
     return(
       <View style={styles.mainContainer}>
-        <TouchableOpacity onPress={() => firebase.auth().signOut()}>
-          <Text>Main</Text>
-        </TouchableOpacity>
-
+        <Text style={styles.titleStyle}>Devent</Text>
+        <Spinner color="white" />
       </View>
     )
   }
@@ -28,7 +22,12 @@ const styles = {
     backgroundColor: '#448AFF',
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  titleStyle: {
+    fontSize: 28,
+    fontWeight: '600',
+    color: '#FFF'
   }
 }
 
-export default Main;
+export default SplashScreen;
