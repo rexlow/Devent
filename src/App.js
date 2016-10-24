@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+
 import firebase from 'firebase';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
 
 import {
   View,
@@ -8,7 +11,7 @@ import {
 } from 'react-native';
 import { Spinner } from './components/common';
 
-import {Scene, Router} from 'react-native-router-flux';
+import Router from './Router';
 
 import Login from './components/auth/Login';
 import Main from './components/Main';
@@ -50,7 +53,7 @@ class App extends Component {
     return (
       <View style={styles.mainContainer}>
         <StatusBar barStyle="light-content" />
-        {this.renderContent()}
+        <Router />
       </View>
     );
   }

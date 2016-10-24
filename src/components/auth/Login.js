@@ -6,6 +6,8 @@ import {
 } from 'react-native';
 import { Input } from './../common';
 
+import { Actions } from 'react-native-router-flux';
+
 
 export default class Login extends Component {
   state = { email: '', password: ''};
@@ -30,7 +32,7 @@ export default class Login extends Component {
             secureTextEntry />
         </View>
         <View style={middlePart}>
-          <TouchableOpacity style={middleRegister}>
+          <TouchableOpacity style={middleRegister} onPress={() => Actions.register()}>
             <Text style={loginText}>Register</Text>
           </TouchableOpacity>
           <TouchableOpacity style={middleLogin}>
