@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import Data from './SampleData';
+import AuthReducer from './AuthReducer';
 
 export default combineReducers({
-  sampleState: Data
+  auth: AuthReducer
 })

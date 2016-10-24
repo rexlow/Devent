@@ -1,16 +1,49 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { emailChanged, passwordChanged, loginUser } from './../../actions';
 import {
   View,
   Text,
-  TouchableOpacity
+  TouchableOpacity,
+  Alert
 } from 'react-native';
-import { Input } from './../common';
-
+import { Input, Spinner } from './../common';
 import { Actions } from 'react-native-router-flux';
 
+class Login extends Component {
 
-export default class Login extends Component {
-  state = { email: '', password: ''};
+  onEmailChange(text) {
+    this.props.emailChanged(text);
+  }
+
+  onPasswordChange(text) {
+    this.props.passwordChanged(text);
+  }
+
+  onLoginPress() {
+    const { email, password } = this.props;
+    
+    if ((email === '') && (password === '')){
+      Alert.alert('Alert', 'Please enter your email and password');
+    }else if (email === '') {
+      Alert.alert('Alert', 'Email is badly formatted');
+    }else if (password === '') {
+      Alert.alert('Alert', 'Password is badly formatted');
+    }
+
+    this.props.loginUser({ email, password });
+  }
+
+  processAuth() {
+    if(this.props.loading){
+      return <Spinner />;
+    };
+
+    return (
+      <Text style={styles.loginText}>Login</Text>
+    );
+  }
+
   render(){
     const { mainContainer, upperPart, middlePart, middleRegister, middleLogin, bottomPart, loginText, registerText } = styles;
 
@@ -21,22 +54,23 @@ export default class Login extends Component {
             label="Email"
             iconName="email"
             placeholder="john@apple.com"
-            onChangeText={email => this.setState({ email })}
-            value={this.state.email} />
+            onChangeText={this.onEmailChange.bind(this)}
+            value={this.props.email} />
           <Input
             label="Password"
             iconName="vpn-key"
             placeholder="password"
-            onChangeText={password => this.setState({ password })}
-            value={this.state.password}
+            onChangeText={this.onPasswordChange.bind(this)}
+            value={this.props.password}
             secureTextEntry />
         </View>
+
         <View style={middlePart}>
           <TouchableOpacity style={middleRegister} onPress={() => Actions.register()}>
             <Text style={loginText}>Register</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={middleLogin}>
-            <Text style={loginText}>Login</Text>
+          <TouchableOpacity style={middleLogin} onPress={this.onLoginPress.bind(this)}>
+            {this.processAuth()}
           </TouchableOpacity>
         </View>
       </View>
@@ -88,3 +122,10 @@ const styles = {
     color: '#FFFFFF'
   }
 }
+
+const mapStateToProps = ({ auth }) => {
+  const { email, password, loading, error } = auth;
+  return { email, password, loading, error };
+}
+
+export default connect(mapStateToProps, { emailChanged, passwordChanged, loginUser })(Login);
