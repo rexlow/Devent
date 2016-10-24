@@ -28,8 +28,14 @@ export const loginUser = ({ email, password}) => {
     firebase.auth().signInWithEmailAndPassword(email, password)
       .then(user => loginUserSuccess(dispatch, user))
       .catch(() => loginUserFail(dispatch));
-  }
-}
+  };
+};
+
+export const isLoggedIn = (dispatch) => {
+  return(dispatch) => {
+    firebase.auth().onAuthStateChanged((user) => loginUserSuccess(dispatch, user));
+  };
+};
 
 const loginUserSuccess = (dispatch, user) => {
   dispatch({
