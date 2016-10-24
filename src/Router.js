@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import { connect } from 'react-redux';
 import { isLoggedIn } from './actions';
 import { Scene, Router, Actions, Switch } from 'react-native-router-flux';
@@ -14,15 +15,18 @@ class RouterComponent extends Component {
   state = { loggedIn: false }
 
   componentWillMount() {
-    this.props.isLoggedIn();
+    // this.props.isLoggedIn();
   }
 
   render() {
     return(
-      <Router sceneStyle={{ }} hideNavBar={true}>
+      <Router
+        sceneStyle={{ paddingTop: 60 }}
+        hideNavBar={false}
+        navigationBarStyle={{backgroundColor: '#448AFF',borderBottomColor:"#448AFF"}}
+        titleStyle={{color : "#FFF", fontWeight: '600'}}
+        barButtonIconStyle={{ tintColor:'#FFF' }}>
         <Scene key="root">
-          {/* component={connect(state => ({loggedIn: state.loggedIn}))(Switch)}
-          selector={props => props.loggedIn ? 'mainContainer' : 'auth'} */}
           <Scene key="authContainer" initial>
             <Scene key="login" component={Login} title="Login Page" />
             <Scene key="register" component={Register} title="Register Page" />

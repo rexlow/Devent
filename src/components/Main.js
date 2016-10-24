@@ -20,7 +20,9 @@ class Main extends Component {
 const styles = {
   mainContainer: {
     flex: 1,
-    backgroundColor: '#448AFF'
+    backgroundColor: '#448AFF',
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 }
 

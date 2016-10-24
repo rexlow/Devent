@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import firebase from 'firebase';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
