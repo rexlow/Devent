@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
-import firebase from 'firebase';
-class App extends Component {
 
-  state = { username: 'empty'};
+import firebase from 'firebase';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import ReduxThunk from 'redux-thunk'
+import reducers from './reducers';
+
+import Router from './Router';
+
+class App extends Component {
 
   componentWillMount() {
     firebase.initializeApp({
@@ -13,19 +18,15 @@ class App extends Component {
       storageBucket: "devent-7da1c.appspot.com",
       messagingSenderId: "870675382955"
     });
-
-    firebase.auth().onAuthStateChanged((user) => {
-      if(user){
-        this.setState({ username: user.email });
-      }
-    })
   }
 
   render() {
+    const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
+
     return (
-      <View>
-        <Text>{this.state.username}</Text>
-      </View>
+      <Provider store={store}>
+        <Router />
+      </Provider>
     );
   }
 }
