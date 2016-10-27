@@ -4,13 +4,15 @@ import { View, Text, Navigator } from 'react-native';
 
 import SplashScreen from './containers/SplashScreen';
 import LoadingScreen from './containers/LoadingScreen';
-import LoginScreen from './containers/auth/LoginScreen';
+import Login from './containers/auth/Login';
+import Register from './containers/auth/Register';
 import Home from './containers/Home';
 
 const routes = {
   SplashScreen,
   LoadingScreen,
-  LoginScreen,
+  Login,
+  Register,
   Home
 };
 
@@ -27,7 +29,7 @@ class App extends Component {
   render() {
     return (
       <Navigator
-        initialRoute={{name: 'LoginScreen'}}
+        initialRoute={{name: 'Register'}}
         renderScene={this.renderScene}
       />
     );

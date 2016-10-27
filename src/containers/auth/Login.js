@@ -11,7 +11,7 @@ import {
   Button
 } from './../../components/common';
 
-class LoginScreen extends Component {
+class Login extends Component {
 
   render() {
     const {
@@ -102,4 +102,4 @@ const styles = {
   }
 }
 
-export default LoginScreen;
+export default Login;
