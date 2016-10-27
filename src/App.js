@@ -1,31 +1,35 @@
+'use strict';
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
-import firebase from 'firebase';
+import { View, Text, Navigator } from 'react-native';
+
+import SplashScreen from './containers/SplashScreen';
+import LoadingScreen from './containers/LoadingScreen';
+import LoginScreen from './containers/auth/LoginScreen';
+import Home from './containers/Home';
+
+const routes = {
+  SplashScreen,
+  LoadingScreen,
+  LoginScreen,
+  Home
+};
+
 class App extends Component {
 
-  state = { username: 'empty'};
+  renderScene(route, navigator) {
+    let Component = routes[route.name];
 
-  componentWillMount() {
-    firebase.initializeApp({
-      apiKey: "AIzaSyA_jrPdLZQ3R3y6Oqu9ouYZh9NoHjSoC3o",
-      authDomain: "devent-7da1c.firebaseapp.com",
-      databaseURL: "https://devent-7da1c.firebaseio.com",
-      storageBucket: "devent-7da1c.appspot.com",
-      messagingSenderId: "870675382955"
-    });
-
-    firebase.auth().onAuthStateChanged((user) => {
-      if(user){
-        this.setState({ username: user.email });
-      }
-    })
+    return(
+      <Component navigator={navigator} {...route.passProps}/>
+    )
   }
 
   render() {
     return (
-      <View>
-        <Text>{this.state.username}</Text>
-      </View>
+      <Navigator
+        initialRoute={{name: 'LoginScreen'}}
+        renderScene={this.renderScene}
+      />
     );
   }
 }
