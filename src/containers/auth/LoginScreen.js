@@ -36,7 +36,7 @@ class LoginScreen extends Component {
           <Text style={bottomText}>Don't have an account?</Text>
           <TouchableOpacity onPress={console.log('goto sign up')}>
             <Text style={[bottomText], redText}>Create new account</Text>
-          </TouchableOpacity >
+          </TouchableOpacity>
         </View>
       </View>
     )

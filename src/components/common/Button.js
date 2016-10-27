@@ -22,7 +22,11 @@ const styles = {
     width: deviceWidth*0.7,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 20
+    borderRadius: 20,
+    shadowColor: '#129793',
+    shadowOffset: {width: 0, height: 0},
+    shadowOpacity: 1,
+    shadowRadius: 5
   },
   buttonTextStyle: {
     color: '#FFFFFF'
