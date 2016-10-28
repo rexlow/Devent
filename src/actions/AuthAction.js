@@ -1,9 +1,5 @@
 import firebase from 'firebase';
 import {
-   EMAIL_CHANGED,
-   PASSWORD_CHANGED,
-   LOGIN_USER_SUCCESS,
-   LOGIN_USER_FAIL,
    LOGIN_USER,
    REGISTER_USER,
    LISTEN_TO_USER
@@ -29,7 +25,7 @@ import {
    };
  }
 
- export function subscribeAuthStatus() {
+ export function listenToUser() {
    return (dispatch) => {
      firebase.auth().onAuthStateChanged((user) => {
        dispatch({

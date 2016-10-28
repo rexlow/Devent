@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 
 import { Scene, Router, Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
+import * as actions from './actions';
 
 import SplashScreen from './containers/SplashScreen';
 import LoadingScreen from './containers/LoadingScreen';
@@ -11,12 +12,18 @@ import Register from './containers/auth/Register';
 import Home from './containers/Home';
 
 class RouterComponent extends Component {
+
+  componentWillMount() {
+    this.props.listenToUser();
+  }
+
   render() {
     return(
       <View style={{ flex: 1 }}>
         <Router>
           <Scene key="auth" hideNavBar initial>
-            <Scene key="login" component={Login} initial />
+            <Scene key="splash" component={SplashScreen} initial />
+            <Scene key="login" component={Login} />
             <Scene key="register" component={Register} />
           </Scene>
           <Scene key="main" >
@@ -28,4 +35,4 @@ class RouterComponent extends Component {
   }
 }
 
-export default RouterComponent;
+export default connect(null, actions)(RouterComponent);

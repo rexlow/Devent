@@ -1,13 +1,43 @@
+//this screen is designed to listen to firebase user changes
+
 import React, { Component } from 'react';
 import {
   View,
-  Text
+  Text,
+  LayoutAnimation
 } from 'react-native';
-import {
-  Spinner
-} from './../components/common';
+import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
+import { Spinner } from './../components/common';
 
 class SplashScreen extends Component {
+
+  constructor(props) {
+    super(props);
+  }
+
+  componentWillUpdate() {
+    LayoutAnimation.easeInEaseOut();
+  }
+
+  componentDidMount() {
+    this.processAuth(this.props);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.processAuth(nextProps);
+  }
+
+  processAuth(props) {
+    console.log('Splash: ' + props);
+    if(props.auth.user != null) {
+      if(props.auth.user.uid) {
+        Actions.main({ type: reset });
+      } else {
+        Actions.login({ type: reset });
+      }
+    }
+  }
 
   render() {
     return(
@@ -41,4 +71,10 @@ const styles = {
   }
 }
 
-export default SplashScreen;
+const mapStateToProps = (state) => (
+  {
+    auth: state.auth
+  }
+)
+
+export default connect(mapStateToProps)(SplashScreen);
