@@ -1,37 +1,31 @@
 'use strict';
 import React, { Component } from 'react';
-import { View, Text, Navigator } from 'react-native';
 
-import SplashScreen from './containers/SplashScreen';
-import LoadingScreen from './containers/LoadingScreen';
-import Login from './containers/auth/Login';
-import Register from './containers/auth/Register';
-import Home from './containers/Home';
+import firebase from 'firebase';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
 
-const routes = {
-  SplashScreen,
-  LoadingScreen,
-  Login,
-  Register,
-  Home
-};
+import Router from './Router';
 
 class App extends Component {
 
-  renderScene(route, navigator) {
-    let Component = routes[route.name];
-
-    return(
-      <Component navigator={navigator} {...route.passProps}/>
-    )
+  componentWillMount() {
+    firebase.initializeApp({
+      apiKey: "AIzaSyA_jrPdLZQ3R3y6Oqu9ouYZh9NoHjSoC3o",
+      authDomain: "devent-7da1c.firebaseapp.com",
+      databaseURL: "https://devent-7da1c.firebaseio.com",
+      storageBucket: "devent-7da1c.appspot.com",
+      messagingSenderId: "870675382955"
+    });
   }
 
   render() {
+    // const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
+
     return (
-      <Navigator
-        initialRoute={{name: 'Register'}}
-        renderScene={this.renderScene}
-      />
+      <Provider>
+        <Router />
+      </Provider>
     );
   }
 }
