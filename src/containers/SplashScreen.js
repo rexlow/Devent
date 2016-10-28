@@ -6,6 +6,7 @@ import {
   Text,
   LayoutAnimation
 } from 'react-native';
+
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { Spinner } from './../components/common';
@@ -29,13 +30,12 @@ class SplashScreen extends Component {
   }
 
   processAuth(props) {
-    console.log('Splash: ' + props);
     if(props.auth.user != null) {
       if(props.auth.user.uid) {
-        Actions.main({ type: reset });
-      } else {
-        Actions.login({ type: reset });
+        Actions.main({ type: 'reset' });
       }
+    }else{
+      Actions.login({ type: 'reset' });
     }
   }
 
@@ -71,10 +71,10 @@ const styles = {
   }
 }
 
-const mapStateToProps = (state) => (
-  {
+const mapStateToProps = (state) => {
+  return {
     auth: state.auth
-  }
-)
+  };
+};
 
 export default connect(mapStateToProps)(SplashScreen);

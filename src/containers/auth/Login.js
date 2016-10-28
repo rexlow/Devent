@@ -1,9 +1,15 @@
 'use strict';
 import React, { Component } from 'react';
+
+import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
+import * as actions from './../../actions';
+
 import {
   View,
   Text,
-  TouchableOpacity
+  TouchableOpacity,
+  LayoutAnimation
 } from 'react-native';
 import {
   Input,
@@ -13,10 +19,48 @@ import {
 
 class Login extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      password: '',
+      error: null
+    };
+  }
+
+  componentWillMount() {
+    LayoutAnimation.easeInEaseOut();
+  }
+
+  componentDidMount() {
+    this.processAuth(this.props);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.processAuth(nextProps);
+  }
+
+  _loginUser() {
+    const { email, password } = this.state;
+    this.props.loginUser(email, password);
+  }
+
+  processAuth(props) {
+    if(props.auth.user != null) {
+      if(props.auth.user.uid) {
+        Actions.main({ type: 'reset' });
+      }
+      if(props.auth.error) {
+        this.setState({ error: props.auth.error.message})
+      }
+    }
+  }
+
   render() {
     const {
       centerEverything, container, upperContainer, title, middleContainer, welcomeTitle,
-      forgotPasswordContainer, forgotPassword, inputContainer, bottomContainer, bottomText, redText
+      forgotPasswordContainer, forgotPassword, inputContainer, bottomContainer, bottomText,
+      redText, errorText
     } = styles;
 
     return(
@@ -24,19 +68,31 @@ class Login extends Component {
         <View style={[upperContainer, centerEverything]}>
           <Text style={title}>DEVENT</Text>
         </View>
+
         <View style={[middleContainer, centerEverything]}>
           <Text style={welcomeTitle}>WELCOME</Text>
           <View style={[centerEverything], {paddingBottom: 30}}>
-            <Input label="email" placeholder="Email" />
-            <Input label="password" placeholder="Password" secureTextEntry />
+            <Input
+              label="email"
+              placeholder="Email"
+              onChangeText={(email) => this.setState({ email })}
+              value={this.state.email} />
+            <Input
+              label="password"
+              placeholder="Password"
+              onChangeText={(password) => this.setState({ password })}
+              value={this.state.password}
+              secureTextEntry />
             <View style={forgotPasswordContainer}>
-              <TouchableOpacity onPress={() => console.log('Press')}>
+              <TouchableOpacity onPress={() => console.log('forgot')}>
                 <Text style={forgotPassword}>Forgot password?</Text>
               </TouchableOpacity>
             </View>
           </View>
-          <Button buttonText="SIGN IN" />
+          <Button buttonText="SIGN IN" onPress={() => this._loginUser.bind(this)}/>
+          <Text style={[forgotPassword, errorText]}>{this.state.error}</Text>
         </View>
+
         <View style={[bottomContainer, centerEverything]}>
           <Text style={bottomText}>Don't have an account?</Text>
           <TouchableOpacity onPress={() => console.log('goto sign up')}>
@@ -99,7 +155,17 @@ const styles = {
   },
   redText: {
     color: '#FF7260'
+  },
+  errorText: {
+    paddingTop: 10,
+    backgroundColor: 'transparent'
   }
 }
 
-export default Login;
+const mapStateToProps = (state) => {
+  return {
+    auth: state.auth
+  };
+};
+
+export default connect(mapStateToProps, actions)(Login);

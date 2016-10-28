@@ -21,9 +21,9 @@ class RouterComponent extends Component {
     return(
       <View style={{ flex: 1 }}>
         <Router>
-          <Scene key="auth" hideNavBar initial>
-            <Scene key="splash" component={SplashScreen} initial />
-            <Scene key="login" component={Login} />
+          <Scene key="auth" initial>
+            <Scene key="splash" component={SplashScreen} initial hideNavBar/>
+            <Scene key="login" component={Login} hideNavBar/>
             <Scene key="register" component={Register} />
           </Scene>
           <Scene key="main" >

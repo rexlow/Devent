@@ -8,7 +8,6 @@ const Button = ({ buttonText }) => {
   const { buttonStyle, buttonTextStyle} = styles;
   return(
     <TouchableOpacity
-      onPress={() => console.log('Button press')}
       style={styles.buttonStyle}>
       <Text style={buttonTextStyle}>{buttonText}</Text>
     </TouchableOpacity>
