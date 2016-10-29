@@ -4,11 +4,12 @@ import { Text, TouchableOpacity  } from 'react-native';
 const deviceWidth = require('Dimensions').get('window').width;
 const deviceHeight = require('Dimensions').get('window').height;
 
-const Button = ({ buttonText }) => {
+const Button = ({ buttonText, onPress }) => {
   const { buttonStyle, buttonTextStyle} = styles;
   return(
     <TouchableOpacity
-      style={styles.buttonStyle}>
+      style={styles.buttonStyle}
+      onPress={onPress}>
       <Text style={buttonTextStyle}>{buttonText}</Text>
     </TouchableOpacity>
   )

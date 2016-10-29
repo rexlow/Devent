@@ -26,8 +26,19 @@ import {
          error: null
        };
      case LOGIN_USER:
-       
+       if(action.payload.error){
+         return {
+           user: {},
+           error: action.payload.error
+         }
+       }else{
+         return {
+           user: action.payload.email,
+           uid: action.paylaod.uid
+         }
+       }
      case LOGOUT_USER:
+       Actions.auth({ type: 'reset' });
        return INITIAL_STATE;
      default:
        return state;

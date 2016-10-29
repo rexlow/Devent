@@ -33,9 +33,9 @@ class SplashScreen extends Component {
     if(props.auth.user != null) {
       if(props.auth.user.uid) {
         Actions.main({ type: 'reset' });
+      }else{
+        Actions.login({ type: 'reset' });
       }
-    }else{
-      Actions.login({ type: 'reset' });
     }
   }
 

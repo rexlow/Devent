@@ -40,8 +40,9 @@ class Login extends Component {
     this.processAuth(nextProps);
   }
 
-  _loginUser() {
+  loginUser() {
     const { email, password } = this.state;
+    console.log(this.state)
     this.props.loginUser(email, password);
   }
 
@@ -51,7 +52,7 @@ class Login extends Component {
         Actions.main({ type: 'reset' });
       }
       if(props.auth.error) {
-        this.setState({ error: props.auth.error.message})
+        this.setState({ error: this.props.error })
       }
     }
   }
@@ -89,13 +90,13 @@ class Login extends Component {
               </TouchableOpacity>
             </View>
           </View>
-          <Button buttonText="SIGN IN" onPress={() => this._loginUser.bind(this)}/>
+          <Button buttonText="SIGN IN" onPress={this.loginUser.bind(this)}/>
           <Text style={[forgotPassword, errorText]}>{this.state.error}</Text>
         </View>
 
         <View style={[bottomContainer, centerEverything]}>
           <Text style={bottomText}>Don't have an account?</Text>
-          <TouchableOpacity onPress={() => console.log('goto sign up')}>
+          <TouchableOpacity onPress={() => Actions.register()}>
             <Text style={[bottomText], redText}>Create new account</Text>
           </TouchableOpacity>
         </View>
