@@ -25,9 +25,11 @@ class Register extends Component {
     };
   }
 
-  componentDidMount() {
-    this.processAuth(this.props);
-  }
+  //dont need this coz we only need to receive props from register event
+  //not from props from login
+  // componentDidMount() {
+  //   this.processAuth(this.props);
+  // }
 
   componentWillReceiveProps(nextProps) {
     this.processAuth(nextProps);
@@ -47,7 +49,7 @@ class Register extends Component {
       if(props.auth.user.uid) {
         console.log('Register successful')
         this.setState({ email: '', password: '' });
-        // Alert.alert('Alert', 'Welcome aboard!', [{text: 'Ok', onPress: () => Actions.pop()}]);
+        Alert.alert('Alert', 'Welcome aboard!', [{text: 'Ok', onPress: () => Actions.pop()}]);
       }
     }
     if(props.auth.error)  {
@@ -72,8 +74,6 @@ class Register extends Component {
         </View>
         <View style={[middleContainer, centerEverything]}>
           <View style={[centerEverything]}>
-            {/* <Input placeholder="First Name" />
-            <Input placeholder="Last Name" /> */}
             <Input
               placeholder="Email Address"
               onChangeText={(email) => this.setState({ email })}
