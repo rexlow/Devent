@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
-import * as actions from './../actions';
+import * as actions from './../../actions';
 
 import {
   View,
@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import {
   Spinner
-} from './../components/common';
+} from './../../components/common';
 
 class Home extends Component {
 
