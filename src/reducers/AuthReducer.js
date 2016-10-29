@@ -3,8 +3,10 @@ import { Actions } from 'react-native-router-flux';
 import {
    LOGIN_USER,
    REGISTER_USER,
+   REGISTER_USER_SUCCESS,
    LISTEN_TO_USER,
    LOGOUT_USER,
+   AUTH_FAIL
  } from './../actions/types';
 
  const INITIAL_STATE = { user: null, error: null}; // no user yet
@@ -26,16 +28,24 @@ import {
          error: null
        };
      case LOGIN_USER:
-       if(action.payload.error){
-         return {
-           user: {},
-           error: action.payload.error
-         }
-       }else{
-         return {
-           user: action.payload.email,
-           uid: action.paylaod.uid
-         }
+       return {
+         user: {
+           email: action.payload.email,
+           uid: action.payload.uid
+         },
+         error: null
+       };
+     case REGISTER_USER_SUCCESS:
+       return {
+         user: {
+           email: action.payload.email,
+           uid: action.payload.uid
+         },
+         error: null
+       };
+     case AUTH_FAIL:
+       return {
+         error: action.payload.error
        }
      case LOGOUT_USER:
        Actions.auth({ type: 'reset' });

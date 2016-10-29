@@ -26,7 +26,7 @@ class RouterComponent extends Component {
             <Scene key="login" component={Login} hideNavBar/>
             <Scene key="register" component={Register} hideNavBar={false} />
           </Scene>
-          <Scene key="main" >
+          <Scene key="main" hideNavBar>
             <Scene key="home" component={Home} />
           </Scene>
         </Router>

@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import * as actions from './../../actions';
 
 import {
+  Alert,
   View,
   Text,
   TouchableOpacity,
@@ -42,18 +43,19 @@ class Login extends Component {
 
   loginUser() {
     const { email, password } = this.state;
-    console.log(this.state)
     this.props.loginUser(email, password);
   }
 
   processAuth(props) {
+    // console.log(props.auth.user.uid)
     if(props.auth.user != null) {
       if(props.auth.user.uid) {
         Actions.main({ type: 'reset' });
       }
-      if(props.auth.error) {
-        this.setState({ error: this.props.error })
-      }
+    }
+    if(props.auth.error) {
+      Alert.alert('Alert', props.auth.error);
+      this.setState({ password: '' });
     }
   }
 
