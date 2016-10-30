@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableWithoutFeedback } from 'react-native';
 import { SearchBar } from './../../components/common';
+
+const dismissKeyboard = require('dismissKeyboard')
 
 class Search extends Component {
   render() {
@@ -8,13 +10,15 @@ class Search extends Component {
     const { centerEverything, container, title, makeItTop } = styles;
 
     return(
-      <View style={[centerEverything, container]}>
-        <View style={[makeItTop]}>
-          <SearchBar placeholder="🔍 Search Event" />
-        </View>
+      <TouchableWithoutFeedback onPress={()=> dismissKeyboard()}>
+        <View style={[centerEverything, container]}>
+          <View style={[makeItTop]}>
+            <SearchBar placeholder="🔍 Search Event" />
+          </View>
 
-        <Text>List of events</Text>
-      </View>
+          <Text>List of events</Text>
+        </View>
+      </TouchableWithoutFeedback>
     )
   }
 }
