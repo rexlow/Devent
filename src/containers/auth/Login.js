@@ -10,6 +10,7 @@ import {
   View,
   Text,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   LayoutAnimation
 } from 'react-native';
 import {
@@ -17,6 +18,8 @@ import {
   Spinner,
   Button
 } from './../../components/common';
+
+const dismissKeyboard = require('dismissKeyboard')
 
 class Login extends Component {
 
@@ -67,42 +70,44 @@ class Login extends Component {
     } = styles;
 
     return(
-      <View style={[container]}>
-        <View style={[upperContainer, centerEverything]}>
-          <Text style={title}>DEVENT</Text>
-        </View>
-
-        <View style={[middleContainer, centerEverything]}>
-          <Text style={welcomeTitle}>WELCOME</Text>
-          <View style={[centerEverything], {paddingBottom: 30}}>
-            <Input
-              label="email"
-              placeholder="Email"
-              onChangeText={(email) => this.setState({ email })}
-              value={this.state.email} />
-            <Input
-              label="password"
-              placeholder="Password"
-              onChangeText={(password) => this.setState({ password })}
-              value={this.state.password}
-              secureTextEntry />
-            <View style={forgotPasswordContainer}>
-              <TouchableOpacity onPress={() => console.log('forgot')}>
-                <Text style={forgotPassword}>Forgot password?</Text>
-              </TouchableOpacity>
-            </View>
+      <TouchableWithoutFeedback onPress={()=> dismissKeyboard()}>
+        <View style={[container]}>
+          <View style={[upperContainer, centerEverything]}>
+            <Text style={title}>DEVENT</Text>
           </View>
-          <Button buttonText="SIGN IN" onPress={this.loginUser.bind(this)}/>
-          <Text style={[forgotPassword, errorText]}>{this.state.error}</Text>
-        </View>
 
-        <View style={[bottomContainer, centerEverything]}>
-          <Text style={bottomText}>Don't have an account?</Text>
-          <TouchableOpacity onPress={() => Actions.register()}>
-            <Text style={[bottomText], redText}>Create new account</Text>
-          </TouchableOpacity>
+          <View style={[middleContainer, centerEverything]}>
+            <Text style={welcomeTitle}>WELCOME</Text>
+            <View style={[centerEverything], {paddingBottom: 30}}>
+              <Input
+                label="email"
+                placeholder="Email"
+                onChangeText={(email) => this.setState({ email })}
+                value={this.state.email} />
+              <Input
+                label="password"
+                placeholder="Password"
+                onChangeText={(password) => this.setState({ password })}
+                value={this.state.password}
+                secureTextEntry />
+              <View style={forgotPasswordContainer}>
+                <TouchableOpacity onPress={() => console.log('forgot')}>
+                  <Text style={forgotPassword}>Forgot password?</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+            <Button buttonText="SIGN IN" onPress={this.loginUser.bind(this)}/>
+            <Text style={[forgotPassword, errorText]}>{this.state.error}</Text>
+          </View>
+
+          <View style={[bottomContainer, centerEverything]}>
+            <Text style={bottomText}>Don't have an account?</Text>
+            <TouchableOpacity onPress={() => Actions.register()}>
+              <Text style={[bottomText], redText}>Create new account</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
+      </TouchableWithoutFeedback>
     )
   }
 }

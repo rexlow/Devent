@@ -10,10 +10,13 @@ import {
   View,
   Text,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   LayoutAnimation
 } from 'react-native';
 
 import { Input, Button } from './../../components/common';
+
+const dismissKeyboard = require('dismissKeyboard')
 
 class Register extends Component {
 
@@ -65,34 +68,36 @@ class Register extends Component {
     } = styles;
 
     return(
-      <View style={[container]}>
-        <View style={[upperContainer, centerEverything]}>
-          <View style={[centerEverything, { paddingTop: 150 }]}>
-            <Text style={title}>CREATE NEW</Text>
-            <Text style={title}>ACCOUNT</Text>
-          </View>
-        </View>
-        <View style={[middleContainer, centerEverything]}>
-          <View style={[centerEverything]}>
-            <Input
-              placeholder="Email Address"
-              onChangeText={(email) => this.setState({ email })}
-              value={this.state.email} />
-            <Input
-              placeholder="Password"
-              onChangeText={(password) => this.setState({ password })}
-              value={this.state.password}
-              secureTextEntry />
-            <View style={[terms, centerEverything]}>
-              <Text style={termsText}>By tapping "Sign Up" you agree</Text>
-              <Text style={termsText}>to the terms & conditions</Text>
+      <TouchableWithoutFeedback onPress={()=> dismissKeyboard()}>
+        <View style={[container]}>
+          <View style={[upperContainer, centerEverything]}>
+            <View style={[centerEverything, { paddingTop: 150 }]}>
+              <Text style={title}>CREATE NEW</Text>
+              <Text style={title}>ACCOUNT</Text>
             </View>
           </View>
+          <View style={[middleContainer, centerEverything]}>
+            <View style={[centerEverything]}>
+              <Input
+                placeholder="Email Address"
+                onChangeText={(email) => this.setState({ email })}
+                value={this.state.email} />
+              <Input
+                placeholder="Password"
+                onChangeText={(password) => this.setState({ password })}
+                value={this.state.password}
+                secureTextEntry />
+              <View style={[terms, centerEverything]}>
+                <Text style={termsText}>By tapping "Sign Up" you agree</Text>
+                <Text style={termsText}>to the terms & conditions</Text>
+              </View>
+            </View>
+          </View>
+          <View style={[bottomContainer, centerEverything]}>
+            <Button buttonText="CREATE NEW ACCOUNT" onPress={this.processRegister.bind(this)}/>
+          </View>
         </View>
-        <View style={[bottomContainer, centerEverything]}>
-          <Button buttonText="CREATE NEW ACCOUNT" onPress={this.processRegister.bind(this)}/>
-        </View>
-      </View>
+      </TouchableWithoutFeedback>
     )
   }
 }
