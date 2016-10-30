@@ -1,11 +1,23 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+
+import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
+import * as actions from './../../actions';
+
+import { View, Text, TouchableOpacity } from 'react-native';
 
 class Profile extends Component {
+
+  signOut() {
+    this.props.logoutUser();
+  }
+
   render() {
     return(
       <View style={styles.container}>
-        <Text>Profile</Text>
+        <TouchableOpacity onPress={this.signOut.bind(this)}>
+          <Text>Sign out</Text>
+        </TouchableOpacity>
       </View>
     )
   }
@@ -26,4 +38,4 @@ const styles = {
   },
 }
 
-export default Profile;
+export default connect(null, actions)(Profile);

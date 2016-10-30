@@ -14,6 +14,7 @@ import {
   Alert,
   View,
   Text,
+  TouchableHighlight,
   TouchableOpacity,
   TouchableWithoutFeedback,
   LayoutAnimation
@@ -77,13 +78,14 @@ class Register extends Component {
 
   render() {
     const {
-      centerEverything, container, upperContainer, title, middleContainer,
-      inputContainer, bottomContainer, terms, termsText, buttonStyle
+      helvMedium, centerEverything, container, upperContainer, title, middleContainer,
+      inputContainer, bottomContainer, terms, termsText, buttonStyle, exitFont
     } = styles;
 
     return(
       <TouchableWithoutFeedback onPress={()=> dismissKeyboard()}>
         <View style={[container]}>
+
           <View style={[upperContainer, centerEverything]}>
             <View style={[centerEverything, { paddingTop: 150 }]}>
               <Text style={title}>CREATE NEW</Text>
@@ -115,6 +117,13 @@ class Register extends Component {
               shape='reactangle'
               buttonState={this.state.buttonState}
               states={this.buttonStates}
+            />
+            <ButtonComponent
+              style={buttonStyle}
+              type='primary'
+              shape='reactangle'
+              text="GO BACK"
+              onPress={() => Actions.pop()}
             />
           </View>
         </View>
@@ -163,10 +172,11 @@ const styles = {
     height: 40,
     width: deviceWidth*0.7,
     borderRadius: 20,
-    shadowColor: '#129793',
-    shadowOpacity: 1,
-    shadowRadius: 5
+    margin: 3
   },
+  exitFont: {
+    fontSize: 30,
+  }
 }
 
 const mapStateToProps = (state) => {

@@ -80,7 +80,7 @@ class ResetPassword extends Component {
             <Text style={title}>Reset your password</Text>
             <Text style={[title, desc]}>We will send a confirmation letter to your email</Text>
 
-          <View style={{ padding: 60 }}>
+          <View style={[centerEverything, {padding: 60}]}>
             <Input
               placeholder="Email"
               onChangeText={(email) => this.setState({ email })}
@@ -93,6 +93,14 @@ class ResetPassword extends Component {
             shape='reactangle'
             buttonState={this.state.buttonState}
             states={this.buttonStates}
+          />
+
+          <ButtonComponent
+            style={buttonStyle}
+            type='primary'
+            shape='reactangle'
+            text="GO BACK"
+            onPress={() => Actions.pop()}
           />
 
           {/* <Button buttonText="Send" onPress={this.resetPasswordHelper.bind(this)} /> */}
@@ -138,9 +146,7 @@ const styles = {
     height: 40,
     width: deviceWidth*0.7,
     borderRadius: 20,
-    shadowColor: '#129793',
-    shadowOpacity: 1,
-    shadowRadius: 5
+    margin: 3
   },
 }
 

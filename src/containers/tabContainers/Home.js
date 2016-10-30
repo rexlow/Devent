@@ -15,18 +15,11 @@ import {
 
 class Home extends Component {
 
-  signOut() {
-    this.props.logoutUser();
-  }
-
   render() {
     return(
       <View style={styles.container}>
         <Text style={styles.title}>Devent</Text>
         <Text style={styles.desc}>Home</Text>
-        <TouchableOpacity onPress={this.signOut.bind(this)}>
-          <Text>Sign out</Text>
-        </TouchableOpacity>
         <Spinner size="small"/>
       </View>
     )

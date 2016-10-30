@@ -36,16 +36,16 @@ class RouterComponent extends Component {
     return(
       <View style={{ flex: 1 }}>
         <Router>
-          <Scene key="auth" initial>
-            <Scene key="splash" component={SplashScreen} initial hideNavBar/>
-            <Scene key="login" component={Login} hideNavBar/>
-            <Scene key="register" component={Register} hideNavBar={false} />
-            <Scene key="resetPassword" component={ResetPassword} hideNavBar={false} />
+          <Scene key="auth" initial hideNavBar>
+            <Scene key="splash" component={SplashScreen} initial />
+            <Scene key="login" component={Login} />
+            <Scene key="register" component={Register} />
+            <Scene key="resetPassword" component={ResetPassword}  />
           </Scene>
           <Scene key="main">
             <Scene key="tabbar" tabs tabBarStyle={styles.tabBarStyle}>
-              <Scene key="homeTab" component={Home} title="Home" icon={TabIcon} hideNavBar/>
-              <Scene key="searchTab" component={Search} title="Search" initial icon={TabIcon} hideNavBar/>
+              <Scene key="homeTab" component={Home} title="Home" icon={TabIcon} hideNavBar initial/>
+              <Scene key="searchTab" component={Search} title="Search" icon={TabIcon} hideNavBar/>
               <Scene key="profileTab" component={Profile} title="Profile" icon={TabIcon} hideNavBar/>
             </Scene>
           </Scene>
