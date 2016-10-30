@@ -79,7 +79,7 @@ import {
       .catch((error) => {
         dispatch({
           type: RESET_PASSWORD_FAIL,
-          payload: 'Unknown error occured, please try again later'
+          payload: 'Unknown error occured, please make sure you have the correct email'
         });
       });
    };

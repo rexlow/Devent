@@ -28,30 +28,48 @@ class ResetPassword extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.processAuth(nextProps);
+  }
+
   resetPasswordHelper() {
-    this.props.resetPassword(this.state.email)
+    Alert.alert(
+      'Confirm',
+      'Are you sure?',
+      [
+        {text: 'Yes', onPress: () => this.props.resetPassword(this.state.email)},
+        {text: 'Cancel', onPress: () => console.log('Reset password button cancel')}
+      ]
+    )
+
+  }
+
+  processAuth(props) {
+    if(props.auth.message){
+      Alert.alert('Alert', props.auth.message)
+    }
   }
 
   render() {
 
-    const { centerEverything, container, upperContainer, middleContainer, bottomContainer,
-       title, desc, someMargin } = styles;
+    const { centerEverything, container, title, desc } = styles;
 
     return(
       <TouchableWithoutFeedback onPress={()=> dismissKeyboard()}>
         <View style={[centerEverything, container]}>
-          <View style={[upperContainer, centerEverything ]}>
+          <View style={[ centerEverything ]}>
             <Text style={title}>Reset your password</Text>
             <Text style={[title, desc]}>We will send a confirmation letter to your email</Text>
-          </View>
-          <View style={[middleContainer, ]}>
+
+          <View style={{ padding: 60 }}>
             <Input
               placeholder="Email"
               onChangeText={(email) => this.setState({ email })}
               value={this.state.email} />
           </View>
-          <View style={[bottomContainer]}>
-            <Button buttonText="Send" onPress={this.resetPasswordHelper.bind(this)} />
+
+
+          <Button buttonText="Send" onPress={this.resetPasswordHelper.bind(this)} />
           </View>
         </View>
       </TouchableWithoutFeedback>
@@ -67,8 +85,6 @@ const styles = {
   container: {
     flex: 1,
     backgroundColor: '#F5F6F7',
-    borderColor: 'black',
-    borderWidth: 1
   },
   upperContainer: {
     flex: 6,
@@ -89,10 +105,8 @@ const styles = {
   desc: {
     fontSize: 14,
     fontWeight: '200',
+    paddingTop: 20
   },
-  someMargin: {
-    width: deviceWidth*0.8
-  }
 }
 
 const mapStateToProps = (state) => {
