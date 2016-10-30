@@ -14,9 +14,16 @@ class Profile extends Component {
 const styles = {
   container: {
     flex: 1,
+    backgroundColor: '#F5F6F7',
     justifyContent: 'center',
     alignItems: 'center'
-  }
+  },
+  title: {
+    fontSize: 38,
+    letterSpacing: 9,
+    fontFamily: 'HelveticaNeue-Light',
+    paddingBottom: 10
+  },
 }
 
 export default Profile;

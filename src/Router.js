@@ -19,7 +19,10 @@ import Profile from './containers/tabContainers/Profile';
 
 const TabIcon = ({ selected, title}) => {
   return(
-    <Text style={{color: selected ? 'red' : 'black'}}>{title}</Text>
+    <Text style={{
+        color: '#5B5A5A',
+        fontWeight: selected ? '600' : '200'
+    }}>{title}</Text>
   );
 };
 
@@ -40,15 +43,22 @@ class RouterComponent extends Component {
             <Scene key="resetPassword" component={ResetPassword} hideNavBar={false} />
           </Scene>
           <Scene key="main">
-            <Scene key="tabbar" tabs >
-              <Scene key="homeTab" component={Home} title="Home" initial icon={TabIcon} hideNavBar/>
-              <Scene key="searchTab" component={Search} title="Search" icon={TabIcon} hideNavBar/>
+            <Scene key="tabbar" tabs tabBarStyle={styles.tabBarStyle}>
+              <Scene key="homeTab" component={Home} title="Home" icon={TabIcon} hideNavBar/>
+              <Scene key="searchTab" component={Search} title="Search" initial icon={TabIcon} hideNavBar/>
               <Scene key="profileTab" component={Profile} title="Profile" icon={TabIcon} hideNavBar/>
             </Scene>
           </Scene>
         </Router>
       </View>
     )
+  }
+}
+
+const styles = {
+  tabBarStyle: {
+    position: 'absolute',
+    top: 20,
   }
 }
 
