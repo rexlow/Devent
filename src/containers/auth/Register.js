@@ -5,6 +5,11 @@ import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import * as actions from './../../actions';
 
+const deviceWidth = require('Dimensions').get('window').width;
+const deviceHeight = require('Dimensions').get('window').height;
+
+import ButtonComponent from 'react-native-button-component';
+
 import {
   Alert,
   View,
@@ -24,15 +29,24 @@ class Register extends Component {
     super(props);
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      buttonState: 'signUp'
+    };
+
+    this.buttonStates = {
+      signUp: {
+        text: 'SIGN UP',
+        onPress: () => {
+          this.setState({ buttonState: 'loading' });
+          this.processRegister();
+        },
+      },
+      loading: {
+        spinner: true,
+        text: 'SIGNING USER UP'
+      }
     };
   }
-
-  //dont need this coz we only need to receive props from register event
-  //not from props from login
-  // componentDidMount() {
-  //   this.processAuth(this.props);
-  // }
 
   componentWillReceiveProps(nextProps) {
     this.processAuth(nextProps);
@@ -56,7 +70,7 @@ class Register extends Component {
       }
     }
     if(props.auth.error)  {
-      this.setState({ email: '', password: '' });
+      this.setState({ email: '', password: '', buttonState: 'signUp' });
       Alert.alert('Alert', props.auth.error);
     }
   }
@@ -64,7 +78,7 @@ class Register extends Component {
   render() {
     const {
       centerEverything, container, upperContainer, title, middleContainer,
-      inputContainer, bottomContainer, terms, termsText
+      inputContainer, bottomContainer, terms, termsText, buttonStyle
     } = styles;
 
     return(
@@ -94,7 +108,14 @@ class Register extends Component {
             </View>
           </View>
           <View style={[bottomContainer, centerEverything]}>
-            <Button buttonText="CREATE NEW ACCOUNT" onPress={this.processRegister.bind(this)}/>
+            {/* <Button buttonText="CREATE NEW ACCOUNT" onPress={this.processRegister.bind(this)}/> */}
+            <ButtonComponent
+              style={buttonStyle}
+              type='primary'
+              shape='reactangle'
+              buttonState={this.state.buttonState}
+              states={this.buttonStates}
+            />
           </View>
         </View>
       </TouchableWithoutFeedback>
@@ -136,7 +157,16 @@ const styles = {
     color: '#5B5A5A',
     fontFamily: 'HelveticaNeue-Medium',
     fontWeight: '400'
-  }
+  },
+  buttonStyle: {
+    backgroundColor: '#129793',
+    height: 40,
+    width: deviceWidth*0.7,
+    borderRadius: 20,
+    shadowColor: '#129793',
+    shadowOpacity: 1,
+    shadowRadius: 5
+  },
 }
 
 const mapStateToProps = (state) => {

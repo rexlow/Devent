@@ -13,6 +13,7 @@ import {
   TouchableWithoutFeedback,
   LayoutAnimation
 } from 'react-native';
+import ButtonComponent from 'react-native-button-component';
 import { Input, Spinner, Button } from './../../components/common';
 
 const dismissKeyboard = require('dismissKeyboard')
@@ -24,8 +25,22 @@ class ResetPassword extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      email: ''
+      email: '',
+      buttonState: 'reset'
     }
+
+    this.buttonStates = {
+      reset: {
+        text: 'RESET PASSWORD',
+        onPress: () => {
+          this.resetPasswordHelper();
+        },
+      },
+      loading: {
+        spinner: true,
+        text: 'SENDING EMAIL...'
+      }
+    };
   }
 
   componentWillReceiveProps(nextProps) {
@@ -37,7 +52,10 @@ class ResetPassword extends Component {
       'Confirm',
       'Are you sure?',
       [
-        {text: 'Yes', onPress: () => this.props.resetPassword(this.state.email)},
+        {text: 'Yes', onPress: () => {
+          this.setState({ buttonState: 'loading' });
+          this.props.resetPassword(this.state.email);
+        }},
         {text: 'Cancel', onPress: () => console.log('Reset password button cancel')}
       ]
     )
@@ -46,13 +64,14 @@ class ResetPassword extends Component {
 
   processAuth(props) {
     if(props.auth.message){
-      Alert.alert('Alert', props.auth.message)
+      this.setState({ buttonState: 'reset' });
+      Alert.alert('Alert', props.auth.message);
     }
   }
 
   render() {
 
-    const { centerEverything, container, title, desc } = styles;
+    const { centerEverything, container, title, desc, buttonStyle } = styles;
 
     return(
       <TouchableWithoutFeedback onPress={()=> dismissKeyboard()}>
@@ -68,8 +87,15 @@ class ResetPassword extends Component {
               value={this.state.email} />
           </View>
 
+          <ButtonComponent
+            style={buttonStyle}
+            type='primary'
+            shape='reactangle'
+            buttonState={this.state.buttonState}
+            states={this.buttonStates}
+          />
 
-          <Button buttonText="Send" onPress={this.resetPasswordHelper.bind(this)} />
+          {/* <Button buttonText="Send" onPress={this.resetPasswordHelper.bind(this)} /> */}
           </View>
         </View>
       </TouchableWithoutFeedback>
@@ -106,6 +132,15 @@ const styles = {
     fontSize: 14,
     fontWeight: '200',
     paddingTop: 20
+  },
+  buttonStyle: {
+    backgroundColor: '#129793',
+    height: 40,
+    width: deviceWidth*0.7,
+    borderRadius: 20,
+    shadowColor: '#129793',
+    shadowOpacity: 1,
+    shadowRadius: 5
   },
 }
 

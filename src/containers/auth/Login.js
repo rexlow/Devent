@@ -14,7 +14,12 @@ import {
   LayoutAnimation
 } from 'react-native';
 
-import { Input, Spinner, Button } from './../../components/common';
+const deviceWidth = require('Dimensions').get('window').width;
+const deviceHeight = require('Dimensions').get('window').height;
+
+import ButtonComponent from 'react-native-button-component';
+
+import { Input, Spinner } from './../../components/common';
 
 const dismissKeyboard = require('dismissKeyboard')
 
@@ -25,7 +30,22 @@ class Login extends Component {
     this.state = {
       email: '',
       password: '',
+      buttonState: 'signIn',
       error: null
+    };
+
+    this.buttonStates = {
+      signIn: {
+        text: 'SIGN IN',
+        onPress: () => {
+          this.setState({ buttonState: 'loading' });
+          this.loginUser();
+        },
+      },
+      loading: {
+        spinner: true,
+        text: 'SIGNING USER IN'
+      }
     };
   }
 
@@ -55,7 +75,7 @@ class Login extends Component {
     }
     if(props.auth.error) {
       Alert.alert('Alert', props.auth.error);
-      this.setState({ password: '' });
+      this.setState({ buttonState: 'signIn', password: '' });
     }
   }
 
@@ -63,7 +83,7 @@ class Login extends Component {
     const {
       centerEverything, container, upperContainer, title, middleContainer, welcomeTitle,
       forgotPasswordContainer, forgotPassword, inputContainer, bottomContainer, bottomText,
-      redText, errorText
+      redText, errorText, buttonStyle
     } = styles;
 
     return(
@@ -93,7 +113,15 @@ class Login extends Component {
                 </TouchableOpacity>
               </View>
             </View>
-            <Button buttonText="SIGN IN" onPress={this.loginUser.bind(this)}/>
+
+            <ButtonComponent
+              style={buttonStyle}
+              type='primary'
+              shape='reactangle'
+              buttonState={this.state.buttonState}
+              states={this.buttonStates}
+            />
+
             <Text style={[forgotPassword, errorText]}>{this.state.error}</Text>
           </View>
 
@@ -164,7 +192,16 @@ const styles = {
   errorText: {
     paddingTop: 10,
     backgroundColor: 'transparent'
-  }
+  },
+  buttonStyle: {
+    backgroundColor: '#129793',
+    height: 40,
+    width: deviceWidth*0.7,
+    borderRadius: 20,
+    shadowColor: '#129793',
+    shadowOpacity: 1,
+    shadowRadius: 5
+  },
 }
 
 const mapStateToProps = (state) => {
