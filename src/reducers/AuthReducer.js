@@ -6,7 +6,9 @@ import {
    REGISTER_USER_SUCCESS,
    LISTEN_TO_USER,
    LOGOUT_USER,
-   AUTH_FAIL
+   AUTH_FAIL,
+   RESET_PASSWORD_SUCCESS,
+   RESET_PASSWORD_FAIL
  } from './../actions/types';
 
  const INITIAL_STATE = { user: null, error: null}; // no user yet
@@ -50,6 +52,14 @@ import {
      case LOGOUT_USER:
        Actions.auth({ type: 'reset' });
        return INITIAL_STATE;
+     case RESET_PASSWORD_SUCCESS:
+       return {
+         message: action.payload
+       }
+     case RESET_PASSWORD_FAIL:
+      return {
+        message: action.payload
+      }
      default:
        return state;
    }

@@ -11,6 +11,7 @@ import LoadingScreen from './containers/LoadingScreen';
 
 import Login from './containers/auth/Login';
 import Register from './containers/auth/Register';
+import ResetPassword from './containers/auth/ResetPassword';
 
 import Home from './containers/tabContainers/Home';
 import Search from './containers/tabContainers/Search';
@@ -36,6 +37,7 @@ class RouterComponent extends Component {
             <Scene key="splash" component={SplashScreen} initial hideNavBar/>
             <Scene key="login" component={Login} hideNavBar/>
             <Scene key="register" component={Register} hideNavBar={false} />
+            <Scene key="resetPassword" component={ResetPassword} hideNavBar={false} />
           </Scene>
           <Scene key="main">
             <Scene key="tabbar" tabs >

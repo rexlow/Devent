@@ -13,11 +13,8 @@ import {
   TouchableWithoutFeedback,
   LayoutAnimation
 } from 'react-native';
-import {
-  Input,
-  Spinner,
-  Button
-} from './../../components/common';
+
+import { Input, Spinner, Button } from './../../components/common';
 
 const dismissKeyboard = require('dismissKeyboard')
 
@@ -91,7 +88,7 @@ class Login extends Component {
                 value={this.state.password}
                 secureTextEntry />
               <View style={forgotPasswordContainer}>
-                <TouchableOpacity onPress={() => console.log('forgot')}>
+                <TouchableOpacity onPress={() => Actions.resetPassword()}>
                   <Text style={forgotPassword}>Forgot password?</Text>
                 </TouchableOpacity>
               </View>
