@@ -16,6 +16,7 @@ import ResetPassword from './containers/auth/ResetPassword';
 import Home from './containers/tabContainers/Home';
 import Search from './containers/tabContainers/Search';
 import Profile from './containers/tabContainers/Profile';
+import EventItemDetail from './containers/tabContainers/EventItemDetail';
 
 const TabIcon = ({ selected, title}) => {
   return(
@@ -44,7 +45,10 @@ class RouterComponent extends Component {
           </Scene>
           <Scene key="main">
             <Scene key="tabbar" tabs tabBarStyle={styles.tabBarStyle}>
-              <Scene key="homeTab" component={Home} title="Home" icon={TabIcon} hideNavBar initial/>
+              <Scene key="homeTab" title="Home" icon={TabIcon} hideNavBar initial>
+                <Scene key="home" component={Home} title="Home Screen" initial />
+                <Scene key="eventItemDetail" component={EventItemDetail} title="Event Screen" />
+              </Scene>
               <Scene key="searchTab" component={Search} title="Search" icon={TabIcon} hideNavBar/>
               <Scene key="profileTab" component={Profile} title="Profile" icon={TabIcon} hideNavBar/>
             </Scene>

@@ -9,10 +9,14 @@ import {
   View,
   Text,
   TouchableOpacity,
+  ListView
 } from 'react-native';
+
 import {
   Spinner
 } from './../../components/common';
+
+import EventItem from './EventItem';
 
 class Home extends Component {
 
@@ -25,27 +29,39 @@ class Home extends Component {
     this.createDataSource(nextProps);
   }
 
-  createDataSource({ events }){
-    console.log('events ' + events)
+  createDataSource({ events }) {
+    const ds = new ListView.DataSource({
+      rowHasChanged: (r1, r2) => r1 !== r2
+    });
+    this.dataSource = ds.cloneWithRows(events);
+  }
+
+  //return arrays of event from events
+  renderRow(event) {
+    return <EventItem event={event} />;
   }
 
   render() {
     return(
-      <View style={styles.container}>
-        <Text style={styles.title}>Devent</Text>
-        <Text style={styles.desc}>Home</Text>
-        <Spinner size="small"/>
-      </View>
+      <ListView
+        contentContainerStyle={styles.container}
+        enableEmptySections
+        dataSource={this.dataSource}
+        renderRow={this.renderRow}
+      />
     )
   }
 }
 
 const styles = {
   container: {
-    flex: 1,
+    // flex: 1, //disable flex to scroll
     backgroundColor: '#F5F6F7',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    paddingTop: 80
   },
   title: {
     fontSize: 38,
@@ -62,8 +78,9 @@ const styles = {
 }
 
 const mapStateToProps = (state) => {
-  const events = _.map(state.api, (val, title) => {
-    return {...val, title};
+  console.log(state.api)
+  const events = _.map(state.api, (val, uid) => {
+    return {...val, uid};
   })
 
   return { events };

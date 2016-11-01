@@ -1,10 +1,5 @@
 'use strict';
 import React, { Component } from 'react';
-
-import { Actions } from 'react-native-router-flux';
-import { connect } from 'react-redux';
-import * as actions from './../../actions';
-
 import {
   Alert,
   View,
@@ -14,13 +9,15 @@ import {
   LayoutAnimation
 } from 'react-native';
 
-const deviceWidth = require('Dimensions').get('window').width;
-const deviceHeight = require('Dimensions').get('window').height;
+import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
+import * as actions from './../../actions';
 
 import ButtonComponent from 'react-native-button-component';
-
 import { Input, Spinner } from './../../components/common';
 
+const deviceWidth = require('Dimensions').get('window').width;
+const deviceHeight = require('Dimensions').get('window').height;
 const dismissKeyboard = require('dismissKeyboard')
 
 class Login extends Component {

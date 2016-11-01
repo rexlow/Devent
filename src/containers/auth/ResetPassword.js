@@ -1,10 +1,5 @@
 'use strict';
 import React, { Component } from 'react';
-
-import { Actions } from 'react-native-router-flux';
-import { connect } from 'react-redux';
-import * as actions from './../../actions';
-
 import {
   Alert,
   View,
@@ -13,6 +8,11 @@ import {
   TouchableWithoutFeedback,
   LayoutAnimation
 } from 'react-native';
+
+import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
+import * as actions from './../../actions';
+
 import ButtonComponent from 'react-native-button-component';
 import { Input, Spinner, Button } from './../../components/common';
 
