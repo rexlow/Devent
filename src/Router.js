@@ -36,7 +36,7 @@ class RouterComponent extends Component {
   render() {
     return(
       <View style={{ flex: 1 }}>
-        <Router>
+        <Router sceneStyle={{backgroundColor:'#F5F6F7'}}>
           <Scene key="auth" initial hideNavBar>
             <Scene key="splash" component={SplashScreen} initial />
             <Scene key="login" component={Login} />
@@ -47,11 +47,11 @@ class RouterComponent extends Component {
             <Scene key="tabbar" tabs tabBarStyle={styles.tabBarStyle}>
               <Scene key="homeTab" title="Home" icon={TabIcon} hideNavBar initial>
                 <Scene key="home" component={Home} title="Home Screen" initial />
-                <Scene key="eventItemDetail" component={EventItemDetail} title="Event Screen" />
               </Scene>
               <Scene key="searchTab" component={Search} title="Search" icon={TabIcon} hideNavBar/>
               <Scene key="profileTab" component={Profile} title="Profile" icon={TabIcon} hideNavBar/>
             </Scene>
+            <Scene key="eventItemDetail" component={EventItemDetail} title="Event Screen" hideNavBar/>
           </Scene>
         </Router>
       </View>

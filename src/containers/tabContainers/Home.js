@@ -61,7 +61,7 @@ const styles = {
     alignItems: 'center',
     flexDirection: 'row',
     flexWrap: 'wrap',
-    paddingTop: 80
+    marginTop: 80
   },
   title: {
     fontSize: 38,
