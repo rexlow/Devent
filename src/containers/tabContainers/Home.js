@@ -15,6 +15,10 @@ import {
 
 class Home extends Component {
 
+  componentWillMount() {
+    // this.props.pullData();
+  }
+
   render() {
     return(
       <View style={styles.container}>

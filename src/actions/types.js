@@ -14,3 +14,5 @@ export const REGISTER_USER = 'register_user';
 export const LISTEN_TO_USER = 'listen_to_user';
 
 export const LOGOUT_USER = 'logout_user';
+
+export const PULL_DATA = 'pull_data';

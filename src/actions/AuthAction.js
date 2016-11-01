@@ -51,10 +51,21 @@ import {
  export function registerUser(email, password) {
    return (dispatch) => {
      firebase.auth().createUserWithEmailAndPassword(email, password)
-      .then(user => registerUserSuccess(dispatch, user))
+      .then(user => {
+        registerUserSuccess(dispatch, user)
+        createUserRef(email)
+      })
       .catch((error) => authFail(dispatch, error));
    };
  };
+
+//create user reference onto the database upon registration
+function createUserRef(email) {
+  const { currentUser }= firebase.auth();
+   firebase.database().ref(`/Users/${currentUser.uid}`).set({
+     email: email
+   });
+};
 
  export function listenToUser() {
    return (dispatch) => {
