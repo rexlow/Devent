@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 
 import { Actions } from 'react-native-router-flux';
@@ -16,7 +17,16 @@ import {
 class Home extends Component {
 
   componentWillMount() {
-    // this.props.pullData();
+    this.props.pullEventData();
+    this.createDataSource(this.props);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.createDataSource(nextProps);
+  }
+
+  createDataSource({ events }){
+    console.log('events ' + events)
   }
 
   render() {
@@ -51,4 +61,12 @@ const styles = {
   }
 }
 
-export default connect(null, actions)(Home);
+const mapStateToProps = (state) => {
+  const events = _.map(state.api, (val, title) => {
+    return {...val, title};
+  })
+
+  return { events };
+};
+
+export default connect(mapStateToProps, actions)(Home);

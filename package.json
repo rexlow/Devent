@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "firebase": "^3.5.1",
+    "lodash": "^4.16.6",
     "react": "15.3.2",
     "react-native": "0.34.1",
     "react-native-button-component": "0.0.5",
