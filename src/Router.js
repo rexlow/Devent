@@ -34,9 +34,13 @@ class RouterComponent extends Component {
   }
 
   render() {
+    const { sceneStyle, navigationBarStyle, titleStyle } = styles;
     return(
       <View style={{ flex: 1 }}>
-        <Router sceneStyle={{backgroundColor:'#F5F6F7'}}>
+        <Router
+          sceneStyle={sceneStyle}
+          navigationBarStyle={navigationBarStyle}
+          titleStyle={titleStyle}>
           <Scene key="auth" initial hideNavBar>
             <Scene key="splash" component={SplashScreen} initial />
             <Scene key="login" component={Login} />
@@ -62,7 +66,20 @@ class RouterComponent extends Component {
 const styles = {
   tabBarStyle: {
     position: 'absolute',
-    top: 20,
+    top: 60,
+  },
+  sceneStyle: {
+    backgroundColor: '#F5F6F7'
+  },
+  navigationBarStyle: {
+    backgroundColor: 'transparent',
+    borderBottomWidth: 0
+  },
+  titleStyle: {
+    fontFamily: 'HelveticaNeue-Medium',
+    color: '#5B5A5A',
+    letterSpacing: 4,
+    fontWeight: '400'
   }
 }
 

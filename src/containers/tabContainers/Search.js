@@ -31,6 +31,7 @@ const styles = {
   container: {
     flex: 1,
     backgroundColor: '#F5F6F7',
+    marginTop: 50
   },
   title: {
     fontSize: 38,

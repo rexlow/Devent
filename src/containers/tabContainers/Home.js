@@ -43,25 +43,29 @@ class Home extends Component {
 
   render() {
     return(
-      <ListView
-        contentContainerStyle={styles.container}
-        enableEmptySections
-        dataSource={this.dataSource}
-        renderRow={this.renderRow}
-      />
+      <View style={styles.container}>
+        <ListView
+          contentContainerStyle={styles.listViewContainer}
+          enableEmptySections
+          dataSource={this.dataSource}
+          renderRow={this.renderRow}
+        />
+      </View>
     )
   }
 }
 
 const styles = {
   container: {
-    // flex: 1, //disable flex to scroll
+    flex: 1, 
     backgroundColor: '#F5F6F7',
+    marginTop: 110,
+  },
+  listViewContainer: {
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
     flexWrap: 'wrap',
-    marginTop: 80
   },
   title: {
     fontSize: 38,
