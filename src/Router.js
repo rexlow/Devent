@@ -44,12 +44,12 @@ class RouterComponent extends Component {
             <Scene key="resetPassword" component={ResetPassword}  />
           </Scene>
           <Scene key="main">
-            <Scene key="tabbar" tabs tabBarStyle={styles.tabBarStyle}>
-              <Scene key="homeTab" title="Home" icon={TabIcon} hideNavBar initial>
+            <Scene key="tabbar" tabs tabBarStyle={styles.tabBarStyle} >
+              <Scene key="homeTab" title="Home" icon={TabIcon}  initial>
                 <Scene key="home" component={Home} title="Home Screen" initial />
               </Scene>
-              <Scene key="searchTab" component={Search} title="Search" icon={TabIcon} hideNavBar/>
-              <Scene key="profileTab" component={Profile} title="Profile" icon={TabIcon} hideNavBar/>
+              <Scene key="searchTab" component={Search} title="Search" icon={TabIcon} />
+              <Scene key="profileTab" component={Profile} title="Profile" icon={TabIcon} />
             </Scene>
             <Scene key="eventItemDetail" component={EventItemDetail} title="Event Screen" hideNavBar/>
           </Scene>
