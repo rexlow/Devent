@@ -65,14 +65,16 @@ class Register extends Component {
   processAuth(props) {
     if(props.auth.user != null) {
       if(props.auth.user.uid) {
-        console.log('Register successful')
         this.setState({ email: '', password: '' });
         Alert.alert('Alert', 'Welcome aboard!', [{text: 'Ok', onPress: () => Actions.pop()}]);
       }
     }
     if(props.auth.error)  {
       this.setState({ email: '', password: '', buttonState: 'signUp' });
-      Alert.alert('Alert', props.auth.error);
+
+      //the intent of removing this line is because login component is still listening
+      //will just make use of the componentWillReceiveProps in Login component
+      // Alert.alert('Alert', props.auth.error);
     }
   }
 
