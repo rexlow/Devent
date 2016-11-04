@@ -38,10 +38,10 @@ class RouterComponent extends Component {
     return(
       <View style={{ flex: 1 }}>
         <StatusBar
-             backgroundColor="rgba(0,0,0,1)"
-             translucent
-             barStyle="light-content"
-           />
+           backgroundColor="rgba(0,0,0,1)"
+           translucent
+           barStyle="light-content"
+         />
         <Router
           sceneStyle={sceneStyle}
           navigationBarStyle={navigationBarStyle}
@@ -64,9 +64,9 @@ class RouterComponent extends Component {
               key="eventItemDetail"
               component={EventItemDetail}
               title="Event Screen"
-              leftButtonIconStyle={{tintColor:'white'}}
+              leftButtonIconStyle={{tintColor: '#FFF'}}
               rightTitle="Join"
-              leftButtonTextStyle={{ color: '#FFF' }}
+              rightButtonTextStyle={{ color: '#FFF' }}
               onRight={() => console.log('Join button clicked')}/>
           </Scene>
         </Router>

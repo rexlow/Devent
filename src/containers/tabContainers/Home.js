@@ -57,7 +57,7 @@ class Home extends Component {
 
 const styles = {
   container: {
-    flex: 1, 
+    flex: 1,
     backgroundColor: '#F5F6F7',
     marginTop: 110,
   },

@@ -12,7 +12,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 const trophy = (<Icon name="trophy" size={13} color="black" />)
 const creditCard = (<Icon name="credit-card" size={13} color="black" />)
 const calendar = (<Icon name="calendar" size={13} color="black" />)
-const signIn = (<Icon name="sign-in" size={22} color="black" />)
+const user = (<Icon name="user" size={13} color="black" />)
+const signIn = (<Icon name="sign-in" size={26} color="black" />)
 
 const deviceWidth = require('Dimensions').get('window').width;
 const deviceHeight = require('Dimensions').get('window').height;
@@ -33,7 +34,7 @@ class EventItem extends Component {
           </View>
           <View style={contentContainer}>
             <View style={textContainer}>
-              <Text style={titleStyle}>{title}</Text>
+              <Text style={[titleStyle]}>{title}</Text>
               <View style={textDetailContainer}>
                 {trophy}
                 <Text style={textStyle}>  {organizer}</Text>
@@ -42,7 +43,9 @@ class EventItem extends Component {
                 {calendar}
                 <Text style={textStyle}>  {date}       </Text>
                 {creditCard}
-                <Text style={textStyle}>  USD {cost}</Text>
+                <Text style={textStyle}>  USD {cost}       </Text>
+                {user}
+                <Text style={textStyle}>  0</Text>
               </View>
             </View>
             <View style={{ paddingRight: 15 }}>
@@ -65,7 +68,7 @@ const styles = {
     width: deviceWidth*0.9,
     height: 200,
     flexDirection: 'column',
-    margin: 4,
+    margin: 10,
     backgroundColor: '#FFF',
     borderRadius: 2,
     shadowColor: 'grey',
@@ -84,11 +87,13 @@ const styles = {
   },
   textContainer: {
     flexDirection: 'column',
-    padding: 5,
-    paddingLeft: 10
+    paddingTop: 5,
+    paddingBottom: 5,
+    paddingLeft: 10,
   },
   textDetailContainer: {
     flexDirection: 'row',
+    paddingTop: 2,
     paddingBottom: 2
   },
   imageStyle: {
