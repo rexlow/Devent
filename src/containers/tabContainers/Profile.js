@@ -28,7 +28,8 @@ const styles = {
     flex: 1,
     backgroundColor: '#F5F6F7',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginTop: 110,
   },
   title: {
     fontSize: 38,

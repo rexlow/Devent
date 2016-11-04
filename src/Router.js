@@ -1,6 +1,6 @@
 'use strict'
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StatusBar } from 'react-native';
 
 import { Scene, Router, Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
@@ -37,6 +37,11 @@ class RouterComponent extends Component {
     const { sceneStyle, navigationBarStyle, titleStyle } = styles;
     return(
       <View style={{ flex: 1 }}>
+        <StatusBar
+             backgroundColor="rgba(0,0,0,1)"
+             translucent
+             barStyle="light-content"
+           />
         <Router
           sceneStyle={sceneStyle}
           navigationBarStyle={navigationBarStyle}
@@ -49,13 +54,20 @@ class RouterComponent extends Component {
           </Scene>
           <Scene key="main">
             <Scene key="tabbar" tabs tabBarStyle={styles.tabBarStyle} >
-              <Scene key="homeTab" title="Home" icon={TabIcon}  initial>
+              <Scene key="homeTab" title="Home" icon={TabIcon} initial>
                 <Scene key="home" component={Home} title="Home Screen" initial />
               </Scene>
               <Scene key="searchTab" component={Search} title="Search" icon={TabIcon} />
               <Scene key="profileTab" component={Profile} title="Profile" icon={TabIcon} />
             </Scene>
-            <Scene key="eventItemDetail" component={EventItemDetail} title="Event Screen" hideNavBar/>
+            <Scene
+              key="eventItemDetail"
+              component={EventItemDetail}
+              title="Event Screen"
+              leftButtonIconStyle={{tintColor:'white'}}
+              rightTitle="Join"
+              leftButtonTextStyle={{ color: '#FFF' }}
+              onRight={() => console.log('Join button clicked')}/>
           </Scene>
         </Router>
       </View>
@@ -72,14 +84,14 @@ const styles = {
     backgroundColor: '#F5F6F7'
   },
   navigationBarStyle: {
-    backgroundColor: 'transparent',
-    borderBottomWidth: 0
+    backgroundColor: '#2D292A',
+    borderBottomWidth: 0,
   },
   titleStyle: {
     fontFamily: 'HelveticaNeue-Medium',
-    color: '#5B5A5A',
+    color: '#FFF',
     letterSpacing: 4,
-    fontWeight: '400'
+    fontWeight: '500'
   }
 }
 

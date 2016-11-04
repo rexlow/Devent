@@ -16,3 +16,4 @@ export const LISTEN_TO_USER = 'listen_to_user';
 export const LOGOUT_USER = 'logout_user';
 
 export const PULL_EVENT_DATA = 'pull_event_data';
+export const PULL_TRENDING_DATA = 'pull_trending_data';

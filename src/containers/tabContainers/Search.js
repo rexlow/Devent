@@ -1,10 +1,21 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
+
+import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
+import * as actions from './../../actions';
+
 import { View, Text, TouchableWithoutFeedback } from 'react-native';
 import { SearchBar } from './../../components/common';
 
 const dismissKeyboard = require('dismissKeyboard')
 
 class Search extends Component {
+
+  componentWillMount() {
+    this.props.pullTrendingData();
+  }
+
   render() {
 
     const { centerEverything, container, title, makeItTop } = styles;
@@ -16,7 +27,7 @@ class Search extends Component {
             <SearchBar placeholder="🔍 Search Event" />
           </View>
 
-          <Text>List of events</Text>
+          <Text>List of event</Text>
         </View>
       </TouchableWithoutFeedback>
     )
@@ -46,4 +57,10 @@ const styles = {
   }
 }
 
-export default Search;
+const mapStateToProps = (state) => {
+  return {
+    trendingData: state.api
+  }
+}
+
+export default connect(mapStateToProps, actions)(Search);
