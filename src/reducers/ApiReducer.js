@@ -14,13 +14,9 @@ export default (state = INITIAL_STATE, action) => {
     case PULL_TRENDING_DATA:
       return action.payload;
     case BUY_TICKET_SUCCESS:
-      return {
-        message: 'Yay, see you there!'
-      }
+      return { ...state, message: action.payload}
     case BUY_TICKET_FAIL:
-      return {
-        message: 'shit'
-      }
+      return { ...state, message: action.payload}
     default:
       return state;
   }

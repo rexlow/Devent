@@ -6,6 +6,14 @@ import {
   BUY_TICKET_FAIL
 } from './types';
 
+const successMessage = {
+  message: 'Yay, see ya!'
+};
+
+const failMessage = {
+  message: 'Shit'
+}
+
 export function pullEventData() {
   const { currentUser } = firebase.auth();
   return (dispatch) => {
@@ -32,15 +40,12 @@ export function pullTrendingData() {
   };
 };
 
-// dispatch({ type: BUY_TICKET_SUCCESS })
-// dispatch({ type: BUY_TICKET_FAIL })
-
 export function buyTicket(eventID) {
   const { currentUser } = firebase.auth();
   return (dispatch) => {
     firebase.database().ref(`/Users/${currentUser.uid}/joinedEvent`).update({ [eventID]: true })
-      .then(() => console.log('yay'))
-      .catch(() => console.log('shit'));
+      .then(() => dispatch({ type: BUY_TICKET_SUCCESS, payload: successMessage }))
+      .catch(() => dispatch({ type: BUY_TICKET_FAIL, payload: failMessage }));
     firebase.database().ref(`/Event/${eventID}/joinedUser`).update({ [currentUser.uid]: true })
       .then(() => console.log('update event parent'))
       .catch(() => console.log('error'));
