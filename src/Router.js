@@ -1,6 +1,6 @@
 'use strict'
 import React, { Component } from 'react';
-import { View, Text, StatusBar } from 'react-native';
+import { View, Text, StatusBar, Alert } from 'react-native';
 
 import { Scene, Router, Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
@@ -31,6 +31,20 @@ class RouterComponent extends Component {
 
   componentWillMount() {
     this.props.listenToUser();
+  }
+
+  buyTicketHelper(props) {
+    console.log(props)
+    Alert.alert(
+      'Purchase',
+      `Buy 1 ticket for ${props.title} \n with USD ${props.cost}?`,
+      [
+        {text: 'Yes', onPress: () => {
+          this.props.buyTicket(props.uid);
+        }},
+        {text: 'Cancel', onPress: () => console.log('Buy ticket cancel')}
+      ]
+    )
   }
 
   render() {
@@ -65,9 +79,9 @@ class RouterComponent extends Component {
               component={EventItemDetail}
               title="Event Screen"
               leftButtonIconStyle={{tintColor: '#FFF'}}
-              rightTitle="Join"
+              rightTitle="Buy Ticket"
               rightButtonTextStyle={{ color: '#FFF' }}
-              onRight={() => console.log('Join button clicked')}/>
+              onRight={this.buyTicketHelper.bind(this)}/>
           </Scene>
         </Router>
       </View>

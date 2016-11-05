@@ -10,7 +10,7 @@ import { Actions } from 'react-native-router-flux';
 import ButtonComponent from 'react-native-button-component';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
-const trophy = (<Icon name="trophy" size={13} color="black" />)
+const university = (<Icon name="university" size={13} color="black" />)
 const creditCard = (<Icon name="credit-card" size={13} color="black" />)
 const calendar = (<Icon name="calendar" size={13} color="black" />)
 const clock = (<Icon name="clock-o" size={13} color="black" />)
@@ -26,7 +26,8 @@ class EventItemDetail extends Component {
     const { address, artwork, cost, date, logo,
             title, organizer, note, time } = this.props;
     const { centerEverything, container, imageContainer, contentContainer, titleContainer,
-      actionButtonContainer, actionButtonRow, actionButtonItem, addressActionButtonItem, noteContainer, titleStyle, imageStyle, buttonStyle, textStyle } = styles;
+      actionButtonContainer, actionButtonRow, actionButtonItem, addressActionButtonItem, noteContainer,
+      titleStyle, imageStyle, textStyle } = styles;
 
     return(
       <View style={[centerEverything, container]}>
@@ -44,7 +45,7 @@ class EventItemDetail extends Component {
           <View style={[actionButtonContainer]}>
             <View style={[actionButtonRow]}>
               <View style={[actionButtonItem]}>
-                {trophy}
+                {university}
                 <Text style={textStyle}>  {organizer}</Text>
               </View>
               <View style={[actionButtonItem]}>
@@ -139,13 +140,6 @@ const styles = {
   imageStyle: {
     width: deviceWidth,
     height: 150
-  },
-  buttonStyle: {
-    backgroundColor: '#129793',
-    height: 40,
-    width: deviceWidth*0.7,
-    borderRadius: 20,
-    margin: 3
   },
   textStyle: {
     fontSize: 12,

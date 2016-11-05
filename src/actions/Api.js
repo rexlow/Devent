@@ -29,3 +29,12 @@ export function pullTrendingData() {
       });
   };
 };
+
+export function buyTicket(eventID) {
+  const { currentUser } = firebase.auth();
+  return (dispatch) => {
+    firebase.database().ref(`/Users/${currentUser.uid}/joinedEvent`).update({
+      [eventID]: true
+    });
+  };
+};

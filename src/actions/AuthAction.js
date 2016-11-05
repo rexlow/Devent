@@ -48,22 +48,24 @@ import {
    };
  };
 
- export function registerUser(email, password) {
+ export function registerUser(email, password, firstName, lastName) {
    return (dispatch) => {
      firebase.auth().createUserWithEmailAndPassword(email, password)
       .then(user => {
         registerUserSuccess(dispatch, user)
-        createUserRef(email)
+        createUserRef(email, firstName, lastName)
       })
       .catch((error) => authFail(dispatch, error));
    };
  };
 
 //create user reference onto the database upon registration
-function createUserRef(email) {
+function createUserRef(email, firstName, lastName) {
   const { currentUser }= firebase.auth();
    firebase.database().ref(`/Users/${currentUser.uid}`).set({
-     email: email
+     email: email,
+     firstName: firstName,
+     lastName: lastName,
    });
 };
 

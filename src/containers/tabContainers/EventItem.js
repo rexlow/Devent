@@ -9,7 +9,7 @@ import {
 import { Actions } from 'react-native-router-flux';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
-const trophy = (<Icon name="trophy" size={13} color="black" />)
+const university = (<Icon name="university" size={13} color="black" />)
 const creditCard = (<Icon name="credit-card" size={13} color="black" />)
 const calendar = (<Icon name="calendar" size={13} color="black" />)
 const user = (<Icon name="user" size={13} color="black" />)
@@ -36,7 +36,7 @@ class EventItem extends Component {
             <View style={textContainer}>
               <Text style={[titleStyle]}>{title}</Text>
               <View style={textDetailContainer}>
-                {trophy}
+                {university}
                 <Text style={textStyle}>  {organizer}</Text>
               </View>
               <View style={textDetailContainer}>

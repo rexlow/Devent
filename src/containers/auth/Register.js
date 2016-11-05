@@ -31,6 +31,8 @@ class Register extends Component {
     this.state = {
       email: '',
       password: '',
+      firstName: '',
+      lastName: '',
       buttonState: 'signUp'
     };
 
@@ -58,19 +60,19 @@ class Register extends Component {
   }
 
   processRegister() {
-    const { email, password } = this.state;
-    this.props.registerUser(email, password);
+    const { email, password, firstName, lastName } = this.state;
+    this.props.registerUser(email, password, firstName, lastName);
   }
 
   processAuth(props) {
     if(props.auth.user != null) {
       if(props.auth.user.uid) {
-        this.setState({ email: '', password: '' });
+        this.setState({ email: '', password: '', firstName: '', lastName: '' });
         Alert.alert('Alert', 'Welcome aboard!', [{text: 'Ok', onPress: () => Actions.pop()}]);
       }
     }
     if(props.auth.error)  {
-      this.setState({ email: '', password: '', buttonState: 'signUp' });
+      this.setState({ email: '', password: '', firstName: '', lastName: '', buttonState: 'signUp' });
 
       //the intent of removing this line is because login component is still listening
       //will just make use of the componentWillReceiveProps in Login component
@@ -96,6 +98,14 @@ class Register extends Component {
           </View>
           <View style={[middleContainer, centerEverything]}>
             <View style={[centerEverything]}>
+              <Input
+                placeholder="First Name"
+                onChangeText={(firstName) => this.setState({ firstName })}
+                value={this.state.firstName} />
+                <Input
+                  placeholder="Last Name"
+                  onChangeText={(lastName) => this.setState({ lastName })}
+                  value={this.state.lastName} />
               <Input
                 placeholder="Email Address"
                 onChangeText={(email) => this.setState({ email })}
