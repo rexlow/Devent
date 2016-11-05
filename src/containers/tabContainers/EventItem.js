@@ -20,7 +20,7 @@ const deviceHeight = require('Dimensions').get('window').height;
 
 class EventItem extends Component {
   render() {
-    const { address, artwork, cost, date,
+    const { address, artwork, cost, date, joinedUserCount,
             title, organizer, note, time } = this.props.event;
     const { centerEverything, container, imageContainer, contentContainer, textContainer, textDetailContainer,
             imageStyle, titleStyle, textStyle } = styles;
@@ -45,7 +45,7 @@ class EventItem extends Component {
                 {creditCard}
                 <Text style={textStyle}>  USD {cost}       </Text>
                 {user}
-                <Text style={textStyle}>  0</Text>
+                <Text style={textStyle}>  {joinedUserCount}</Text>
               </View>
             </View>
             <View style={{ paddingRight: 15 }}>

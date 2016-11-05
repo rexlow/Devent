@@ -32,21 +32,17 @@ export function pullTrendingData() {
   };
 };
 
+// dispatch({ type: BUY_TICKET_SUCCESS })
+// dispatch({ type: BUY_TICKET_FAIL })
+
 export function buyTicket(eventID) {
   const { currentUser } = firebase.auth();
   return (dispatch) => {
     firebase.database().ref(`/Users/${currentUser.uid}/joinedEvent`).update({ [eventID]: true })
-      .then(() => console.log('bought'))
-      .catch((error) => console.log(error)),
+      .then(() => console.log('yay'))
+      .catch(() => console.log('shit'));
     firebase.database().ref(`/Event/${eventID}/joinedUser`).update({ [currentUser.uid]: true })
       .then(() => console.log('update event parent'))
-      .catch((error) => console.log('eror'));
+      .catch(() => console.log('error'));
   };
-};
-
-function updateEventList(eventID) {
-  const { currentUser } = firebase.auth();
-  firebase.database().ref(`/Event/${eventID}/joinedUser`).update({ [currentUser.email]: true })
-    .then(() => console.log('update event parent'))
-    .catch((error) => console.log('eror'));
 };

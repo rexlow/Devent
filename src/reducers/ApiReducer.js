@@ -15,12 +15,12 @@ export default (state = INITIAL_STATE, action) => {
       return action.payload;
     case BUY_TICKET_SUCCESS:
       return {
-        message: action.payload
-      };
+        message: 'Yay, see you there!'
+      }
     case BUY_TICKET_FAIL:
       return {
-        message: action.payload
-      };
+        message: 'shit'
+      }
     default:
       return state;
   }

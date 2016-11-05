@@ -23,7 +23,7 @@ const deviceHeight = require('Dimensions').get('window').height;
 
 class EventItemDetail extends Component {
   render() {
-    const { address, artwork, cost, date, logo,
+    const { address, artwork, cost, date, logo, joinedUserCount,
             title, organizer, note, time } = this.props;
     const { centerEverything, container, imageContainer, contentContainer, titleContainer,
       actionButtonContainer, actionButtonRow, actionButtonItem, addressActionButtonItem, noteContainer,
@@ -50,7 +50,7 @@ class EventItemDetail extends Component {
               </View>
               <View style={[actionButtonItem]}>
                 {user}
-                <Text style={textStyle}>  0</Text>
+                <Text style={textStyle}>  {joinedUserCount}</Text>
               </View>
             </View>
             <View style={[actionButtonRow]}>
@@ -144,6 +144,6 @@ const styles = {
   textStyle: {
     fontSize: 12,
   }
-}
+};
 
 export default EventItemDetail;
