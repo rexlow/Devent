@@ -1,7 +1,9 @@
 import firebase from 'firebase';
 import {
   PULL_EVENT_DATA,
-  PULL_TRENDING_DATA
+  PULL_TRENDING_DATA,
+  BUY_TICKET_SUCCESS,
+  BUY_TICKET_FAIL
 } from './types';
 
 export function pullEventData() {
@@ -33,8 +35,18 @@ export function pullTrendingData() {
 export function buyTicket(eventID) {
   const { currentUser } = firebase.auth();
   return (dispatch) => {
-    firebase.database().ref(`/Users/${currentUser.uid}/joinedEvent`).update({
-      [eventID]: true
-    });
+    firebase.database().ref(`/Users/${currentUser.uid}/joinedEvent`).update({ [eventID]: true })
+      .then(() => console.log('bought'))
+      .catch((error) => console.log(error)),
+    firebase.database().ref(`/Event/${eventID}/joinedUser`).update({ [currentUser.uid]: true })
+      .then(() => console.log('update event parent'))
+      .catch((error) => console.log('eror'));
   };
+};
+
+function updateEventList(eventID) {
+  const { currentUser } = firebase.auth();
+  firebase.database().ref(`/Event/${eventID}/joinedUser`).update({ [currentUser.email]: true })
+    .then(() => console.log('update event parent'))
+    .catch((error) => console.log('eror'));
 };
