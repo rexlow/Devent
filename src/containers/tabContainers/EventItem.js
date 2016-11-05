@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import {
   View,
@@ -22,6 +23,7 @@ class EventItem extends Component {
   render() {
     const { address, artwork, cost, date, joinedUserCount,
             title, organizer, note, time } = this.props.event;
+    const userCount = _.size(this.props.event.joinedUser);
     const { centerEverything, container, imageContainer, contentContainer, textContainer, textDetailContainer,
             imageStyle, titleStyle, textStyle } = styles;
     return(
@@ -45,7 +47,7 @@ class EventItem extends Component {
                 {creditCard}
                 <Text style={textStyle}>  USD {cost}       </Text>
                 {user}
-                <Text style={textStyle}>  {joinedUserCount}</Text>
+                <Text style={textStyle}>  {userCount}</Text>
               </View>
             </View>
             <View style={{ paddingRight: 15 }}>

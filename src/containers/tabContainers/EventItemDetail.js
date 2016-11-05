@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import {
   View,
@@ -25,6 +26,7 @@ class EventItemDetail extends Component {
   render() {
     const { address, artwork, cost, date, logo, joinedUserCount,
             title, organizer, note, time } = this.props;
+    const userCount = _.size(this.props.joinedUser);
     const { centerEverything, container, imageContainer, contentContainer, titleContainer,
       actionButtonContainer, actionButtonRow, actionButtonItem, addressActionButtonItem, noteContainer,
       titleStyle, imageStyle, textStyle } = styles;
@@ -50,7 +52,7 @@ class EventItemDetail extends Component {
               </View>
               <View style={[actionButtonItem]}>
                 {user}
-                <Text style={textStyle}>  {joinedUserCount}</Text>
+                <Text style={textStyle}>  {userCount}</Text>
               </View>
             </View>
             <View style={[actionButtonRow]}>
