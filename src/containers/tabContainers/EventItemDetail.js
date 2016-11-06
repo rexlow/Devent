@@ -1,11 +1,15 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import {
+  Alert,
   View,
   Text,
   Image,
   TouchableWithoutFeedback,
 } from 'react-native';
+
+import { connect } from 'react-redux';
+import * as actions from './../../actions';
 
 import { Actions } from 'react-native-router-flux';
 import ButtonComponent from 'react-native-button-component';
@@ -23,6 +27,23 @@ const deviceWidth = require('Dimensions').get('window').width;
 const deviceHeight = require('Dimensions').get('window').height;
 
 class EventItemDetail extends Component {
+
+  componentWillReceiveProps(nextProps) {
+    this.buyTicketCallback(nextProps);
+  }
+
+  buyTicketCallback(props) {
+    if (props.api.message) {
+      const message = props.api.message.message;
+      Alert.alert(
+        'Message',
+        message,
+      [
+        {text: 'Return', onPress: () => console.log('Return after ticket reducer')}
+      ]);
+    }
+  }
+
   render() {
     const { address, artwork, cost, date, logo, joinedUserCount,
             title, organizer, note, time } = this.props;
@@ -148,4 +169,10 @@ const styles = {
   }
 };
 
-export default EventItemDetail;
+const mapStateToProps = (state) => {
+  return {
+    api: state.api
+  }
+}
+
+export default connect(mapStateToProps, actions)(EventItemDetail);
