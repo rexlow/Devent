@@ -5,6 +5,8 @@ import {
   BUY_TICKET_FAIL
 } from './../actions/types';
 
+import { REHYDRATE } from 'redux-persist/constants'
+
 const INITIAL_STATE = {};
 
 export default (state = INITIAL_STATE, action) => {
@@ -18,6 +20,15 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, message: action.payload}
     case BUY_TICKET_FAIL:
       return { ...state, message: action.payload}
+    case REHYDRATE:
+      console.log('rehydrating')
+      var incoming = action.payload.api;
+      if(incoming){
+        return { ...state, ...incoming}
+      } else {
+        console.log('something went wrong, rehydrate return default state')
+        return state;
+      }
     default:
       return state;
   }

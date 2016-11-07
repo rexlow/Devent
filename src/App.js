@@ -6,7 +6,7 @@ import firebase from 'firebase';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk'
-import { persistStore } from 'redux-persist'
+import { persistStore, autoRehydrate } from 'redux-persist'
 import reducers from './reducers';
 import Router from './Router';
 
