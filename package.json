@@ -11,6 +11,7 @@
     "react": "15.3.2",
     "react-native": "0.34.1",
     "react-native-button-component": "0.0.5",
+    "react-native-fetch-blob": "^0.10.0",
     "react-native-image-picker": "^0.22.13",
     "react-native-router-flux": "^3.36.0",
     "react-native-textinput-effects": "^0.1.3",

@@ -48,6 +48,8 @@ class Profile extends Component {
           source = {uri: response.uri.replace('file://', ''), isStatic: true};
         }
 
+        console.log(source)
+
         this.setState({
           avatarSource: source
         });
