@@ -78,9 +78,10 @@ class Profile extends Component {
         console.log('User tapped custom button: ', response.customButton);
       } else {
         this.setState({ uploadURL: '' })
+
         uploadImage(response.uri)
           .then(url => this.setState({ uploadURL: url}))
-          .catch(error => console.log(error))
+          .catch(error => console.log(error));
       }
     });
 
@@ -181,4 +182,10 @@ const styles = {
   }
 }
 
-export default connect(null, actions)(Profile);
+const mapStateToProps = (state) => {
+  return {
+    profile: state.profile
+  }
+}
+
+export default connect(mapStateToProps, actions)(Profile);

@@ -11,7 +11,7 @@ const successMessage = {
 };
 
 const failMessage = {
-  message: 'Shit'
+  message: 'Something went wrong, please try again later'
 }
 
 export function pullEventData() {

@@ -61,7 +61,7 @@ import {
 
 //create user reference onto the database upon registration
 function createUserRef(email, firstName, lastName) {
-  const { currentUser }= firebase.auth();
+  const { currentUser } = firebase.auth();
    firebase.database().ref(`/Users/${currentUser.uid}`).set({
      email: email,
      firstName: firstName,
