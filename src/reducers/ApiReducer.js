@@ -23,6 +23,7 @@ export default (state = INITIAL_STATE, action) => {
     case REHYDRATE:
       console.log('rehydrating')
       var incoming = action.payload.api;
+      console.log(incoming)
       if(incoming){
         return { ...state, ...incoming}
       } else {

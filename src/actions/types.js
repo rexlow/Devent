@@ -22,4 +22,5 @@ export const BUY_TICKET_SUCCESS = 'buy_ticket_success';
 export const BUY_TICKET_FAIL = 'buy_ticket_fail';
 
 export const IMAGE_UPLOAD_SUCCESS = 'image_upload_success';
+export const IMAGE_UPLOADING = 'image_uploading';
 export const IMAGE_UPLOAD_FAIL = 'image_upload_fail';

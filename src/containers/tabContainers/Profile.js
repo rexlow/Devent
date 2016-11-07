@@ -53,9 +53,30 @@ const uploadImage = (uri, mime = 'application/octet-stream') => {
 }
 
 class Profile extends Component {
-  state = {
-    uploadURL: null
-  };
+  constructor(props) {
+    super(props)
+    if (props.profile.url === null) {
+      this.state = {
+        uploadURL: null
+      }
+    } else {
+      this.state = {
+        uploadURL: props.profile.url
+      }
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.profile.url) {
+      this.setImage(nextProps.profile.url)
+    }
+  }
+
+  setImage(url) {
+    this.setState({
+      uploadURL: url
+    });
+  }
 
   selectPhotoTapped() {
     const options = {
@@ -80,7 +101,9 @@ class Profile extends Component {
         this.setState({ uploadURL: '' })
 
         uploadImage(response.uri)
-          .then(url => this.setState({ uploadURL: url}))
+          .then(url => {
+            this.props.uploadImageSuccess(url)
+          })
           .catch(error => console.log(error));
       }
     });
