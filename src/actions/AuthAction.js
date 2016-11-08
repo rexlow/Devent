@@ -33,6 +33,25 @@ import {
    });
  };
 
+ //create user reference onto the database upon registration
+ function createUserRef(email, firstName, lastName) {
+   const { currentUser } = firebase.auth();
+    firebase.database().ref(`/Users/${currentUser.uid}`).set({
+      email: email,
+      firstName: firstName,
+      lastName: lastName,
+    });
+ };
+
+ function updateUserProfile(firstName, lastName) {
+   const user = firebase.auth().currentUser;
+   user.updateProfile({
+     displayName: [firstName] + ' ' + [lastName],
+   })
+     .then(() => console.log('Set displayName successful'))
+     .catch((error) => console.log(error));
+ };
+
  export function loginUser(email, password) {
    return (dispatch) => {
      firebase.auth().signInWithEmailAndPassword(email, password)
@@ -59,25 +78,6 @@ import {
       .catch((error) => authFail(dispatch, error));
    };
  };
-
-//create user reference onto the database upon registration
-function createUserRef(email, firstName, lastName) {
-  const { currentUser } = firebase.auth();
-   firebase.database().ref(`/Users/${currentUser.uid}`).set({
-     email: email,
-     firstName: firstName,
-     lastName: lastName,
-   });
-};
-
-function updateUserProfile(firstName, lastName) {
-  const user = firebase.auth().currentUser;
-  user.updateProfile({
-    displayName: [firstName] + ' ' + [lastName],
-  })
-    .then(() => console.log('Set displayName successful'))
-    .catch((error) => console.log(error));
-};
 
  export function listenToUser() {
    return (dispatch) => {

@@ -138,8 +138,8 @@ class Profile extends Component {
               </View>
             </TouchableOpacity>
             <View style={profileItem}>
-              <Text style={customFont}>Your </Text>
-              <Text style={customFont}>Name</Text>
+              <Text style={customFont}>{this.props.userDisplayName}</Text>
+              {/* <Text style={customFont}>Name</Text> */}
             </View>
           </View>
         </View>
@@ -206,7 +206,8 @@ const styles = {
 const mapStateToProps = (state) => {
   console.log(state);
   return {
-    profile: state.profile
+    profile: state.profile,
+    userDisplayName: state.auth.user.userDisplayName
   }
 }
 

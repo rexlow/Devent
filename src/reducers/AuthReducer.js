@@ -11,8 +11,8 @@ import {
    RESET_PASSWORD_FAIL
  } from './../actions/types';
 
- const INITIAL_STATE = { user: null, error: null}; // no user yet
- const EXIST_STATE = { user: {}, error: null }; //user already exist
+ const INITIAL_STATE = { user: null, error: null, displayName: null}; // no user yet
+ const EXIST_STATE = { user: {}, error: null, displayName: '' }; //user already exist
 
  export default (state = INITIAL_STATE, action) => {
    switch (action.type) {
@@ -23,7 +23,8 @@ import {
        return {
          user: {
            email: action.payload.email,
-           uid: action.payload.uid
+           uid: action.payload.uid,
+           userDisplayName: action.payload.displayName
          },
          error: null
        };
