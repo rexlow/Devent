@@ -55,6 +55,7 @@ const uploadImage = (uri, mime = 'application/octet-stream') => {
 class Profile extends Component {
   constructor(props) {
     super(props)
+    console.log(props.profile.url)
     if (props.profile.url === null) {
       this.state = {
         uploadURL: null
@@ -101,9 +102,7 @@ class Profile extends Component {
         this.setState({ uploadURL: '' })
 
         uploadImage(response.uri)
-          .then(url => {
-            this.props.uploadImageSuccess(url)
-          })
+          .then(url => this.props.uploadImageSuccess(url))
           .catch(error => console.log(error));
       }
     });
@@ -129,7 +128,7 @@ class Profile extends Component {
                       case null:
                         return <Text style={{ fontSize: 12 }}>Upload avatar</Text>;
                       case '':
-                        return <Spinner />
+                        return <Spinner size="small"/>
                       default:
                         return (
                           <Image style={avatar} source={{uri: this.state.uploadURL}} />
