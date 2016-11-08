@@ -82,8 +82,8 @@ const styles = {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state.api)
-  const events = _.map(state.api, (val, uid) => {
+  console.log(state.api.eventList)
+  const events = _.map(state.api.eventList, (val, uid) => {
     return {...val, uid};
   })
 

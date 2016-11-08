@@ -9,7 +9,6 @@ import { REHYDRATE } from 'redux-persist/constants';
 const INITIAL_STATE = { url: null, error: null };
 
 export default (state = INITIAL_STATE, action) => {
-  console.log(action)
   switch (action.type) {
     case IMAGE_UPLOAD_SUCCESS:
       return {

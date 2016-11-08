@@ -15,8 +15,6 @@ import {
  const EXIST_STATE = { user: {}, error: null }; //user already exist
 
  export default (state = INITIAL_STATE, action) => {
-   console.log(action);
-
    switch (action.type) {
      case LISTEN_TO_USER:
        if(!action.payload) {
@@ -38,13 +36,7 @@ import {
          error: null
        };
      case REGISTER_USER_SUCCESS:
-       return {
-         user: {
-           email: action.payload.email,
-           uid: action.payload.uid
-         },
-         error: null
-       };
+       return EXIST_STATE;
      case AUTH_FAIL:
        return {
          error: action.payload.error

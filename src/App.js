@@ -23,10 +23,8 @@ class App extends Component {
   }
 
   render() {
-    const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
+    const store = createStore(reducers, {}, applyMiddleware(ReduxThunk), autoRehydrate());
     persistStore(store, {storage: AsyncStorage})
-    console.log('Store: ')
-    console.log(store)
     return (
       <Provider store={store}>
         <Router />
