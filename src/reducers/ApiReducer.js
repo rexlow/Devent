@@ -21,11 +21,8 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, message: action.payload}
     case REHYDRATE:
       console.log('Api rehydrating')
-      console.log(action.payload)
       var incoming = action.payload.api; //return double object, one for online one for local
-      console.log(incoming)
       if(incoming){
-        console.log(state);
         return { ...state, ...incoming }
       } else {
         console.log('something went wrong, rehydrate return default state')

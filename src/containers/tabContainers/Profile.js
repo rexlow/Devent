@@ -55,7 +55,6 @@ const uploadImage = (uri, mime = 'application/octet-stream') => {
 class Profile extends Component {
   constructor(props) {
     super(props)
-    console.log(props.profile.url)
     if (props.profile.url === null) {
       this.state = {
         uploadURL: null
@@ -205,6 +204,7 @@ const styles = {
 }
 
 const mapStateToProps = (state) => {
+  console.log(state);
   return {
     profile: state.profile
   }

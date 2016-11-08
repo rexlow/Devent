@@ -54,6 +54,7 @@ import {
       .then(user => {
         registerUserSuccess(dispatch, user)
         createUserRef(email, firstName, lastName)
+        updateUserProfile(firstName, lastName)
       })
       .catch((error) => authFail(dispatch, error));
    };
@@ -67,6 +68,15 @@ function createUserRef(email, firstName, lastName) {
      firstName: firstName,
      lastName: lastName,
    });
+};
+
+function updateUserProfile(firstName, lastName) {
+  const user = firebase.auth().currentUser;
+  user.updateProfile({
+    displayName: [firstName] + ' ' + [lastName],
+  })
+    .then(() => console.log('Set displayName successful'))
+    .catch((error) => console.log(error));
 };
 
  export function listenToUser() {
