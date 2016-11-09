@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 import * as actions from './actions';
 
 import SplashScreen from './containers/SplashScreen';
-import LoadingScreen from './containers/LoadingScreen';
 
 import Login from './containers/auth/Login';
 import Register from './containers/auth/Register';

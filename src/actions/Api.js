@@ -19,6 +19,7 @@ export function pullEventData() {
   return (dispatch) => {
     firebase.database().ref(`/Event`)
       .on('value', snapshot => {
+        console.log(snapshot.val())
         dispatch({
           type: PULL_EVENT_DATA,
           payload: snapshot.val()
