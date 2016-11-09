@@ -1,12 +1,13 @@
 import {
   IMAGE_UPLOAD_SUCCESS,
   IMAGE_UPLOADING,
-  IMAGE_UPLOAD_FAIL
+  IMAGE_UPLOAD_FAIL,
+  STORE_IMAGE_LOCALLY
 } from './../actions/types';
 
 import { REHYDRATE } from 'redux-persist/constants';
 
-const INITIAL_STATE = { url: null, error: null };
+const INITIAL_STATE = { url: null, error: null, localUserAvatar: null };
 
 export default (state = INITIAL_STATE, action) => {
   console.log(action);
@@ -19,6 +20,8 @@ export default (state = INITIAL_STATE, action) => {
       };
     case IMAGE_UPLOAD_FAIL:
       return INITIAL_STATE;
+    case STORE_IMAGE_LOCALLY:
+      return { ...state, localUserAvatar: action.payload.uri }
     case REHYDRATE:
       console.log('Profile rehydrating')
       var incoming = action.payload.profile;

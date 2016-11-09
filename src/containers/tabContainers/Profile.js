@@ -55,20 +55,22 @@ const uploadImage = (uri, mime = 'application/octet-stream') => {
 class Profile extends Component {
   constructor(props) {
     super(props)
-    if (props.profile.url === null) {
+    const { source } = props.profile.localUserAvatar;
+    if ( source === null) {
       this.state = {
         uploadURL: null
       }
     } else {
       this.state = {
-        uploadURL: props.profile.url
+        uploadURL: props.profile.localUserAvatar
       }
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.profile.url) {
-      this.setImage(nextProps.profile.url)
+    console.log(nextProps);
+    if (nextProps.profile.localUserAvatar) {
+      this.setImage(nextProps.profile.localUserAvatar)
     }
   }
 
@@ -99,6 +101,17 @@ class Profile extends Component {
         console.log('User tapped custom button: ', response.customButton);
       } else {
         this.setState({ uploadURL: '' })
+
+        const source = {uri: 'data:image/jpeg;base64,' + response.data, isStatic: true};
+        if (Platform.OS === 'ios') {
+          const source = {uri: response.uri.replace('file://', ''), isStatic: true};
+        } else {
+          const source = {uri: response.uri, isStatic: true};
+        }
+
+        console.log(source);
+
+        this.props.storeAvatar(source);
 
         uploadImage(response.uri)
           .then(url => this.props.uploadImageSuccess(url))

@@ -11,10 +11,11 @@ import {
    RESET_PASSWORD_FAIL
  } from './../actions/types';
 
- const INITIAL_STATE = { user: null, error: null, displayName: null}; // no user yet
- const EXIST_STATE = { user: {}, error: null, displayName: '' }; //user already exist
+ const INITIAL_STATE = { user: null, error: null }; // no user yet
+ const EXIST_STATE = { user: {}, error: null }; //user already exist
 
  export default (state = INITIAL_STATE, action) => {
+   console.log(state)
    switch (action.type) {
      case LISTEN_TO_USER:
        if(!action.payload) {
@@ -54,6 +55,6 @@ import {
         message: action.payload
       }
      default:
-       return state;
+       return state; //return null every time app starts, just to rehydrate user session
    }
  }
