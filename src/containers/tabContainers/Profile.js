@@ -55,8 +55,7 @@ const uploadImage = (uri, mime = 'application/octet-stream') => {
 class Profile extends Component {
   constructor(props) {
     super(props)
-    const { source } = props.profile.localUserAvatar;
-    if ( source === null) {
+    if (!props.profile.localUserAvatar) {
       this.state = {
         uploadURL: null
       }
@@ -68,7 +67,6 @@ class Profile extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
     if (nextProps.profile.localUserAvatar) {
       this.setImage(nextProps.profile.localUserAvatar)
     }
@@ -108,9 +106,6 @@ class Profile extends Component {
         } else {
           const source = {uri: response.uri, isStatic: true};
         }
-
-        console.log(source);
-
         this.props.storeAvatar(source);
 
         uploadImage(response.uri)
