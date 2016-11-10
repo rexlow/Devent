@@ -9,7 +9,8 @@ import {
   View,
   Text,
   TouchableOpacity,
-  ListView
+  ListView,
+  RefreshControl
 } from 'react-native';
 
 import {
@@ -20,6 +21,8 @@ import EventItem from './EventItem';
 
 class Home extends Component {
 
+  state = { isRefreshing: false }
+
   componentWillMount() {
     this.props.pullEventData();
     this.createDataSource(this.props);
@@ -27,6 +30,9 @@ class Home extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.createDataSource(nextProps);
+    if (nextProps) {
+      this.setState({ isRefreshing: false })
+    }
   }
 
   createDataSource({ events }) {
@@ -41,6 +47,11 @@ class Home extends Component {
     return <EventItem event={event} />;
   }
 
+  onRefresh = () => {
+    this.setState({ isRefreshing: true });
+    this.props.pullEventData()
+  }
+
   render() {
     return(
       <View style={styles.container}>
@@ -49,6 +60,17 @@ class Home extends Component {
           enableEmptySections
           dataSource={this.dataSource}
           renderRow={this.renderRow}
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.isRefreshing}
+              onRefresh={this.onRefresh}
+              // tintColor="#ff0000"
+              title="Loading data..."
+              // titleColor="#00ff00"
+              // colors={['#ff0000', '#00ff00', '#0000ff']}
+              progressBackgroundColor="#ffff00"
+            />
+          }
         />
       </View>
     )

@@ -7,12 +7,12 @@ import {
 
 import { REHYDRATE } from 'redux-persist/constants'
 
-const INITIAL_STATE = { eventList: {}, message: null };
+const INITIAL_STATE = { eventList: {}, message: null, isRefreshing: false };
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case PULL_EVENT_DATA:
-      return { ...state, eventList: action.payload, message: null };
+      return { ...state, eventList: action.payload, message: null, isRefreshing: true };
     case PULL_TRENDING_DATA:
       return action.payload;
     case BUY_TICKET_SUCCESS:
