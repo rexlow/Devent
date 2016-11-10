@@ -1,9 +1,11 @@
+'use strict';
 import React, { Component } from 'react';
 
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import * as actions from './../../actions';
 import firebase from 'firebase';
+import ButtonComponent from 'react-native-button-component';
 
 import {
   View,
@@ -13,8 +15,13 @@ import {
   PixelRatio,
   Platform
 } from 'react-native';
+
 import { Spinner } from './../../components/common';
 import ImagePicker from 'react-native-image-picker';
+
+const deviceWidth = require('Dimensions').get('window').width;
+const deviceHeight = require('Dimensions').get('window').height;
+
 import RNFetchBlob from 'react-native-fetch-blob';
 
 // Prepare Blob support
@@ -122,7 +129,7 @@ class Profile extends Component {
 
   render() {
     const { centerEverything, skeleton, container, upperContainer, avatarContentContainer, profileItem,
-            bottomContainer, content, avatarContainer, avatar, customFont } = styles;
+            bottomContainer, content, avatarContainer, avatar, customFont, buttonStyle } = styles;
     return(
       <View style={[centerEverything, container]}>
         <View style={[upperContainer]}>
@@ -153,9 +160,20 @@ class Profile extends Component {
         </View>
         <View style={[bottomContainer]}>
           <View style={[centerEverything, content]}>
-            <TouchableOpacity onPress={this.signOut.bind(this)}>
-              <Text>Sign out</Text>
-            </TouchableOpacity>
+            <ButtonComponent
+              style={buttonStyle}
+              type='primary'
+              shape='reactangle'
+              text="JOINED EVENT"
+              onPress={() => Actions.joinedEvent()}
+            />
+            <ButtonComponent
+              style={buttonStyle}
+              type='primary'
+              shape='reactangle'
+              text="SIGN OUT"
+              onPress={this.signOut.bind(this)}
+            />
           </View>
         </View>
       </View>
@@ -208,7 +226,13 @@ const styles = {
     letterSpacing: 0,
     fontFamily: 'HelveticaNeue-Medium',
     fontWeight: '500',
-  }
+  },
+  buttonStyle: {
+    height: 40,
+    width: deviceWidth*0.7,
+    borderRadius: 20,
+    margin: 3
+  },
 }
 
 const mapStateToProps = (state) => {

@@ -15,7 +15,7 @@ import {
  const EXIST_STATE = { user: {}, error: null }; //user already exist
 
  export default (state = INITIAL_STATE, action) => {
-   console.log(state)
+  //  console.log(state)
    switch (action.type) {
      case LISTEN_TO_USER:
        if(!action.payload) {

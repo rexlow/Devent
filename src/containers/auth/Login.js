@@ -114,7 +114,7 @@ class Login extends Component {
             <ButtonComponent
               style={buttonStyle}
               type='primary'
-              shape='reactangle'
+              shape='rectangle'
               buttonState={this.state.buttonState}
               states={this.buttonStates}
             />
@@ -191,7 +191,7 @@ const styles = {
     backgroundColor: 'transparent'
   },
   buttonStyle: {
-    backgroundColor: '#129793',
+    // backgroundColor: '#129793',
     height: 40,
     width: deviceWidth*0.7,
     borderRadius: 20,

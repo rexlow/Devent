@@ -80,28 +80,28 @@ class ResetPassword extends Component {
             <Text style={title}>Reset your password</Text>
             <Text style={[title, desc]}>We will send a confirmation letter to your email</Text>
 
-          <View style={[centerEverything, {padding: 60}]}>
-            <Input
-              placeholder="Email"
-              onChangeText={(email) => this.setState({ email })}
-              value={this.state.email} />
-          </View>
+            <View style={[centerEverything, {padding: 60}]}>
+              <Input
+                placeholder="Email"
+                onChangeText={(email) => this.setState({ email })}
+                value={this.state.email} />
+            </View>
 
-          <ButtonComponent
-            style={buttonStyle}
-            type='primary'
-            shape='reactangle'
-            buttonState={this.state.buttonState}
-            states={this.buttonStates}
-          />
+            <ButtonComponent
+              style={buttonStyle}
+              type='primary'
+              shape='reactangle'
+              buttonState={this.state.buttonState}
+              states={this.buttonStates}
+            />
 
-          <ButtonComponent
-            style={buttonStyle}
-            type='primary'
-            shape='reactangle'
-            text="GO BACK"
-            onPress={() => Actions.pop()}
-          />
+            <ButtonComponent
+              style={buttonStyle}
+              type='primary'
+              shape='rectangle'
+              text="GO BACK"
+              onPress={() => Actions.pop()}
+            />
 
           {/* <Button buttonText="Send" onPress={this.resetPasswordHelper.bind(this)} /> */}
           </View>
