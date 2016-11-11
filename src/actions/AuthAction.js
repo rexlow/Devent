@@ -40,6 +40,7 @@ import {
       email: email,
       firstName: firstName,
       lastName: lastName,
+      userGroup: 'Normal User'
     });
  };
 

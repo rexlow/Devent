@@ -26,3 +26,5 @@ export const IMAGE_UPLOADING = 'image_uploading';
 export const IMAGE_UPLOAD_FAIL = 'image_upload_fail';
 
 export const STORE_IMAGE_LOCALLY = 'store_image_locally';
+
+export const SET_USER_GROUP = 'set_user_group';

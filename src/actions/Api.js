@@ -1,9 +1,11 @@
+import _ from 'lodash';
 import firebase from 'firebase';
 import {
   PULL_EVENT_DATA,
   PULL_TRENDING_DATA,
   BUY_TICKET_SUCCESS,
-  BUY_TICKET_FAIL
+  BUY_TICKET_FAIL,
+  SET_USER_GROUP
 } from './types';
 
 const successMessage = {
@@ -14,11 +16,30 @@ const failMessage = {
   message: 'Something went wrong, please try again later'
 }
 
+//talk to database and get user group
+export function getUserGroup() {
+  const { currentUser } = firebase.auth();
+  return (dispatch) => {
+    firebase.database().ref(`/Users`)
+      .once('value', snapshot => {
+        var userData = _.values(snapshot.val());
+        for (var i = 0; i < userData.length; i++) {
+          if (userData[i].email === currentUser.email) {
+            dispatch({
+              type: SET_USER_GROUP,
+              payload: userData[i].userGroup
+            })
+          }
+        }
+      });
+  };
+};
+
 export function pullEventData() {
   const { currentUser } = firebase.auth();
   return (dispatch) => {
     firebase.database().ref(`/Event`)
-      .on('value', snapshot => {
+      .on('value', snapshot => { //create real time listener
         dispatch({
           type: PULL_EVENT_DATA,
           payload: snapshot.val()

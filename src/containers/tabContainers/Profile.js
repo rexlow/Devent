@@ -129,7 +129,7 @@ class Profile extends Component {
 
   render() {
     const { centerEverything, skeleton, container, upperContainer, avatarContentContainer, profileItem,
-            bottomContainer, content, avatarContainer, avatar, customFont, buttonStyle } = styles;
+            bottomContainer, content, avatarContainer, avatar, customFont, customFontSmall, buttonStyle } = styles;
     return(
       <View style={[centerEverything, container]}>
         <View style={[upperContainer]}>
@@ -154,12 +154,19 @@ class Profile extends Component {
             </TouchableOpacity>
             <View style={profileItem}>
               <Text style={customFont}>{this.props.userDisplayName}</Text>
-              {/* <Text style={customFont}>Name</Text> */}
+              <Text style={customFontSmall}>{this.props.userGroup}</Text>
             </View>
           </View>
         </View>
         <View style={[bottomContainer]}>
           <View style={[centerEverything, content]}>
+            <ButtonComponent
+              style={buttonStyle}
+              type='primary'
+              shape='reactangle'
+              text="ADD INTEREST"
+              onPress={() => Actions.addInterest()}
+            />
             <ButtonComponent
               style={buttonStyle}
               type='primary'
@@ -209,7 +216,8 @@ const styles = {
     flex: 4,
   },
   profileItem: {
-    flexDirection: 'row',
+    alignItems: 'center',
+    flexDirection: 'column',
     paddingTop: 10
   },
   avatarContainer: {
@@ -222,10 +230,14 @@ const styles = {
     height: 100
   },
   customFont: {
-    fontSize: 16,
+    fontSize: 18,
     letterSpacing: 0,
     fontFamily: 'HelveticaNeue-Medium',
     fontWeight: '500',
+  },
+  customFontSmall: {
+    fontSize: 14,
+    fontFamily: 'HelveticaNeue-Light',
   },
   buttonStyle: {
     height: 40,
@@ -239,7 +251,8 @@ const mapStateToProps = (state) => {
   console.log(state);
   return {
     profile: state.profile,
-    userDisplayName: state.auth.user.userDisplayName
+    userDisplayName: state.auth.user.userDisplayName,
+    userGroup: state.api.userGroup
   }
 }
 

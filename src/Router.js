@@ -16,7 +16,8 @@ import Home from './containers/tabContainers/Home';
 import Search from './containers/tabContainers/Search';
 import Profile from './containers/tabContainers/Profile';
 import EventItemDetail from './containers/tabContainers/EventItemDetail';
-import JoinedEvent from './containers/tabContainers/JoinedEvent';
+import JoinedEvent from './containers/tabContainers/Profile/JoinedEvent';
+import AddInterest from './containers/tabContainers/Profile/AddInterest';
 
 const TabIcon = ({ selected, title}) => {
   return(
@@ -68,11 +69,11 @@ class RouterComponent extends Component {
           </Scene>
           <Scene key="main">
             <Scene key="tabbar" tabs tabBarStyle={styles.tabBarStyle} >
-              <Scene key="homeTab" title="Home" icon={TabIcon}>
+              <Scene key="homeTab" title="Home" icon={TabIcon} initial>
                 <Scene key="home" component={Home} title="Home Screen" initial />
               </Scene>
               <Scene key="searchTab" component={Search} title="Search" icon={TabIcon} />
-              <Scene key="profileTab" component={Profile} title="Profile" icon={TabIcon} initial/>
+              <Scene key="profileTab" component={Profile} title="Profile" icon={TabIcon}/>
             </Scene>
             <Scene
               key="eventItemDetail"
@@ -82,6 +83,11 @@ class RouterComponent extends Component {
               rightTitle="Buy Ticket"
               rightButtonTextStyle={{ color: '#FFF' }}
               onRight={this.buyTicketHelper.bind(this)} />
+            <Scene
+              key="addInterest"
+              component={AddInterest}
+              title="Add Interest"
+              leftButtonIconStyle={{tintColor: '#FFF'}} />
             <Scene
               key="joinedEvent"
               component={JoinedEvent}

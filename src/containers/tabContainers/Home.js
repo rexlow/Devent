@@ -24,6 +24,7 @@ class Home extends Component {
   state = { isRefreshing: false }
 
   componentWillMount() {
+    this.props.getUserGroup();
     this.props.pullEventData();
     this.createDataSource(this.props);
   }
