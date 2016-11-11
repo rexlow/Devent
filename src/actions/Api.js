@@ -28,9 +28,9 @@ export function getUserGroup() {
             dispatch({
               type: SET_USER_GROUP,
               payload: userData[i].userGroup
-            })
-          }
-        }
+            });
+          };
+        };
       });
   };
 };

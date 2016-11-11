@@ -18,6 +18,8 @@ import Profile from './containers/tabContainers/Profile';
 import EventItemDetail from './containers/tabContainers/EventItemDetail';
 import JoinedEvent from './containers/tabContainers/Profile/JoinedEvent';
 import AddInterest from './containers/tabContainers/Profile/AddInterest';
+import AdminPanel from './containers/tabContainers/Profile/AdminPanel';
+import EditProfile from './containers/tabContainers/Profile/EditProfile';
 
 const TabIcon = ({ selected, title}) => {
   return(
@@ -78,20 +80,25 @@ class RouterComponent extends Component {
             <Scene
               key="eventItemDetail"
               component={EventItemDetail}
-              title="Event Screen"
               leftButtonIconStyle={{tintColor: '#FFF'}}
               rightTitle="Buy Ticket"
               rightButtonTextStyle={{ color: '#FFF' }}
               onRight={this.buyTicketHelper.bind(this)} />
             <Scene
+              key="adminPanel"
+              component={AdminPanel}
+              leftButtonIconStyle={{tintColor: '#FFF'}} />
+            <Scene
               key="addInterest"
               component={AddInterest}
-              title="Add Interest"
+              leftButtonIconStyle={{tintColor: '#FFF'}} />
+            <Scene
+              key="editProfile"
+              component={EditProfile}
               leftButtonIconStyle={{tintColor: '#FFF'}} />
             <Scene
               key="joinedEvent"
               component={JoinedEvent}
-              title="Joined Event"
               leftButtonIconStyle={{tintColor: '#FFF'}} />
           </Scene>
         </Router>

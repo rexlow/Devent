@@ -131,7 +131,9 @@ const styles = {
   },
   titleContainer: {
     flex: 1,
+    flexWrap: 'wrap',
     width: deviceWidth,
+    backgroundColor: 'transparent'
   },
   actionButtonContainer: {
     flex: 3,

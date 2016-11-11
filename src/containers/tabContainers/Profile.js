@@ -127,6 +127,20 @@ class Profile extends Component {
     this.props.logoutUser();
   }
 
+  renderAdminButton() {
+    if (this.props.userGroup === 'Admin') {
+      return (
+        <ButtonComponent
+          style={styles.buttonStyle}
+          type='primary'
+          shape='reactangle'
+          text="ADMIN PANEL"
+          onPress={() => Actions.adminPanel()}
+        />
+      )
+    }
+  }
+
   render() {
     const { centerEverything, skeleton, container, upperContainer, avatarContentContainer, profileItem,
             bottomContainer, content, avatarContainer, avatar, customFont, customFontSmall, buttonStyle } = styles;
@@ -160,6 +174,7 @@ class Profile extends Component {
         </View>
         <View style={[bottomContainer]}>
           <View style={[centerEverything, content]}>
+            {this.renderAdminButton()}
             <ButtonComponent
               style={buttonStyle}
               type='primary'
@@ -173,6 +188,13 @@ class Profile extends Component {
               shape='reactangle'
               text="JOINED EVENT"
               onPress={() => Actions.joinedEvent()}
+            />
+            <ButtonComponent
+              style={buttonStyle}
+              type='primary'
+              shape='reactangle'
+              text="EDIT PROFILE"
+              onPress={() => Actions.editProfile()}
             />
             <ButtonComponent
               style={buttonStyle}
