@@ -22,12 +22,33 @@ class EditProfile extends Component {
 
   constructor(props) {
     super(props)
-    console.log(props);
     this.state = {
       firstName: props.firstName,
       lastName: props.lastName,
-      password: ''
-    }
+      password: '',
+      buttonState: 'save'
+    };
+
+    this.buttonStates = {
+      save: {
+        text: 'SAVE',
+        onPress: () => {
+          this.setState({ buttonState: 'loading' });
+          this.updateProfile();
+        },
+      },
+      loading: {
+        spinner: true,
+        text: 'SAVING YOUR DATA'
+      }
+    };
+  }
+
+
+
+  updateProfile() {
+    const { firstName, lastName, password } = this.state;
+    this.props.updateProfile(firstName, lastName, password);
   }
 
   render() {
@@ -72,7 +93,8 @@ class EditProfile extends Component {
             type='primary'
             shape='reactangle'
             text="SAVE"
-            onPress={() => console.log('save update')}
+            buttonState={this.state.buttonState}
+            states={this.buttonStates}
           />
         </View>
       </View>
