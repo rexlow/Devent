@@ -1,3 +1,4 @@
+'use strict';
 import React, { Component } from 'react';
 import {
   Alert,
@@ -9,15 +10,24 @@ import {
 import { Input, Spinner } from './../../../components/common';
 import ButtonComponent from 'react-native-button-component';
 
+import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
+import * as actions from './../../../actions';
+import firebase from 'firebase';
+
 const deviceWidth = require('Dimensions').get('window').width;
 const deviceHeight = require('Dimensions').get('window').height;
 
 class EditProfile extends Component {
 
-  state = {
-    firstName: '',
-    lastName: '',
-    password: ''
+  constructor(props) {
+    super(props)
+    console.log(props);
+    this.state = {
+      firstName: props.firstName,
+      lastName: props.lastName,
+      password: ''
+    }
   }
 
   render() {
@@ -37,12 +47,12 @@ class EditProfile extends Component {
           <Text style={[editTitle]}>First name and last name</Text>
           <Input
             propWidth={propWidth}
-            placeholder="First Name"
+            placeholder={this.state.firstName}
             onChangeText={(firstName) => this.setState({ firstName })}
             value={this.state.firstName} />
           <Input
             propWidth={propWidth}
-            placeholder="Last Name"
+            placeholder={this.state.lastName}
             onChangeText={(lastName) => this.setState({ lastName })}
             value={this.state.lastName} />
           <View style={{ paddingTop: 20 }}>
@@ -132,4 +142,12 @@ const styles = {
     margin: 3
   },
 }
-export default EditProfile;
+
+const mapStateToProps = (state) => {
+  return{
+    firstName: state.api.userGroup.firstName,
+    lastName: state.api.userGroup.lastName
+  }
+}
+
+export default connect(mapStateToProps, actions)(EditProfile);

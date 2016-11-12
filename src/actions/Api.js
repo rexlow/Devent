@@ -27,7 +27,7 @@ export function getUserGroup() {
           if (userData[i].email === currentUser.email) {
             dispatch({
               type: SET_USER_GROUP,
-              payload: userData[i].userGroup
+              payload: userData[i]
             });
           };
         };

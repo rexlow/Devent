@@ -16,7 +16,7 @@ import Home from './containers/tabContainers/Home';
 import Search from './containers/tabContainers/Search';
 import Profile from './containers/tabContainers/Profile';
 import EventItemDetail from './containers/tabContainers/EventItemDetail';
-import JoinedEvent from './containers/tabContainers/Profile/JoinedEvent';
+import ManageEvent from './containers/tabContainers/Profile/ManageEvent';
 import AddInterest from './containers/tabContainers/Profile/AddInterest';
 import AdminPanel from './containers/tabContainers/Profile/AdminPanel';
 import EditProfile from './containers/tabContainers/Profile/EditProfile';
@@ -97,8 +97,8 @@ class RouterComponent extends Component {
               component={EditProfile}
               leftButtonIconStyle={{tintColor: '#FFF'}} />
             <Scene
-              key="joinedEvent"
-              component={JoinedEvent}
+              key="manageEvent"
+              component={ManageEvent}
               leftButtonIconStyle={{tintColor: '#FFF'}} />
           </Scene>
         </Router>

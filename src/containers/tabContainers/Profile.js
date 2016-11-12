@@ -186,8 +186,8 @@ class Profile extends Component {
               style={buttonStyle}
               type='primary'
               shape='reactangle'
-              text="JOINED EVENT"
-              onPress={() => Actions.joinedEvent()}
+              text="MANAGE YOUR EVENT"
+              onPress={() => Actions.manageEvent()}
             />
             <ButtonComponent
               style={buttonStyle}
@@ -274,7 +274,7 @@ const mapStateToProps = (state) => {
   return {
     profile: state.profile,
     userDisplayName: state.auth.user.userDisplayName,
-    userGroup: state.api.userGroup
+    userGroup: state.api.userGroup.userGroup
   }
 }
 

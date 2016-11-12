@@ -131,9 +131,9 @@ const styles = {
   },
   titleContainer: {
     flex: 1,
-    flexWrap: 'wrap',
     width: deviceWidth,
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
+    padding: 5
   },
   actionButtonContainer: {
     flex: 3,
@@ -158,9 +158,10 @@ const styles = {
     padding: 10
   },
   titleStyle: {
-    fontSize: 26,
+    fontSize: 24,
     letterSpacing: 1,
     fontFamily: 'HelveticaNeue-Medium',
+    textAlign: 'center',
   },
   imageStyle: {
     width: deviceWidth,
