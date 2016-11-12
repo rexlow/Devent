@@ -44,7 +44,22 @@ class EditProfile extends Component {
     };
   }
 
+  componentWillMount() {
+    this.props.resetMessage();
+  }
 
+  componentWillReceiveProps(nextProps) {
+    this.propsMessage(nextProps)
+  }
+
+  propsMessage(props) {
+    console.log(props);
+    if (props.message) {
+      Alert.alert('Success', props.message.message);
+      this.setState({ buttonState: 'save', password: '' })
+      this.props.resetMessage();
+    }
+  }
 
   updateProfile() {
     const { firstName, lastName, password } = this.state;
@@ -166,9 +181,10 @@ const styles = {
 }
 
 const mapStateToProps = (state) => {
-  return{
-    firstName: state.api.userGroup.firstName,
-    lastName: state.api.userGroup.lastName
+  return {
+    firstName: state.profile.userGroup.firstName,
+    lastName: state.profile.userGroup.lastName,
+    message: state.profile.message
   }
 }
 

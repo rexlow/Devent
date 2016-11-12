@@ -2,12 +2,25 @@ import {
   IMAGE_UPLOAD_SUCCESS,
   IMAGE_UPLOADING,
   IMAGE_UPLOAD_FAIL,
-  STORE_IMAGE_LOCALLY
+  RESET_MESSAGE,
+  STORE_IMAGE_LOCALLY,
+  SET_USER_GROUP,
+  EDIT_USER_PROFILE,
+  UPDATE_USER_PROFILE_SUCCESSFUL,
+  UPDATE_USER_PROFILE_FAIL,
+  UPDATE_USER_PASSWORD_SUCCESSFUL,
+  UPDATE_USER_PASSWORD_FAIL
 } from './../actions/types';
 
 import { REHYDRATE } from 'redux-persist/constants';
 
-const INITIAL_STATE = { url: null, error: null, localUserAvatar: null };
+const INITIAL_STATE = {
+  url: null,
+  error: null,
+  localUserAvatar: null,
+  userGroup: null,
+  message: null
+};
 
 export default (state = INITIAL_STATE, action) => {
   console.log(action);
@@ -20,15 +33,25 @@ export default (state = INITIAL_STATE, action) => {
       };
     case IMAGE_UPLOAD_FAIL:
       return INITIAL_STATE;
+    case RESET_MESSAGE:
+      return { ...state, message: null }
     case STORE_IMAGE_LOCALLY:
       return { ...state, localUserAvatar: action.payload.uri }
+    case SET_USER_GROUP:
+      return { ...state, userGroup: action.payload }
+    case UPDATE_USER_PROFILE_SUCCESSFUL:
+      return { ...state, message: action.payload}
+    case UPDATE_USER_PROFILE_FAIL:
+      return { ...state, message: action.payload}
+    case UPDATE_USER_PASSWORD_SUCCESSFUL:
+      return { ...state, message: action.payload}
+    case UPDATE_USER_PASSWORD_FAIL:
+      return { ...state, message: action.payload}
     case REHYDRATE:
-      console.log('Profile rehydrating')
       var incoming = action.payload.profile;
       if(incoming){
         return { ...state, ...incoming}
       } else {
-        console.log('something went wrong, rehydrate return default state')
         return state;
       }
     default:

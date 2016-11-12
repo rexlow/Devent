@@ -1,9 +1,35 @@
+import _ from 'lodash';
+import firebase from 'firebase';
 import {
   IMAGE_UPLOAD_SUCCESS,
   IMAGE_UPLOADING,
   IMAGE_UPLOAD_FAIL,
-  STORE_IMAGE_LOCALLY
+  RESET_MESSAGE,
+  STORE_IMAGE_LOCALLY,
+  SET_USER_GROUP,
+  UPDATE_USER_PROFILE_SUCCESSFUL,
+  UPDATE_USER_PROFILE_FAIL,
+  UPDATE_USER_PASSWORD_SUCCESSFUL,
+  UPDATE_USER_PASSWORD_FAIL
 } from './types';
+
+const profileUpdate = {
+  message: 'Your profile is being updated'
+};
+
+const passwordChangeSuccess = {
+  message: 'Password updated'
+};
+
+const anomaly = {
+  message: 'Something went wrong, please try again later'
+};
+
+export function resetMessage() {
+  return {
+    type: RESET_MESSAGE
+  };
+};
 
 export function uploadImageSuccess(url) {
   return {
@@ -24,3 +50,45 @@ export function storeAvatar(source) {
     payload: source
   };
 };
+
+//talk to database and get user group
+export function getUserGroup() {
+  const { currentUser } = firebase.auth();
+  return (dispatch) => {
+    firebase.database().ref(`/Users`)
+      .once('value', snapshot => {
+        var userData = _.values(snapshot.val());
+        for (var i = 0; i < userData.length; i++) {
+          if (userData[i].email === currentUser.email) {
+            dispatch({
+              type: SET_USER_GROUP,
+              payload: userData[i]
+            });
+          };
+        };
+      });
+  };
+};
+
+export function updateProfile(firstName, lastName, newPassword) {
+  const { currentUser } = firebase.auth();
+  return (dispatch) => {
+    if (newPassword !== '') {
+      currentUser.updatePassword(newPassword)
+        .then(() => dispatch({ type: UPDATE_USER_PASSWORD_SUCCESSFUL, payload: passwordChangeSuccess }))
+        .catch((error) => dispatch({ type: UPDATE_USER_PASSWORD_FAIL, payload: error.message }));
+    }
+    //update user database
+    firebase.database().ref(`/Users/${currentUser.uid}`).update({
+      firstName: firstName,
+      lastName: lastName,
+    })
+      .then(() => {
+        currentUser.updateProfile({ displayName: [firstName] + ' ' + [lastName] })
+          .then(() => dispatch({ type: UPDATE_USER_PROFILE_SUCCESSFUL, payload: profileUpdate}))
+          .catch((error) => dispatch({ type: UPDATE_USER_PROFILE_FAIL, payload: error.message }))
+        })
+      .catch((error) => dispatch({ type: UPDATE_USER_PROFILE_FAIL, payload: error.message }));
+
+  }
+}

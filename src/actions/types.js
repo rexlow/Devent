@@ -25,10 +25,11 @@ export const IMAGE_UPLOAD_SUCCESS = 'image_upload_success';
 export const IMAGE_UPLOADING = 'image_uploading';
 export const IMAGE_UPLOAD_FAIL = 'image_upload_fail';
 
+export const RESET_MESSAGE = 'reset_message';
 export const STORE_IMAGE_LOCALLY = 'store_image_locally';
 
 export const SET_USER_GROUP = 'set_user_group';
-export const EDIT_USER_PROFILE = 'edit_user_profile';
 export const UPDATE_USER_PROFILE_SUCCESSFUL = 'update_user_profile_successful';
 export const UPDATE_USER_PROFILE_FAIL = 'update_user_profile_fail';
 export const UPDATE_USER_PASSWORD_SUCCESSFUL = 'update_user_password_successful';
+export const UPDATE_USER_PASSWORD_FAIL = 'update_user_password_successful';

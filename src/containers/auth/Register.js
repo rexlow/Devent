@@ -102,10 +102,10 @@ class Register extends Component {
                 placeholder="First Name"
                 onChangeText={(firstName) => this.setState({ firstName })}
                 value={this.state.firstName} />
-                <Input
-                  placeholder="Last Name"
-                  onChangeText={(lastName) => this.setState({ lastName })}
-                  value={this.state.lastName} />
+              <Input
+                placeholder="Last Name"
+                onChangeText={(lastName) => this.setState({ lastName })}
+                value={this.state.lastName} />
               <Input
                 placeholder="Email Address"
                 onChangeText={(email) => this.setState({ email })}
