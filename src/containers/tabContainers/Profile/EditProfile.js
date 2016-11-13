@@ -107,7 +107,6 @@ class EditProfile extends Component {
             style={buttonStyle}
             type='primary'
             shape='reactangle'
-            text="SAVE"
             buttonState={this.state.buttonState}
             states={this.buttonStates}
           />
@@ -130,7 +129,7 @@ const styles = {
     flex: 1,
     flexDirection: 'column',
     backgroundColor: '#F5F6F7',
-    marginTop: 64
+    marginTop: 44
   },
   textContainer: {
     flex: 2,

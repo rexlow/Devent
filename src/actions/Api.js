@@ -31,7 +31,7 @@ export function pullEventData() {
 export function pullTrendingData() {
   const { currentUser } = firebase.auth();
   return (dispatch) => {
-    firebase.database().ref(`/Trending`)
+    firebase.database().ref(`/Trending`).orderByValue()
       .on('value', snapshot => {
         dispatch({
           type: PULL_TRENDING_DATA,

@@ -16,10 +16,11 @@ import Home from './containers/tabContainers/Home';
 import Search from './containers/tabContainers/Search';
 import Profile from './containers/tabContainers/Profile';
 import EventItemDetail from './containers/tabContainers/EventItemDetail';
-import ManageEvent from './containers/tabContainers/Profile/ManageEvent';
 import AddInterest from './containers/tabContainers/Profile/AddInterest';
 import AdminPanel from './containers/tabContainers/Profile/AdminPanel';
 import EditProfile from './containers/tabContainers/Profile/EditProfile';
+import ManageEvent from './containers/tabContainers/Profile/ManageEvent';
+import AddEvent from './containers/tabContainers/Profile/AddEvent';
 
 const TabIcon = ({ selected, title}) => {
   return(
@@ -99,6 +100,10 @@ class RouterComponent extends Component {
             <Scene
               key="manageEvent"
               component={ManageEvent}
+              leftButtonIconStyle={{tintColor: '#FFF'}} />
+            <Scene
+              key="addEvent"
+              component={AddEvent}
               leftButtonIconStyle={{tintColor: '#FFF'}} />
           </Scene>
         </Router>
