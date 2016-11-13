@@ -55,7 +55,7 @@ class EditProfile extends Component {
   propsMessage(props) {
     console.log(props);
     if (props.message) {
-      Alert.alert('Success', props.message.message);
+      Alert.alert('Success', props.message);
       this.setState({ buttonState: 'save', password: '' })
       this.props.resetMessage();
     }

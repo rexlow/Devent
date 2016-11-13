@@ -19,6 +19,7 @@ const INITIAL_STATE = {
   error: null,
   localUserAvatar: null,
   userGroup: null,
+  userType: null,
   message: null
 };
 
@@ -38,9 +39,9 @@ export default (state = INITIAL_STATE, action) => {
     case STORE_IMAGE_LOCALLY:
       return { ...state, localUserAvatar: action.payload.uri }
     case SET_USER_GROUP:
-      return { ...state, userGroup: action.payload }
+      return { ...state, userGroup: action.payload, userType: action.payload.userGroup }
     case UPDATE_USER_PROFILE_SUCCESSFUL:
-      return { ...state, message: action.payload}
+      return { ...state, userGroup: { firstName: action.payload.userGroup.firstName, lastName: action.payload.userGroup.lastName }, message: action.payload.profileUpdate.message}
     case UPDATE_USER_PROFILE_FAIL:
       return { ...state, message: action.payload}
     case UPDATE_USER_PASSWORD_SUCCESSFUL:

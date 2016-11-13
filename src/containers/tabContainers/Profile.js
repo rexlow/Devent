@@ -274,7 +274,7 @@ const mapStateToProps = (state) => {
     profile: state.profile,
     firstName: state.profile.userGroup.firstName,
     lastName: state.profile.userGroup.lastName,
-    userGroup: state.profile.userGroup.userGroup
+    userGroup: state.profile.userType
   }
 }
 

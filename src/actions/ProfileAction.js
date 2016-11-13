@@ -85,7 +85,7 @@ export function updateProfile(firstName, lastName, newPassword) {
     })
       .then(() => {
         currentUser.updateProfile({ displayName: [firstName] + ' ' + [lastName] })
-          .then(() => dispatch({ type: UPDATE_USER_PROFILE_SUCCESSFUL, payload: profileUpdate}))
+          .then(() => dispatch({ type: UPDATE_USER_PROFILE_SUCCESSFUL, payload: {profileUpdate, userGroup: {firstName, lastName}}}))
           .catch((error) => dispatch({ type: UPDATE_USER_PROFILE_FAIL, payload: error.message }))
         })
       .catch((error) => dispatch({ type: UPDATE_USER_PROFILE_FAIL, payload: error.message }));
