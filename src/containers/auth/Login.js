@@ -93,17 +93,21 @@ class Login extends Component {
           <View style={[middleContainer, centerEverything]}>
             <Text style={welcomeTitle}>WELCOME</Text>
             <View style={[centerEverything], {paddingBottom: 30}}>
-              <Input
-                label="email"
-                placeholder="Email"
-                onChangeText={(email) => this.setState({ email })}
-                value={this.state.email} />
-              <Input
-                label="password"
-                placeholder="Password"
-                onChangeText={(password) => this.setState({ password })}
-                value={this.state.password}
-                secureTextEntry />
+              <View style={{ paddingBottom: 3 }}>
+                <Input
+                  label="email"
+                  placeholder="Email"
+                  onChangeText={(email) => this.setState({ email })}
+                  value={this.state.email}/>
+              </View>
+              <View>
+                <Input
+                  label="password"
+                  placeholder="Password"
+                  onChangeText={(password) => this.setState({ password })}
+                  value={this.state.password}
+                  secureTextEntry={true} />
+              </View>
               <View style={forgotPasswordContainer}>
                 <TouchableOpacity onPress={() => Actions.resetPassword()}>
                   <Text style={forgotPassword}>Forgot password?</Text>

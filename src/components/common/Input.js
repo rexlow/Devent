@@ -9,14 +9,15 @@ import {
 const deviceWidth = require('Dimensions').get('window').width;
 const deviceHeight = require('Dimensions').get('window').height;
 
-const Input = ({ placeholder, secureTextEntry, onChangeText, value, propWidth}) => {
+const Input = ({ placeholder, secureTextEntry, onChangeText, value, propHeight, propWidth, multiline}) => {
   const { inputStyle } = styles;
 
   return(
     <TextInput
-      style={[inputStyle, propWidth]}
+      style={[inputStyle, propHeight, propWidth]}
       autoCapitalize={'none'}
       autoCorrect={false}
+      multiline={multiline}
       placeholder={placeholder}
       secureTextEntry={secureTextEntry}
       onChangeText={onChangeText}

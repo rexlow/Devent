@@ -90,7 +90,8 @@ class AddEvent extends Component {
 
   render() {
     const { centerEverything, skeleton, container, textContainer, contentContainer, buttonContainer,
-      propWidth, titleContainer, descContainer, title, artworkTitle, editTitle, desc, buttonStyle, artworkContainer, artwork } = styles;
+      propHeight, propWidth, halfPropWidth, titleContainer, descContainer, title, artworkTitle, editTitle,
+      desc, buttonStyle, artworkContainer, artwork } = styles;
     return (
       <View style={[centerEverything, container]}>
         <View style={[centerEverything, textContainer]}>
@@ -106,10 +107,50 @@ class AddEvent extends Component {
             <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
               <View style={[centerEverything, artwork]}>
                 <Text style={[artworkTitle]}>Upload event artwork</Text>
+                <Text style={[desc]}>Preferably 640x480</Text>
               </View>
             </TouchableOpacity>
           </View>
-
+          <Input
+            propWidth={propWidth}
+            placeholder="Event Title"
+            onChangeText={(title) => this.setState({ title })}
+            value={this.state.title} />
+          <View style={{ flexDirection: 'row' }}>
+            <Input
+              propWidth={halfPropWidth}
+              placeholder="Date"
+              onChangeText={(date) => this.setState({ date })}
+              value={this.state.date} />
+            <Input
+              propWidth={halfPropWidth}
+              placeholder="Time"
+              onChangeText={(time) => this.setState({ time })}
+              value={this.state.time} />
+          </View>
+          <View style={{ flexDirection: 'row' }}>
+            <Input
+              propWidth={halfPropWidth}
+              placeholder="Organizer"
+              onChangeText={(organizer) => this.setState({ organizer })}
+              value={this.state.organizer} />
+            <Input
+              propWidth={halfPropWidth}
+              placeholder="Cost"
+              onChangeText={(cost) => this.setState({ cost })}
+              value={this.state.cost} />
+          </View>
+          <Input
+            propWidth={propWidth}
+            placeholder="Address"
+            onChangeText={(address) => this.setState({ address })}
+            value={this.state.address} />
+          <Input
+            propWidth={[propHeight, propWidth]}
+            placeholder="Note"
+            multiline={true}
+            onChangeText={(note) => this.setState({ note })}
+            value={this.state.note} />
         </View>
         <View style={[buttonContainer]}>
           <ButtonComponent
@@ -144,8 +185,14 @@ const styles = {
     flex: 2,
     marginTop: 20
   },
+  propHeight: {
+    height: 80
+  },
   propWidth: {
     width: deviceWidth*0.8
+  },
+  halfPropWidth: {
+    width: deviceWidth*0.4
   },
   contentContainer: {
     flex: 8,
@@ -178,7 +225,7 @@ const styles = {
     fontFamily: 'Helvetica Neue',
     fontWeight: '300',
     textAlign: 'left',
-    paddingBottom: 10
+    paddinBottom: 10
   },
   desc: {
     color: 'grey',
@@ -195,7 +242,9 @@ const styles = {
   },
   artworkContainer: {
     borderColor: '#9B9B9B',
+    borderRadius: 3,
     borderWidth: 1 / PixelRatio.get(),
+    marginBottom: 5
   },
   artwork: {
     width: null,

@@ -81,11 +81,13 @@ class EditProfile extends Component {
         </View>
         <View style={[contentContainer, propWidth]}>
           <Text style={[editTitle]}>First name and last name</Text>
-          <Input
-            propWidth={propWidth}
-            placeholder={this.state.firstName}
-            onChangeText={(firstName) => this.setState({ firstName })}
-            value={this.state.firstName} />
+          <View style={{ paddingBottom: 3}}>
+            <Input
+              propWidth={propWidth}
+              placeholder={this.state.firstName}
+              onChangeText={(firstName) => this.setState({ firstName })}
+              value={this.state.firstName} />
+          </View>
           <Input
             propWidth={propWidth}
             placeholder={this.state.lastName}
