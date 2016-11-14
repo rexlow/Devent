@@ -11,7 +11,9 @@ import {
   UPDATE_USER_PROFILE_SUCCESSFUL,
   UPDATE_USER_PROFILE_FAIL,
   UPDATE_USER_PASSWORD_SUCCESSFUL,
-  UPDATE_USER_PASSWORD_FAIL
+  UPDATE_USER_PASSWORD_FAIL,
+  EVENT_ADDED_SUCCESSFUL,
+  EVENT_ADDED_FAIL
 } from './../actions/types';
 
 import { REHYDRATE } from 'redux-persist/constants';
@@ -54,6 +56,10 @@ export default (state = INITIAL_STATE, action) => {
     case UPDATE_USER_PASSWORD_SUCCESSFUL:
       return { ...state, message: action.payload}
     case UPDATE_USER_PASSWORD_FAIL:
+      return { ...state, message: action.payload}
+    case EVENT_ADDED_SUCCESSFUL:
+      return { ...state, message: action.payload.eventAddedSuccessful.message}
+    case EVENT_ADDED_FAIL:
       return { ...state, message: action.payload}
     case REHYDRATE:
       var incoming = action.payload.profile;

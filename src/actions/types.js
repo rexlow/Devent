@@ -36,3 +36,6 @@ export const UPDATE_USER_PROFILE_SUCCESSFUL = 'update_user_profile_successful';
 export const UPDATE_USER_PROFILE_FAIL = 'update_user_profile_fail';
 export const UPDATE_USER_PASSWORD_SUCCESSFUL = 'update_user_password_successful';
 export const UPDATE_USER_PASSWORD_FAIL = 'update_user_password_successful';
+
+export const EVENT_ADDED_SUCCESSFUL = 'event_added_successful';
+export const EVENT_ADDED_FAIL = 'event_added_fail';

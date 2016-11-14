@@ -12,7 +12,9 @@ import {
   UPDATE_USER_PROFILE_SUCCESSFUL,
   UPDATE_USER_PROFILE_FAIL,
   UPDATE_USER_PASSWORD_SUCCESSFUL,
-  UPDATE_USER_PASSWORD_FAIL
+  UPDATE_USER_PASSWORD_FAIL,
+  EVENT_ADDED_SUCCESSFUL,
+  EVENT_ADDED_FAIL
 } from './types';
 
 const profileUpdate = {
@@ -25,6 +27,10 @@ const passwordChangeSuccess = {
 
 const anomaly = {
   message: 'Something went wrong, please try again later'
+};
+
+const eventAddedSuccessful = {
+  message: 'Congratz! You event is now being added'
 };
 
 export function resetMessage() {
@@ -108,6 +114,21 @@ export function updateProfile(firstName, lastName, newPassword) {
   }
 }
 
-export function submitEvent() {
-
-}
+export function submitEvent(title, date, time, organizer, cost, address, note, artwork) {
+  const { currentUser } = firebase.auth();
+  return (dispatch) => {
+    firebase.database().ref(`/Event/`).push({
+      eventOwner: currentUser.uid,
+      title: title,
+      date: date,
+      time: time,
+      organizer: organizer,
+      cost: cost,
+      address: address,
+      note: note,
+      artwork: artwork
+    })
+      .then(() => dispatch({ type: EVENT_ADDED_SUCCESSFUL, payload: eventAddedSuccessful }))
+      .catch((error) => dispatch({ type: EVENT_ADDED_FAIL, payload: anomaly }))
+  }
+};

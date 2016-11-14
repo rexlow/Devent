@@ -81,7 +81,6 @@ class AddEvent extends Component {
       submitEvent: {
         text: 'SUBMIT EVENT',
         onPress: () => {
-          this.setState({ buttonState: 'loading' });
           this.submitEventHelper()
         },
       },
@@ -93,12 +92,21 @@ class AddEvent extends Component {
   }
 
   componentWillMount() {
-    this.props.resetEventArtwork();
+    this.props.resetEventArtwork()
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.profile.eventArtwork) {
-      this.setImage(nextProps.profile.eventArtwork)
+    this.propsMessage(nextProps)
+  }
+
+  propsMessage(props) {
+    if (props.profile.eventArtwork && this.state.artworkUrl !== ( null || '' )) {
+      this.setImage(props.profile.eventArtwork)
+    }
+
+    if (props.message) {
+      Alert.alert('Message', props.message)
+      this.props.resetMessage()
     }
   }
 
@@ -109,8 +117,20 @@ class AddEvent extends Component {
   }
 
   submitEventHelper() {
-    const { title, date, time, cost, organizer, address, note, artworkToUpload } = this.state;
-    console.log(artworkToUpload);
+    const { title, date, time, organizer, cost, address, note, artworkToUpload } = this.state;
+    if (title           !== '' &&
+        date            !== '' &&
+        time            !== '' &&
+        organizer       !== '' &&
+        cost            !== '' &&
+        address         !== '' &&
+        note            !== '' &&
+        artworkToUpload !== '') {
+      this.setState({ buttonState: 'loading' });
+      this.props.submitEvent(title, date, time, organizer, cost, address, note, artworkToUpload)
+    } else {
+      Alert.alert('Error', 'Please make sure you have all the fields filled in.')
+    }
   }
 
   selectPhotoTapped() {
@@ -142,10 +162,15 @@ class AddEvent extends Component {
           const source = {uri: response.uri, isStatic: true};
         }
         this.props.storeArtwork(source);
-
+        this.setState({ artworkUrl: '' });
         uploadImage(response.uri)
-          .then(url => this.setState({ artworkToUpload: url }))
-          .catch(error => console.log(error));
+          .then(url => {
+            this.setState({ artworkToUpload: url })
+          })
+          .catch(error => {
+            Alert.alert('Image uploading failed', 'Please check your internet connection')
+            this.setState({ artworkUrl: null })
+          });
       }
     });
   }
@@ -179,7 +204,7 @@ class AddEvent extends Component {
                           </View>
                         );
                       case '':
-                        return <Spinner />
+                        return <Spinner size="small"/>
                       default:
                         return(
                           <Image style={artwork} source={{uri: this.state.artworkUrl}} />
