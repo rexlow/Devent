@@ -5,6 +5,7 @@ import {
   View,
   Text,
   Image,
+  ScrollView,
   TouchableOpacity,
   TouchableWithoutFeedback,
   Platform,
@@ -22,6 +23,7 @@ import ImagePicker from 'react-native-image-picker';
 
 const deviceWidth = require('Dimensions').get('window').width;
 const deviceHeight = require('Dimensions').get('window').height;
+const dismissKeyboard = require('dismissKeyboard')
 
 import RNFetchBlob from 'react-native-fetch-blob';
 
@@ -100,7 +102,8 @@ class AddEvent extends Component {
   }
 
   propsMessage(props) {
-    if (props.profile.eventArtwork && this.state.artworkUrl !== ( null || '' )) {
+    console.log(props.profile);
+    if (props.profile.eventArtwork) {
       this.setImage(props.profile.eventArtwork)
     }
 
@@ -161,11 +164,13 @@ class AddEvent extends Component {
         } else {
           const source = {uri: response.uri, isStatic: true};
         }
-        this.props.storeArtwork(source);
+
         this.setState({ artworkUrl: '' });
         uploadImage(response.uri)
           .then(url => {
+            console.log(url);
             this.setState({ artworkToUpload: url })
+            this.props.storeArtwork(source);
           })
           .catch(error => {
             Alert.alert('Image uploading failed', 'Please check your internet connection')
@@ -180,94 +185,96 @@ class AddEvent extends Component {
       propHeight, propWidth, halfPropWidth, titleContainer, descContainer, title, artworkTitle,
       desc, buttonStyle, artworkContainer, artwork } = styles;
     return (
-      <View style={[centerEverything, container]}>
-        <View style={[centerEverything, textContainer]}>
-          <View style={titleContainer}>
-            <Text style={[title]}>Add Event</Text>
+      <TouchableWithoutFeedback onPress={()=> dismissKeyboard()}>
+        <View style={[centerEverything, container]}>
+          <View style={[centerEverything, textContainer]}>
+            <View style={titleContainer}>
+              <Text style={[title]}>Add Event</Text>
+            </View>
+            <View style={descContainer}>
+              <Text style={[desc]}>Submit your event and we will process it in a bit ⚡️</Text>
+            </View>
           </View>
-          <View style={descContainer}>
-            <Text style={[desc]}>Submit your event and we will process it in a bit ⚡️</Text>
-          </View>
-        </View>
-        <View style={[contentContainer, propWidth]}>
-          <View style={[centerEverything, artworkContainer]}>
-            <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
-              <View style={[centerEverything, {height: 100, width: deviceWidth*0.8}]}>
-                {
-                  (() => {
-                    switch (this.state.artworkUrl) {
-                      case null:
-                        return (
-                          <View>
-                            <Text style={[artworkTitle]}>Upload event artwork</Text>
-                            <Text style={[desc]}>Preferably 640x480</Text>
-                          </View>
-                        );
-                      case '':
-                        return <Spinner size="small"/>
-                      default:
-                        return(
-                          <Image style={artwork} source={{uri: this.state.artworkUrl}} />
-                        )
-                    }
-                  })()
-                }
+          <ScrollView style={[contentContainer, propWidth]}>
+            <View style={[centerEverything, artworkContainer]}>
+              <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
+                <View style={[centerEverything, {height: 100, width: deviceWidth*0.8}]}>
+                  {
+                    (() => {
+                      switch (this.state.artworkUrl) {
+                        case null:
+                          return (
+                            <View>
+                              <Text style={[artworkTitle]}>Upload event artwork</Text>
+                              <Text style={[desc]}>Preferably 640x480</Text>
+                            </View>
+                          );
+                        case '':
+                          return <Spinner size="small"/>
+                        default:
+                          return(
+                            <Image style={artwork} source={{uri: this.state.artworkUrl}} />
+                          )
+                      }
+                    })()
+                  }
 
-              </View>
-            </TouchableOpacity>
+                </View>
+              </TouchableOpacity>
+            </View>
+            <Input
+              propWidth={propWidth}
+              placeholder="Event Title"
+              onChangeText={(title) => this.setState({ title })}
+              value={this.state.title} />
+            <View style={{ flexDirection: 'row' }}>
+              <Input
+                propWidth={halfPropWidth}
+                placeholder="Date"
+                onChangeText={(date) => this.setState({ date })}
+                value={this.state.date} />
+              <Input
+                propWidth={halfPropWidth}
+                placeholder="Time"
+                onChangeText={(time) => this.setState({ time })}
+                value={this.state.time} />
+            </View>
+            <View style={{ flexDirection: 'row' }}>
+              <Input
+                propWidth={halfPropWidth}
+                placeholder="Organizer"
+                onChangeText={(organizer) => this.setState({ organizer })}
+                value={this.state.organizer} />
+              <Input
+                propWidth={halfPropWidth}
+                placeholder="Cost"
+                onChangeText={(cost) => this.setState({ cost })}
+                value={this.state.cost} />
+            </View>
+            <Input
+              propWidth={[propHeight, propWidth]}
+              placeholder="Address"
+              multiline={true}
+              onChangeText={(address) => this.setState({ address })}
+              value={this.state.address} />
+            <Input
+              propWidth={[propHeight, propWidth]}
+              placeholder="Note"
+              multiline={true}
+              onChangeText={(note) => this.setState({ note })}
+              value={this.state.note} />
+          </ScrollView>
+          <View style={[buttonContainer]}>
+            <ButtonComponent
+              style={buttonStyle}
+              type='primary'
+              shape='rectangle'
+              buttonState={this.state.buttonState}
+              states={this.buttonStates}
+            />
           </View>
-          <Input
-            propWidth={propWidth}
-            placeholder="Event Title"
-            onChangeText={(title) => this.setState({ title })}
-            value={this.state.title} />
-          <View style={{ flexDirection: 'row' }}>
-            <Input
-              propWidth={halfPropWidth}
-              placeholder="Date"
-              onChangeText={(date) => this.setState({ date })}
-              value={this.state.date} />
-            <Input
-              propWidth={halfPropWidth}
-              placeholder="Time"
-              onChangeText={(time) => this.setState({ time })}
-              value={this.state.time} />
-          </View>
-          <View style={{ flexDirection: 'row' }}>
-            <Input
-              propWidth={halfPropWidth}
-              placeholder="Organizer"
-              onChangeText={(organizer) => this.setState({ organizer })}
-              value={this.state.organizer} />
-            <Input
-              propWidth={halfPropWidth}
-              placeholder="Cost"
-              onChangeText={(cost) => this.setState({ cost })}
-              value={this.state.cost} />
-          </View>
-          <Input
-            propWidth={[propHeight, propWidth]}
-            placeholder="Address"
-            multiline={true}
-            onChangeText={(address) => this.setState({ address })}
-            value={this.state.address} />
-          <Input
-            propWidth={[propHeight, propWidth]}
-            placeholder="Note"
-            multiline={true}
-            onChangeText={(note) => this.setState({ note })}
-            value={this.state.note} />
         </View>
-        <View style={[buttonContainer]}>
-          <ButtonComponent
-            style={buttonStyle}
-            type='primary'
-            shape='rectangle'
-            buttonState={this.state.buttonState}
-            states={this.buttonStates}
-          />
-        </View>
-      </View>
+      </TouchableWithoutFeedback>
     )
   }
 }

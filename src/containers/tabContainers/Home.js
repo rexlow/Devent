@@ -103,7 +103,9 @@ const styles = {
 
 const mapStateToProps = (state) => {
   console.log(state)
-  const events = _.map(state.api.eventList, (val, uid) => {
+  
+  const filteredEvents = _.filter(state.api.eventList, _.matches({ 'approved': true }))
+  const events = _.map(filteredEvents, (val, uid) => {
     return {...val, uid};
   })
 

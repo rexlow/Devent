@@ -126,7 +126,8 @@ export function submitEvent(title, date, time, organizer, cost, address, note, a
       cost: cost,
       address: address,
       note: note,
-      artwork: artwork
+      artwork: artwork,
+      approved: false
     })
       .then(() => dispatch({ type: EVENT_ADDED_SUCCESSFUL, payload: eventAddedSuccessful }))
       .catch((error) => dispatch({ type: EVENT_ADDED_FAIL, payload: anomaly }))
