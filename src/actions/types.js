@@ -26,7 +26,10 @@ export const IMAGE_UPLOADING = 'image_uploading';
 export const IMAGE_UPLOAD_FAIL = 'image_upload_fail';
 
 export const RESET_MESSAGE = 'reset_message';
+export const RESET_ARTWORK = 'reset_artwork';
+
 export const STORE_IMAGE_LOCALLY = 'store_image_locally';
+export const STORE_ARTWORK_TEMPORARILY = 'store_artwork_temporarily';
 
 export const SET_USER_GROUP = 'set_user_group';
 export const UPDATE_USER_PROFILE_SUCCESSFUL = 'update_user_profile_successful';

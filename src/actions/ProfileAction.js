@@ -5,7 +5,9 @@ import {
   IMAGE_UPLOADING,
   IMAGE_UPLOAD_FAIL,
   RESET_MESSAGE,
+  RESET_ARTWORK,
   STORE_IMAGE_LOCALLY,
+  STORE_ARTWORK_TEMPORARILY,
   SET_USER_GROUP,
   UPDATE_USER_PROFILE_SUCCESSFUL,
   UPDATE_USER_PROFILE_FAIL,
@@ -31,6 +33,12 @@ export function resetMessage() {
   };
 };
 
+export function resetEventArtwork() {
+  return {
+    type: RESET_ARTWORK
+  };
+};
+
 export function uploadImageSuccess(url) {
   return {
     type: IMAGE_UPLOAD_SUCCESS,
@@ -47,6 +55,14 @@ export function uploadingImage() {
 export function storeAvatar(source) {
   return {
     type: STORE_IMAGE_LOCALLY,
+    payload: source
+  };
+};
+
+//dont persist
+export function storeArtwork(source) {
+  return {
+    type: STORE_ARTWORK_TEMPORARILY,
     payload: source
   };
 };
@@ -89,6 +105,9 @@ export function updateProfile(firstName, lastName, newPassword) {
           .catch((error) => dispatch({ type: UPDATE_USER_PROFILE_FAIL, payload: error.message }))
         })
       .catch((error) => dispatch({ type: UPDATE_USER_PROFILE_FAIL, payload: error.message }));
-
   }
+}
+
+export function submitEvent() {
+
 }

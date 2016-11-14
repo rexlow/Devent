@@ -3,7 +3,9 @@ import {
   IMAGE_UPLOADING,
   IMAGE_UPLOAD_FAIL,
   RESET_MESSAGE,
+  RESET_ARTWORK,
   STORE_IMAGE_LOCALLY,
+  STORE_ARTWORK_TEMPORARILY,
   SET_USER_GROUP,
   EDIT_USER_PROFILE,
   UPDATE_USER_PROFILE_SUCCESSFUL,
@@ -18,6 +20,7 @@ const INITIAL_STATE = {
   url: null,
   error: null,
   localUserAvatar: null,
+  eventArtwork: null,
   userGroup: null,
   userType: null,
   message: null
@@ -36,8 +39,12 @@ export default (state = INITIAL_STATE, action) => {
       return INITIAL_STATE;
     case RESET_MESSAGE:
       return { ...state, message: null }
+    case RESET_ARTWORK:
+      return { ...state, eventArtwork: null }
     case STORE_IMAGE_LOCALLY:
       return { ...state, localUserAvatar: action.payload.uri }
+    case STORE_ARTWORK_TEMPORARILY:
+      return { ...state, eventArtwork: action.payload.uri }
     case SET_USER_GROUP:
       return { ...state, userGroup: action.payload, userType: action.payload.userGroup }
     case UPDATE_USER_PROFILE_SUCCESSFUL:
