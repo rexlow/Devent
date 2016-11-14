@@ -73,6 +73,7 @@ class AddEvent extends Component {
       organizer: '',
       address: '',
       artworkUrl: null,
+      artworkToUpload: '',
       buttonState: 'submitEvent'
     };
 
@@ -108,8 +109,8 @@ class AddEvent extends Component {
   }
 
   submitEventHelper() {
-    const { title, date, time, cost, organizer, address, note, artworkUrl } = this.state;
-    console.log(artworkUrl);
+    const { title, date, time, cost, organizer, address, note, artworkToUpload } = this.state;
+    console.log(artworkToUpload);
   }
 
   selectPhotoTapped() {
@@ -132,7 +133,7 @@ class AddEvent extends Component {
       } else if (response.customButton) {
         console.log('User tapped custom button: ', response.customButton);
       } else {
-        this.setState({ uploadURL: '' })
+        this.setState({ artworkUrl: '' })
 
         const source = {uri: 'data:image/jpeg;base64,' + response.data, isStatic: true};
         if (Platform.OS === 'ios') {
@@ -143,7 +144,7 @@ class AddEvent extends Component {
         this.props.storeArtwork(source);
 
         uploadImage(response.uri)
-          .then(url => this.setState({ artworkUrl: url }))
+          .then(url => this.setState({ artworkToUpload: url }))
           .catch(error => console.log(error));
       }
     });
@@ -164,9 +165,9 @@ class AddEvent extends Component {
           </View>
         </View>
         <View style={[contentContainer, propWidth]}>
-          <View style={[centerEverything, artworkContainer, artwork]}>
+          <View style={[centerEverything, artworkContainer]}>
             <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
-              <View style={[centerEverything, artwork]}>
+              <View style={[centerEverything, {height: 100, width: deviceWidth*0.8}]}>
                 {
                   (() => {
                     switch (this.state.artworkUrl) {
@@ -317,10 +318,12 @@ const styles = {
     borderColor: '#9B9B9B',
     borderRadius: 3,
     borderWidth: 1 / PixelRatio.get(),
-    marginBottom: 5
+    marginBottom: 5,
+    width: deviceWidth*0.8,
+    height: 100
   },
   artwork: {
-    width: null,
+    width: deviceWidth*0.8,
     height: 100
   },
 }
