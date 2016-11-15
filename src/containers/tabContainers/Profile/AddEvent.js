@@ -1,4 +1,5 @@
 'use strict';
+import _ from 'lodash';
 import React, { Component } from 'react';
 import {
   Alert,
@@ -95,6 +96,7 @@ class AddEvent extends Component {
 
   componentWillMount() {
     this.props.resetEventArtwork()
+    this.props.resetMessage()
   }
 
   componentWillReceiveProps(nextProps) {
@@ -102,13 +104,15 @@ class AddEvent extends Component {
   }
 
   propsMessage(props) {
-    console.log(props.profile);
     if (props.profile.eventArtwork) {
       this.setImage(props.profile.eventArtwork)
     }
 
-    if (props.message) {
-      Alert.alert('Message', props.message)
+    if (props.profile.message) {
+      this.setState({ buttonState: 'submitEvent' });
+      Alert.alert('Message', props.profile.message.message, [
+        {text: 'Ok', onPress: () => Actions.pop()}
+      ])
       this.props.resetMessage()
     }
   }
@@ -130,7 +134,7 @@ class AddEvent extends Component {
         note            !== '' &&
         artworkToUpload !== '') {
       this.setState({ buttonState: 'loading' });
-      this.props.submitEvent(title, date, time, organizer, cost, address, note, artworkToUpload)
+      this.props.submitEvent(title, date, time, organizer, cost, address, note, artworkToUpload);
     } else {
       Alert.alert('Error', 'Please make sure you have all the fields filled in.')
     }
@@ -168,7 +172,6 @@ class AddEvent extends Component {
         this.setState({ artworkUrl: '' });
         uploadImage(response.uri)
           .then(url => {
-            console.log(url);
             this.setState({ artworkToUpload: url })
             this.props.storeArtwork(source);
           })

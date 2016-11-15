@@ -58,7 +58,7 @@ export default (state = INITIAL_STATE, action) => {
     case UPDATE_USER_PASSWORD_FAIL:
       return { ...state, message: action.payload}
     case EVENT_ADDED_SUCCESSFUL:
-      return { ...state, message: action.payload.eventAddedSuccessful.message}
+      return { ...state, message: action.payload}
     case EVENT_ADDED_FAIL:
       return { ...state, message: action.payload}
     case REHYDRATE:
