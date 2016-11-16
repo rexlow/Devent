@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import {
+  Alert,
   View,
   Text,
   TouchableWithoutFeedback,
@@ -36,7 +37,7 @@ class AdminEventItem extends Component {
     } else {
       return (
         <View>
-          <TouchableWithoutFeedback onPress={() => Actions.eventItemDetail()}>
+          <TouchableWithoutFeedback onPress={() => this.approveEventHelper()}>
             {check}
           </TouchableWithoutFeedback>
         </View>
@@ -44,7 +45,29 @@ class AdminEventItem extends Component {
     }
   }
 
+  approveEventHelper() {
+    Alert.alert('Message', 'Approve this event?', [
+      {text: 'Ok', onPress: () => console.log(this.props.event.uid)},
+      {text: 'Cancel', onPress: () => console.log('dont approve')}
+    ])
+  }
+
+  rejectEventHelper() {
+    Alert.alert('Message', 'Reject this event?', [
+      {text: 'Ok', onPress: () => console.log('Yes reject')},
+      {text: 'Cancel', onPress: () => console.log('dont reject')}
+    ])
+  }
+
+  deleteEventHelper() {
+    Alert.alert('Message', 'Delete this event?', [
+      {text: 'Ok', onPress: () => console.log('Yes delete')},
+      {text: 'Cancel', onPress: () => console.log('dont delete')}
+    ])
+  }
+
   render() {
+    // console.log(this.props.event);
     const { address, artwork, cost, date, joinedUserCount,
             title, organizer, note, time, approved } = this.props.event;
 
@@ -53,7 +76,7 @@ class AdminEventItem extends Component {
     const { skeleton, centerEverything, container, imageContainer, contentContainer, textContainer,
             buttonContainer, imageStyle, titleStyle } = styles;
     return(
-      <TouchableWithoutFeedback onPress={() => console.log('admin ')}>
+      <TouchableWithoutFeedback onPress={() => Actions.eventItemDetail()}>
         <View style={container}>
           <View style={imageContainer}>
             <Image
@@ -68,12 +91,12 @@ class AdminEventItem extends Component {
             <View style={[buttonContainer]}>
               {this.renderApproveButton()}
               <View>
-                <TouchableWithoutFeedback onPress={() => Actions.eventItemDetail()}>
+                <TouchableWithoutFeedback onPress={() => this.rejectEventHelper()}>
                   {lock}
                 </TouchableWithoutFeedback>
               </View>
               <View>
-                <TouchableWithoutFeedback onPress={() => Actions.eventItemDetail()}>
+                <TouchableWithoutFeedback onPress={() => this.deleteEventHelper()}>
                   {close}
                 </TouchableWithoutFeedback>
               </View>
