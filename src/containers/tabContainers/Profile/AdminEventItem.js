@@ -8,11 +8,14 @@ import {
 } from 'react-native';
 
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
+import * as actions from './../../../actions';
 
-import Icon from 'react-native-vector-icons/FontAwesome';
-const check = (<Icon name="check" size={28} color="green" />)
-const close = (<Icon name="close" size={28} color="red" />)
-const signIn = (<Icon name="sign-in" size={28} color="black" />)
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+const check = (<MaterialIcon name="check" size={26} color="green" />)
+const lock = (<MaterialIcon name="lock-outline" size={26} color="orange" />)
+const close = (<MaterialIcon name="close" size={26} color="red" />)
+const signIn = (<MaterialIcon name="launch" size={26} color="#333333" />)
 
 const deviceWidth = require('Dimensions').get('window').width;
 const deviceHeight = require('Dimensions').get('window').height;
@@ -64,6 +67,11 @@ class AdminEventItem extends Component {
             </View>
             <View style={[buttonContainer]}>
               {this.renderApproveButton()}
+              <View>
+                <TouchableWithoutFeedback onPress={() => Actions.eventItemDetail()}>
+                  {lock}
+                </TouchableWithoutFeedback>
+              </View>
               <View>
                 <TouchableWithoutFeedback onPress={() => Actions.eventItemDetail()}>
                   {close}
@@ -123,14 +131,15 @@ const styles = {
   buttonContainer: {
     flex: 4,
     flexDirection: 'row',
-    justifyContent: 'space-around'
+    justifyContent: 'space-around',
+    paddingRight: 5
   },
   imageStyle: {
     width: null,
     height: 140,
   },
   titleStyle: {
-    fontSize: 16,
+    fontSize: 20,
     fontFamily: 'HelveticaNeue-Medium'
   },
   approvedTextStyle: {
@@ -139,4 +148,4 @@ const styles = {
   }
 }
 
-export default AdminEventItem;
+export default connect(null, actions)(AdminEventItem);

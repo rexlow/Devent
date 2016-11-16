@@ -9,12 +9,13 @@ import {
 
 import { Actions } from 'react-native-router-flux';
 
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import Icon from 'react-native-vector-icons/FontAwesome';
 const university = (<Icon name="university" size={13} color="black" />)
 const creditCard = (<Icon name="credit-card" size={13} color="black" />)
 const calendar = (<Icon name="calendar" size={13} color="black" />)
 const user = (<Icon name="user" size={13} color="black" />)
-const signIn = (<Icon name="sign-in" size={26} color="black" />)
+const signIn = (<MaterialIcon name="launch" size={26} color="#333333" />)
 
 const deviceWidth = require('Dimensions').get('window').width;
 const deviceHeight = require('Dimensions').get('window').height;
