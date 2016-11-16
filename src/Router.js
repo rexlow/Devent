@@ -21,6 +21,7 @@ import AdminPanel from './containers/tabContainers/Profile/AdminPanel';
 import EditProfile from './containers/tabContainers/Profile/EditProfile';
 import ManageEvent from './containers/tabContainers/Profile/ManageEvent';
 import AddEvent from './containers/tabContainers/Profile/AddEvent';
+import AdminEventItem from './containers/tabContainers/Profile/AdminEventItem';
 
 const TabIcon = ({ selected, title}) => {
   return(
@@ -105,6 +106,10 @@ class RouterComponent extends Component {
               key="addEvent"
               component={AddEvent}
               leftButtonIconStyle={{tintColor: '#FFF'}} />
+              <Scene
+                key="adminEventItem"
+                component={AdminEventItem}
+                leftButtonIconStyle={{tintColor: '#FFF'}} />
           </Scene>
         </Router>
       </View>
