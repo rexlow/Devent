@@ -50,3 +50,6 @@ export const DELETE_EVENT_SUCCESSFUL = 'delete_event_success';
 export const DELETE_EVENT_FAIL = 'delete_event_fail';
 
 export const RESET_APPROVE_MESSAGE = 'reset_approve_message'
+
+export const BUY_CREDIT_SUCCESS = 'buy_credit_success';
+export const BUY_CREDIT_FAIL = 'buy_credit_fail';

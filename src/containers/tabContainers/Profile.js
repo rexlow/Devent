@@ -8,6 +8,8 @@ import firebase from 'firebase';
 import ButtonComponent from 'react-native-button-component';
 
 import {
+  Alert,
+  AlertIOS,
   View,
   Text,
   TouchableOpacity,
@@ -77,6 +79,10 @@ class Profile extends Component {
     if (nextProps.profile.localUserAvatar) {
       this.setImage(nextProps.profile.localUserAvatar)
     }
+
+    if(nextProps.profile.message !== null) {
+      Alert.alert('Message', nextProps.profile.message)
+    }
   }
 
   setImage(url) {
@@ -141,6 +147,19 @@ class Profile extends Component {
     }
   }
 
+  buyCreditPromptHelper() {
+    AlertIOS.prompt(
+      'Buy credit',
+      'Enter amount of credit to buy',
+      text => this.buyTickerHelper(text)
+    );
+  }
+
+  buyTickerHelper(amount) {
+    const totalAmount = this.props.credit + amount;
+    this.props.buyCredit(totalAmount)
+  }
+
   render() {
     const { centerEverything, skeleton, container, upperContainer, avatarContentContainer, profileItem,
             bottomContainer, content, avatarContainer, avatar, customFont, customFontSmall, buttonStyle } = styles;
@@ -169,6 +188,7 @@ class Profile extends Component {
             <View style={profileItem}>
               <Text style={customFont}>{this.props.firstName} {this.props.lastName}</Text>
               <Text style={customFontSmall}>{this.props.userGroup}</Text>
+              <Text style={customFontSmall}>Credit Available: {this.props.credit}</Text>
             </View>
           </View>
         </View>
@@ -181,6 +201,13 @@ class Profile extends Component {
               shape='reactangle'
               text="ADD INTEREST"
               onPress={() => Actions.addInterest()}
+            />
+            <ButtonComponent
+              style={buttonStyle}
+              type='primary'
+              shape='reactangle'
+              text="BUY CREDIT"
+              onPress={() => this.buyCreditPromptHelper()}
             />
             <ButtonComponent
               style={buttonStyle}
@@ -274,7 +301,8 @@ const mapStateToProps = (state) => {
     profile: state.profile,
     firstName: state.profile.userGroup.firstName,
     lastName: state.profile.userGroup.lastName,
-    userGroup: state.profile.userType
+    userGroup: state.profile.userType,
+    credit: state.profile.userGroup.credit
   }
 }
 
