@@ -14,6 +14,10 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, adminMessage: "Event Approved!"};
     case APPROVE_EVENT_FAIL:
       return { ...state, adminMessage: "Sorry, please try again later!"};
+    case DISPROVE_EVENT_SUCCESSFUL:
+      return { ...state, adminMessage: "Event Disproved!"};
+    case DISPROVE_EVENT_FAIL:
+      return { ...state, adminMessage: "Sorry, please try again later!"};
     case RESET_APPROVE_MESSAGE:
       return INITIAL_STATE;
     default:

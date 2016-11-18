@@ -54,7 +54,7 @@ class AdminEventItem extends Component {
 
   rejectEventHelper() {
     Alert.alert('Message', 'Reject this event?', [
-      {text: 'Ok', onPress: () => console.log('Yes reject')},
+      {text: 'Ok', onPress: () => this.props.disproveEvent(this.props.event.uid)},
       {text: 'Cancel', onPress: () => console.log('dont reject')}
     ])
   }
