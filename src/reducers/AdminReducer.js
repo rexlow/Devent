@@ -3,6 +3,8 @@ import {
   APPROVE_EVENT_FAIL,
   DISPROVE_EVENT_SUCCESSFUL,
   DISPROVE_EVENT_FAIL,
+  DELETE_EVENT_SUCCESSFUL,
+  DELETE_EVENT_FAIL,
   RESET_APPROVE_MESSAGE
 } from './../actions/types';
 
@@ -17,6 +19,10 @@ export default (state = INITIAL_STATE, action) => {
     case DISPROVE_EVENT_SUCCESSFUL:
       return { ...state, adminMessage: "Event Disproved!"};
     case DISPROVE_EVENT_FAIL:
+      return { ...state, adminMessage: "Sorry, please try again later!"};
+    case DELETE_EVENT_SUCCESSFUL:
+      return { ...state, adminMessage: "Event Deleted!"};
+    case DELETE_EVENT_FAIL:
       return { ...state, adminMessage: "Sorry, please try again later!"};
     case RESET_APPROVE_MESSAGE:
       return INITIAL_STATE;

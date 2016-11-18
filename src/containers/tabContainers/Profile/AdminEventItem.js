@@ -61,7 +61,7 @@ class AdminEventItem extends Component {
 
   deleteEventHelper() {
     Alert.alert('Message', 'Delete this event?', [
-      {text: 'Ok', onPress: () => console.log('Yes delete')},
+      {text: 'Ok', onPress: () => this.props.deleteEvent(this.props.event.uid)},
       {text: 'Cancel', onPress: () => console.log('dont delete')}
     ])
   }

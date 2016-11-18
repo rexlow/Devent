@@ -46,4 +46,7 @@ export const APPROVE_EVENT_FAIL = 'approve_event_fail';
 export const DISPROVE_EVENT_SUCCESSFUL = 'disprove_event_success';
 export const DISPROVE_EVENT_FAIL = 'disprove_event_fail';
 
+export const DELETE_EVENT_SUCCESSFUL = 'delete_event_success';
+export const DELETE_EVENT_FAIL = 'delete_event_fail';
+
 export const RESET_APPROVE_MESSAGE = 'reset_approve_message'

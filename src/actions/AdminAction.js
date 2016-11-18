@@ -4,6 +4,8 @@ import {
   APPROVE_EVENT_FAIL,
   DISPROVE_EVENT_SUCCESSFUL,
   DISPROVE_EVENT_FAIL,
+  DELETE_EVENT_SUCCESSFUL,
+  DELETE_EVENT_FAIL,
   RESET_APPROVE_MESSAGE
 } from './types';
 
@@ -24,6 +26,14 @@ export function disproveEvent(uid) {
     })
       .then(() => dispatch({ type: DISPROVE_EVENT_SUCCESSFUL }))
       .catch((error) => dispatch({ type: DISPROVE_EVENT_FAIL }))
+  };
+}
+
+export function deleteEvent(uid) {
+  return (dispatch) => {
+    firebase.database().ref(`/Event/${uid}`).remove()
+      .then(() => dispatch({ type: DELETE_EVENT_SUCCESSFUL }))
+      .catch((error) => dispatch({ type: DELETE_EVENT_FAIL }))
   };
 }
 
