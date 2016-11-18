@@ -47,7 +47,7 @@ class AdminEventItem extends Component {
 
   approveEventHelper() {
     Alert.alert('Message', 'Approve this event?', [
-      {text: 'Ok', onPress: () => console.log(this.props.event.uid)},
+      {text: 'Ok', onPress: () => this.props.approveEvent(this.props.event.uid)},
       {text: 'Cancel', onPress: () => console.log('dont approve')}
     ])
   }
@@ -171,4 +171,10 @@ const styles = {
   }
 }
 
-export default connect(null, actions)(AdminEventItem);
+const mapStateToProps = (state) => {
+  return {
+    admin: state.admin
+  };
+};
+
+export default connect(mapStateToProps, actions)(AdminEventItem);

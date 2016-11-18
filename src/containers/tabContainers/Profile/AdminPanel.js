@@ -18,7 +18,17 @@ import AdminEventItem from './AdminEventItem';
 class AdminPanel extends Component {
 
   componentWillMount() {
+    console.log(this.props);
     this.createDataSource(this.props)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps.admin.adminMessage);
+    if (nextProps.admin.adminMessage !== null) {
+      Alert.alert('Successful', nextProps.admin.adminMessage)
+      this.createDataSource(this.props)
+      this.props.resetApproveMessage();
+    }
   }
 
   createDataSource({ events }) {
@@ -69,6 +79,9 @@ const mapStateToProps = (state) => {
   const events = _.map(state.api.eventList, (val, uid) => {
     return {...val, uid};
   });
-  return { events };
+  return {
+    events: events,
+    admin: state.admin
+   };
 }
 export default connect(mapStateToProps, actions)(AdminPanel);
