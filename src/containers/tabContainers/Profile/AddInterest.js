@@ -7,14 +7,21 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 
+import InterestItem from './InterestItem';
+
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+const computer = (<MaterialIcon name="computer" size={33} color="#aeaeae" />)
+const add = (<MaterialIcon name="add" size={33} color="#aeaeae" />)
+
 const deviceWidth = require('Dimensions').get('window').width;
 const deviceHeight = require('Dimensions').get('window').height;
 
 class AddInterest extends Component {
+
   render() {
-    const { centerEverything, skeleton, container, textContainer, titleContainer, descContainer, title, desc } = styles;
+    const { centerEverything, skeleton, container, textContainer, contentContainer, titleContainer, descContainer, title, desc } = styles;
     return (
-      <View style={[centerEverything, container, skeleton]}>
+      <View style={[container]}>
         <View style={[centerEverything, textContainer]}>
           <View style={titleContainer}>
             <Text style={[title]}>What kind of events are you interest in?</Text>
@@ -22,6 +29,13 @@ class AddInterest extends Component {
           <View style={descContainer}>
             <Text style={[desc]}>You'll see more events from the categories you choose.</Text>
           </View>
+        </View>
+
+        <View style={[contentContainer]}>
+          <InterestItem icon={computer} text="Science"/>
+          <InterestItem icon={add} text="Add"/>
+          <InterestItem icon={add} text="Add"/>
+          <InterestItem icon={add} text="Add"/>
         </View>
       </View>
     )
@@ -44,8 +58,13 @@ const styles = {
     marginTop: 64
   },
   textContainer: {
-    height: 100,
-    marginTop: 20
+    flex: 2
+  },
+  contentContainer: {
+    flex: 8,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    padding: 10
   },
   titleContainer: {
     width: deviceWidth*0.8,
