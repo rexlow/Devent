@@ -1,4 +1,5 @@
 'use strict';
+import _ from 'lodash';
 import React, { Component } from 'react';
 
 import { Actions } from 'react-native-router-flux';
@@ -64,15 +65,22 @@ const uploadImage = (uri, mime = 'application/octet-stream') => {
 class Profile extends Component {
   constructor(props) {
     super(props)
+    console.log(props.profile.userGroup.credit);
     if (!props.profile.localUserAvatar) {
       this.state = {
-        uploadURL: null
+        uploadURL: null,
+        userCredit: props.profile.userGroup.credit
       }
     } else {
       this.state = {
-        uploadURL: props.profile.localUserAvatar
+        uploadURL: props.profile.localUserAvatar,
+        userCredit: props.profile.userGroup.credit
       }
     }
+  }
+
+  componentWillMount() {
+    this.props.resetMessage()
   }
 
   componentWillReceiveProps(nextProps) {
@@ -82,6 +90,10 @@ class Profile extends Component {
 
     if(nextProps.profile.message !== null) {
       Alert.alert('Message', nextProps.profile.message)
+    }
+
+    if (nextProps.profile.userGroup.credit) {
+      this.setState({ userCredit: nextProps.profile.userGroup.credit})
     }
   }
 
@@ -156,7 +168,7 @@ class Profile extends Component {
   }
 
   buyTickerHelper(amount) {
-    const totalAmount = this.props.credit + amount;
+    const totalAmount = this.props.credit + _.toInteger(amount);
     this.props.buyCredit(totalAmount)
   }
 
@@ -188,7 +200,7 @@ class Profile extends Component {
             <View style={profileItem}>
               <Text style={customFont}>{this.props.firstName} {this.props.lastName}</Text>
               <Text style={customFontSmall}>{this.props.userGroup}</Text>
-              <Text style={customFontSmall}>Credit Available: {this.props.credit}</Text>
+              <Text style={customFontSmall}>Credit Available: {this.state.userCredit}</Text>
             </View>
           </View>
         </View>

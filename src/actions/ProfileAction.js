@@ -140,8 +140,7 @@ export function buyCredit(amount) {
   return (dispatch) => {
     firebase.database().ref(`/Users/${currentUser.uid}`).update({
       credit: amount
-    })
-      .then(() => dispatch({ type: BUY_CREDIT_SUCCESS, payload: 'Purchase successful' }))
+    }).then(() => dispatch({ type: BUY_CREDIT_SUCCESS, payload: 'Purchase successful' }))
       .catch((error) => dispatch({ type: BUY_TICKET_FAIL, payload: 'Purchase failed' }))
   };
 };
