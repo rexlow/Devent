@@ -35,7 +35,6 @@ class Login extends Component {
       signIn: {
         text: 'SIGN IN',
         onPress: () => {
-          this.setState({ buttonState: 'loading' });
           this.loginUser();
         },
       },
@@ -58,9 +57,19 @@ class Login extends Component {
     this.processAuth(nextProps);
   }
 
+  validateEmail = (email) => {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
+  };
+
   loginUser() {
     const { email, password } = this.state;
-    this.props.loginUser(email, password);
+    if (!this.validateEmail(email)) {
+      Alert.alert('Message', 'Please enter a valid email type')
+    } else {
+      this.setState({ buttonState: 'loading' });
+      this.props.loginUser(email, password);
+    }
   }
 
   processAuth(props) {
