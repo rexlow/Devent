@@ -212,7 +212,7 @@ class Profile extends Component {
               type='primary'
               shape='reactangle'
               text="ADD INTEREST"
-              onPress={() => Actions.addInterest()}
+              onPress={() => Actions.addInterest(this.props.trendingData)}
             />
             <ButtonComponent
               style={buttonStyle}
@@ -314,7 +314,8 @@ const mapStateToProps = (state) => {
     firstName: state.profile.userGroup.firstName,
     lastName: state.profile.userGroup.lastName,
     userGroup: state.profile.userType,
-    credit: state.profile.userGroup.credit
+    credit: state.profile.userGroup.credit,
+    trendingData: state.api
   }
 }
 

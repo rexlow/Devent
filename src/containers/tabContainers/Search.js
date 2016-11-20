@@ -17,6 +17,9 @@ import { SearchBar } from './../../components/common';
 
 const dismissKeyboard = require('dismissKeyboard')
 
+const deviceWidth = require('Dimensions').get('window').width;
+const deviceHeight = require('Dimensions').get('window').height;
+
 class Search extends Component {
 
   componentWillMount() {
@@ -42,7 +45,7 @@ class Search extends Component {
 
   render() {
     // console.log(this.props.trendingData.trendingData);
-    const { skeleton, centerEverything, container, contentContainer, title, makeItTop } = styles;
+    const { skeleton, centerEverything, container, contentContainer, listViewContainer, makeItTop } = styles;
 
     return(
       <TouchableWithoutFeedback onPress={()=> dismissKeyboard()}>
@@ -50,11 +53,9 @@ class Search extends Component {
           <View style={[makeItTop]}>
             <SearchBar placeholder="🔍 Search Event" />
           </View>
-
-          <Text>List of event</Text>
           <View style={[contentContainer]}>
             <ListView
-              contentContainerStyle={styles.listViewContainer}
+              contentContainerStyle={listViewContainer}
               enableEmptySections
               dataSource={this.dataSource}
               renderRow={this.renderRow}
@@ -87,17 +88,14 @@ const styles = {
     paddingLeft: 10,
     paddingRight: 10,
   },
-  title: {
-    fontSize: 38,
-    letterSpacing: 9,
-    fontFamily: 'HelveticaNeue-Light',
-    paddingBottom: 10
+  listViewContainer: {
+    paddingTop: 20
   },
   makeItTop: {
     position: 'absolute',
     top: 65,
     left: 20
-  }
+  },
 }
 
 const mapStateToProps = (state) => {

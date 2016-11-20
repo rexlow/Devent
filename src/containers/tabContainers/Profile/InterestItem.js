@@ -6,7 +6,6 @@ import {
 } from 'react-native';
 
 
-
 const deviceWidth = require('Dimensions').get('window').width;
 const deviceHeight = require('Dimensions').get('window').height;
 
@@ -17,13 +16,12 @@ class InterestItem extends Component {
   }
 
   render() {
-    const { text, icon } = this.props;
     const { skeleton, centerEverything, container, textStyle } = styles;
     return(
       <TouchableWithoutFeedback onPress={() => this.setState({ selected: !this.state.selected })}>
         <View style={[centerEverything, container, { backgroundColor: this.state.selected ? '#635eb4' : '#e7e7e7'}]}>
-          {icon}
-          <Text style={textStyle}>{text}</Text>
+          {this.props.icon}
+          <Text style={textStyle}>{this.props.item[0]}</Text>
         </View>
       </TouchableWithoutFeedback>
     )
