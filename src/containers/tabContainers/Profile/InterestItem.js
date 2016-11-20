@@ -12,13 +12,8 @@ const deviceHeight = require('Dimensions').get('window').height;
 
 class InterestItem extends Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      selected: false
-    }
-
+  state = {
+    selected: false
   }
 
   render() {
