@@ -104,11 +104,12 @@ const styles = {
 const mapStateToProps = (state) => {
   console.log(state)
 
-  const filteredEvents = _.filter(state.api.eventList, _.matches({ 'approved': true }))
+  //had to use pickBy instead of filter because of data mutation
+  const filteredEvents = _.pickBy(state.api.eventList, {'approved': true})
+
   const events = _.map(filteredEvents, (val, uid) => {
     return {...val, uid};
   })
-
   return { events };
 };
 

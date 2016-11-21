@@ -45,32 +45,27 @@ class Search extends Component {
 
   render() {
     // console.log(this.props.trendingData.trendingData);
-    const { skeleton, centerEverything, container, contentContainer, listViewContainer, makeItTop,
+    const { skeleton, centerEverything, container, listViewContainer, makeItTop,
     textContainer, titleContainer, descContainer, title, desc, listContainer } = styles;
 
     return(
       <TouchableWithoutFeedback onPress={()=> dismissKeyboard()}>
         <View style={[container]}>
-          <View style={[makeItTop]}>
-            <SearchBar placeholder="🔍 Search Event" />
+          <View style={[centerEverything, textContainer]}>
+            <View style={titleContainer}>
+              <Text style={[title]}>Trending Tech Terms</Text>
+            </View>
+            <View style={descContainer}>
+              <Text style={[desc]}>Below are the terms tech advocates search most</Text>
+            </View>
           </View>
-          <View style={[contentContainer]}>
-            <View style={[centerEverything, textContainer]}>
-              <View style={titleContainer}>
-                <Text style={[title]}>Trending Tech Terms</Text>
-              </View>
-              <View style={descContainer}>
-                <Text style={[desc]}>Below are the terms tech advocates search most</Text>
-              </View>
-            </View>
-            <View style={listContainer}>
-              <ListView
-                contentContainerStyle={listViewContainer}
-                enableEmptySections
-                dataSource={this.dataSource}
-                renderRow={this.renderRow}
-              />
-            </View>
+          <View style={listContainer}>
+            <ListView
+              contentContainerStyle={listViewContainer}
+              enableEmptySections
+              dataSource={this.dataSource}
+              renderRow={this.renderRow}
+            />
           </View>
         </View>
       </TouchableWithoutFeedback>
@@ -90,14 +85,11 @@ const styles = {
   container: {
     flex: 1,
     backgroundColor: '#F5F6F7',
-    marginTop: 50
+    marginTop: 110
   },
-  contentContainer: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    paddingTop: 100,
-    paddingLeft: 10,
-    paddingRight: 10,
+  listContainer: {
+    flex: 8,
+    padding: 10
   },
   listViewContainer: {
     paddingTop: 20
@@ -129,10 +121,6 @@ const styles = {
     fontWeight: '300',
     textAlign: 'center'
   },
-  listContainer: {
-    flex: 8,
-    padding: 10
-  }
 }
 
 const mapStateToProps = (state) => {
