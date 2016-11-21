@@ -102,7 +102,6 @@ const styles = {
   },
   contentContainer: {
     flex: 8,
-
     padding: 10
   },
   listViewContainer: {

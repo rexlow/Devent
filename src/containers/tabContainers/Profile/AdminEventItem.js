@@ -33,7 +33,13 @@ class AdminEventItem extends Component {
 
   renderApproveButton() {
     if (this.props.event.approved) {
-      return;
+      return (
+        <View>
+          <TouchableWithoutFeedback onPress={() => this.rejectEventHelper()}>
+            {lock}
+          </TouchableWithoutFeedback>
+        </View>
+      )
     } else {
       return (
         <View>
@@ -90,11 +96,6 @@ class AdminEventItem extends Component {
             </View>
             <View style={[buttonContainer]}>
               {this.renderApproveButton()}
-              <View>
-                <TouchableWithoutFeedback onPress={() => this.rejectEventHelper()}>
-                  {lock}
-                </TouchableWithoutFeedback>
-              </View>
               <View>
                 <TouchableWithoutFeedback onPress={() => this.deleteEventHelper()}>
                   {close}
