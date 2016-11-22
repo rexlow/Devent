@@ -3,7 +3,11 @@ import React, { Component } from 'react';
 import {
   View,
   Text,
+  TouchableWithoutFeedback,
+  ListView
 } from 'react-native';
+
+import TrendingItem from './TrendingItem';
 
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
@@ -12,9 +16,31 @@ import * as actions from './../../actions';
 const deviceWidth = require('Dimensions').get('window').width;
 const deviceHeight = require('Dimensions').get('window').height;
 
-class Search extends Component {
+class Trending extends Component {
+
+  componentWillMount() {
+    this.props.pullTrendingData();
+    this.createDataSource(this.props);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.createDataSource(nextProps);
+  }
+
+  createDataSource({ items }) {
+    const ds = new ListView.DataSource({
+      rowHasChanged: (r1, r2) => r1 !== r2
+    });
+    this.dataSource = ds.cloneWithRows(items);
+  }
+
+  //return arrays of event from events
+  renderRow(item) {
+    return <TrendingItem item={item} />;
+  }
 
   render() {
+    // console.log(this.props.trendingData.trendingData);
     const { skeleton, centerEverything, container, listViewContainer, makeItTop,
     textContainer, titleContainer, descContainer, title, desc, listContainer } = styles;
 
@@ -22,11 +48,19 @@ class Search extends Component {
       <View style={[container]}>
         <View style={[centerEverything, textContainer]}>
           <View style={titleContainer}>
-            <Text style={[title]}>Search Event 🚀</Text>
+            <Text style={[title]}>Trending Tech Terms</Text>
           </View>
           <View style={descContainer}>
             <Text style={[desc]}>Below are the terms tech advocates search most</Text>
           </View>
+        </View>
+        <View style={listContainer}>
+          <ListView
+            contentContainerStyle={listViewContainer}
+            enableEmptySections
+            dataSource={this.dataSource}
+            renderRow={this.renderRow}
+          />
         </View>
       </View>
     )
@@ -45,6 +79,7 @@ const styles = {
   container: {
     flex: 1,
     backgroundColor: '#F5F6F7',
+    marginTop: 110
   },
   listContainer: {
     flex: 8,
@@ -82,5 +117,13 @@ const styles = {
   },
 }
 
+const mapStateToProps = (state) => {
+  const sortData = _.map(_.orderBy(state.api.trendingData, ['value'], ['desc']), _.values);
 
-export default (Search);
+  const items = _.map(sortData, (val, uid) => {
+    return { ...val, uid };
+  })
+  return { items };
+}
+
+export default connect(mapStateToProps, actions)(Trending);

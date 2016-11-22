@@ -10,6 +10,7 @@
     "lodash": "^4.16.6",
     "react": "15.3.2",
     "react-native": "0.34.1",
+    "react-native-action-button": "^2.0.15",
     "react-native-button-component": "0.0.5",
     "react-native-fetch-blob": "^0.10.0",
     "react-native-image-picker": "^0.22.13",

@@ -13,6 +13,10 @@ import {
   RefreshControl
 } from 'react-native';
 
+import ActionButton from 'react-native-action-button';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+const search = (<MaterialIcon name="search" size={33} color="white" />)
+
 import {
   Spinner
 } from './../../components/common';
@@ -70,6 +74,11 @@ class Home extends Component {
             />
           }
         />
+      <ActionButton buttonColor="rgba(231,76,60,1)" offsetY={15} offsetX={15}>
+            <ActionButton.Item buttonColor='#9b59b6' title="Search Event" onPress={() => Actions.search()}>
+              {search}
+            </ActionButton.Item>
+          </ActionButton>
       </View>
     )
   }
@@ -98,7 +107,12 @@ const styles = {
     letterSpacing: 0,
     fontFamily: 'HelveticaNeue-Thin',
     paddingBottom: 10
-  }
+  },
+  actionButtonIcon: {
+    fontSize: 20,
+    height: 22,
+    color: 'white',
+  },
 }
 
 const mapStateToProps = (state) => {

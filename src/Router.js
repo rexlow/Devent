@@ -13,8 +13,9 @@ import Register from './containers/auth/Register';
 import ResetPassword from './containers/auth/ResetPassword';
 
 import Home from './containers/tabContainers/Home';
-import Search from './containers/tabContainers/Search';
+import Trending from './containers/tabContainers/Trending';
 import Profile from './containers/tabContainers/Profile';
+import Search from './containers/tabContainers/Search';
 import EventItemDetail from './containers/tabContainers/EventItemDetail';
 import AddInterest from './containers/tabContainers/Profile/AddInterest';
 import AdminPanel from './containers/tabContainers/Profile/AdminPanel';
@@ -76,9 +77,13 @@ class RouterComponent extends Component {
               <Scene key="homeTab" title="Home" icon={TabIcon} initial>
                 <Scene key="home" component={Home} title="Home Screen" initial />
               </Scene>
-              <Scene key="searchTab" component={Search} title="Trending" icon={TabIcon}/>
+              <Scene key="searchTab" component={Trending} title="Trending" icon={TabIcon}/>
               <Scene key="profileTab" component={Profile} title="Profile" icon={TabIcon} />
             </Scene>
+            <Scene
+              key="search"
+              component={Search}
+              leftButtonIconStyle={{tintColor: '#FFF'}} />
             <Scene
               key="eventItemDetail"
               component={EventItemDetail}
