@@ -39,19 +39,7 @@ class RouterComponent extends Component {
     this.props.listenToUser();
   }
 
-  buyTicketHelper(props) {
-    console.log(props)
-    Alert.alert(
-      'Purchase',
-      `Buy 1 ticket for ${props.title} \n with USD ${props.cost}?`,
-      [
-        {text: 'Yes', onPress: () => {
-          this.props.buyTicket(props.uid);
-        }},
-        {text: 'Cancel', onPress: () => console.log('Buy ticket cancel')}
-      ]
-    )
-  }
+
 
   render() {
     const { sceneStyle, navigationBarStyle, titleStyle } = styles;
@@ -87,10 +75,7 @@ class RouterComponent extends Component {
             <Scene
               key="eventItemDetail"
               component={EventItemDetail}
-              leftButtonIconStyle={{tintColor: '#FFF'}}
-              rightTitle="Buy Ticket"
-              rightButtonTextStyle={{ color: '#FFF' }}
-              onRight={this.buyTicketHelper.bind(this)} />
+              leftButtonIconStyle={{tintColor: '#FFF'}}/>
             <Scene
               key="adminPanel"
               component={AdminPanel}

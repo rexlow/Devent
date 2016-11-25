@@ -14,6 +14,10 @@ import * as actions from './../../actions';
 import { Actions } from 'react-native-router-flux';
 import ButtonComponent from 'react-native-button-component';
 
+import ActionButton from 'react-native-action-button';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+const shoppingCart = (<MaterialIcon name="shopping-cart" size={27} color="white" />)
+
 import Icon from 'react-native-vector-icons/FontAwesome';
 const university = (<Icon name="university" size={13} color="black" />)
 const creditCard = (<Icon name="credit-card" size={13} color="black" />)
@@ -30,6 +34,27 @@ class EventItemDetail extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.buyTicketCallback(nextProps);
+  }
+
+  buyTicketHelper() {
+    const { title, cost, uid, profile } = this.props;
+    Alert.alert(
+      'Purchase',
+      `Buy 1 ticket for ${title} \n with USD ${cost}?`,
+      [
+        {text: 'Yes', onPress: () => {
+          if (profile.userGroup.credit >= cost) {
+            const remainingCredit = profile.userGroup.credit - cost
+            this.props.buyTicket(uid, remainingCredit);
+          } else {
+            Alert.alert(
+              'Error', 'Insufficient credit'
+            )
+          }
+        }},
+        {text: 'Cancel', onPress: () => console.log('Buy ticket cancel')}
+      ]
+    )
   }
 
   buyTicketCallback(props) {
@@ -106,6 +131,12 @@ class EventItemDetail extends Component {
             <Text>{note}</Text>
           </View>
         </View>
+        <ActionButton
+          buttonColor="rgba(139,195,74,1)"
+          offsetY={0}
+          offsetX={0}
+          icon={shoppingCart}
+          onPress={this.buyTicketHelper.bind(this)} />
       </View>
     )
   }
@@ -174,7 +205,8 @@ const styles = {
 
 const mapStateToProps = (state) => {
   return {
-    api: state.api
+    api: state.api,
+    profile: state.profile
   }
 }
 

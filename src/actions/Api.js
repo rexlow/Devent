@@ -41,12 +41,16 @@ export function pullTrendingData() {
   };
 };
 
-export function buyTicket(eventID) {
+export function buyTicket(eventID, remainingCredit) {
   console.log(eventID);
   const { currentUser } = firebase.auth();
   return (dispatch) => {
     firebase.database().ref(`/Users/${currentUser.uid}/joinedEvent`).update({ [eventID]: true })
-      .then(() => dispatch({ type: BUY_TICKET_SUCCESS, payload: successMessage }))
+      .then(() => {
+        firebase.database().ref(`/Users/${currentUser.uid}`).update({ credit: remainingCredit })
+          .then(() => dispatch({ type: BUY_TICKET_SUCCESS, payload: successMessage }) )
+          .catch((error) => console.log(error))
+       })
       .catch(() => dispatch({ type: BUY_TICKET_FAIL, payload: failMessage }));
     firebase.database().ref(`/Event/${eventID}/joinedUser`).update({ [currentUser.uid]: true })
       .then(() => console.log('update event parent'))
