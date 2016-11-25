@@ -18,6 +18,8 @@ export const LOGOUT_USER = 'logout_user';
 export const PULL_EVENT_DATA = 'pull_event_data';
 export const PULL_TRENDING_DATA = 'pull_trending_data';
 
+export const DID_PURCHASED = 'did_purchased';
+
 export const BUY_TICKET_SUCCESS = 'buy_ticket_success';
 export const BUY_TICKET_FAIL = 'buy_ticket_fail';
 

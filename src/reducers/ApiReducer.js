@@ -1,6 +1,7 @@
 import {
   PULL_EVENT_DATA,
   PULL_TRENDING_DATA,
+  DID_PURCHASED,
   BUY_TICKET_SUCCESS,
   BUY_TICKET_FAIL,
   SET_USER_GROUP,
@@ -21,6 +22,8 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, eventList: action.payload, message: null, isRefreshing: true };
     case PULL_TRENDING_DATA:
       return { ...state, trendingData: action.payload }
+    case DID_PURCHASED:
+      return { ...state, message: action.payload }
     case BUY_TICKET_SUCCESS:
       return { ...state, message: action.payload }
     case BUY_TICKET_FAIL:

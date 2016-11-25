@@ -3,9 +3,14 @@ import firebase from 'firebase';
 import {
   PULL_EVENT_DATA,
   PULL_TRENDING_DATA,
+  DID_PURCHASED,
   BUY_TICKET_SUCCESS,
   BUY_TICKET_FAIL,
 } from './types';
+
+const didPurchasedMessage = {
+  message: 'You have already purchased this ticket!'
+}
 
 const successMessage = {
   message: 'Yay, see ya!'
@@ -42,18 +47,25 @@ export function pullTrendingData() {
 };
 
 export function buyTicket(eventID, remainingCredit) {
-  console.log(eventID);
   const { currentUser } = firebase.auth();
   return (dispatch) => {
-    firebase.database().ref(`/Users/${currentUser.uid}/joinedEvent`).update({ [eventID]: true })
-      .then(() => {
-        firebase.database().ref(`/Users/${currentUser.uid}`).update({ credit: remainingCredit })
-          .then(() => dispatch({ type: BUY_TICKET_SUCCESS, payload: successMessage }) )
-          .catch((error) => console.log(error))
-       })
-      .catch(() => dispatch({ type: BUY_TICKET_FAIL, payload: failMessage }));
-    firebase.database().ref(`/Event/${eventID}/joinedUser`).update({ [currentUser.uid]: true })
-      .then(() => console.log('update event parent'))
-      .catch(() => console.log('error'));
-  };
-};
+    firebase.database().ref(`/Users/${currentUser.uid}/joinedEvent`)
+      .once('value', snapshot => {
+        //check if user bought this event
+        if (_.isMatch(snapshot.val(), {[eventID]: true})) {
+          dispatch({ type: DID_PURCHASED, payload: didPurchasedMessage })
+        } else {
+          firebase.database().ref(`/Users/${currentUser.uid}/joinedEvent`).update({ [eventID]: true })
+            .then(() => {
+              firebase.database().ref(`/Users/${currentUser.uid}`).update({ credit: remainingCredit })
+                .then(() => dispatch({ type: BUY_TICKET_SUCCESS, payload: successMessage }) )
+                .catch((error) => console.log(error))
+             })
+            .catch(() => dispatch({ type: BUY_TICKET_FAIL, payload: failMessage }));
+          firebase.database().ref(`/Event/${eventID}/joinedUser`).update({ [currentUser.uid]: true })
+            .then(() => console.log('update event parent'))
+            .catch(() => console.log('error'));
+        }
+      })
+  }
+}
