@@ -15,8 +15,8 @@ import {
   UPDATE_USER_PASSWORD_FAIL,
   EVENT_ADDED_SUCCESSFUL,
   EVENT_ADDED_FAIL,
-  BUY_TICKET_SUCCESS,
-  BUY_TICKET_FAIL
+  BUY_CREDIT_SUCCESS,
+  BUY_CREDIT_FAIL
 } from './types';
 
 const profileUpdate = {
@@ -140,7 +140,7 @@ export function buyCredit(amount) {
   return (dispatch) => {
     firebase.database().ref(`/Users/${currentUser.uid}`).update({
       credit: amount
-    }).then(() => dispatch({ type: BUY_CREDIT_SUCCESS, payload: 'Purchase successful' }))
-      .catch((error) => dispatch({ type: BUY_TICKET_FAIL, payload: 'Purchase failed' }))
+    }).then(() => dispatch({ type: BUY_CREDIT_SUCCESS, payload: amount }))
+      .catch((error) => dispatch({ type: BUY_CREDIT_FAIL, payload: 'Purchase failed' }))
   };
 };

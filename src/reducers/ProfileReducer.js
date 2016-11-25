@@ -14,8 +14,8 @@ import {
   UPDATE_USER_PASSWORD_FAIL,
   EVENT_ADDED_SUCCESSFUL,
   EVENT_ADDED_FAIL,
-  BUY_TICKET_SUCCESS,
-  BUY_TICKET_FAIL
+  BUY_CREDIT_SUCCESS,
+  BUY_CREDIT_FAIL
 } from './../actions/types';
 
 import { REHYDRATE } from 'redux-persist/constants';
@@ -27,7 +27,8 @@ const INITIAL_STATE = {
   eventArtwork: null,
   userGroup: null,
   userType: null,
-  message: null
+  message: null,
+  credit: null
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -63,9 +64,9 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, message: action.payload }
     case EVENT_ADDED_FAIL:
       return { ...state, message: action.payload }
-    case BUY_TICKET_SUCCESS:
-      return { ...state, message: action.payload }
-    case BUY_TICKET_FAIL:
+    case BUY_CREDIT_SUCCESS:
+      return { ...state, message: 'Purchase successful', credit: action.payload }
+    case BUY_CREDIT_FAIL:
       return { ...state, message: action.payload }
     case REHYDRATE:
       var incoming = action.payload.profile;

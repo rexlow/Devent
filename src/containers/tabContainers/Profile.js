@@ -92,8 +92,9 @@ class Profile extends Component {
       Alert.alert('Message', nextProps.profile.message)
     }
 
-    if (nextProps.profile.userGroup.credit) {
-      this.setState({ userCredit: nextProps.profile.userGroup.credit})
+    // live update credit
+    if (nextProps.profile.credit) {
+      this.setState({ userCredit: nextProps.profile.credit})
     }
   }
 
