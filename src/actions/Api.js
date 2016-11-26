@@ -20,6 +20,15 @@ const failMessage = {
   message: 'Something went wrong, please try again later'
 }
 
+function calculateWeightage(payload) {
+  var trendingWeightage = 0
+  const array = _.map(payload, 'value')
+  for (var i = 0; i < array.length; i++) {
+    trendingWeightage = trendingWeightage + array[i]
+  }
+  return trendingWeightage
+}
+
 export function pullEventData() {
   const { currentUser } = firebase.auth();
   return (dispatch) => {
@@ -36,11 +45,19 @@ export function pullEventData() {
 export function pullTrendingData() {
   const { currentUser } = firebase.auth();
   return (dispatch) => {
-    firebase.database().ref(`/Trending`).orderByValue()
+    firebase.database().ref(`/Trending`)
       .on('value', snapshot => {
+
+        var trendingObject = snapshot.val()
+        const trendingWeightage = calculateWeightage(trendingObject)
+
+        for (var i = 1; i <= Object.keys(trendingObject).length; i++) {
+          trendingObject[`item${i}`].value = _.round((trendingObject[`item${i}`].value * 100 / trendingWeightage), 2)
+        }
+
         dispatch({
           type: PULL_TRENDING_DATA,
-          payload: snapshot.val()
+          payload: trendingObject
         });
       });
   };
