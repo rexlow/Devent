@@ -142,7 +142,14 @@ class Profile extends Component {
   }
 
   signOut() {
-    this.props.logoutUser();
+    Alert.alert(
+      'Sign out',
+      'Are you sure?',
+      [
+        {text: 'Yes', onPress: () => this.props.logoutUser()},
+        {text: 'Cancel', onPress: () => console.log('sign out cancel')}
+      ]
+    )
   }
 
   renderAdminButton() {

@@ -55,3 +55,6 @@ export const RESET_APPROVE_MESSAGE = 'reset_approve_message'
 
 export const BUY_CREDIT_SUCCESS = 'buy_credit_success';
 export const BUY_CREDIT_FAIL = 'buy_credit_fail';
+
+export const SUBMIT_INTEREST_ITEM_SUCCESS = 'submit_interest_item_success';
+export const SUBMIT_INTEREST_ITEM_FAIL = 'submit_interest_item_fail';

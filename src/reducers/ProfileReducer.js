@@ -15,7 +15,9 @@ import {
   EVENT_ADDED_SUCCESSFUL,
   EVENT_ADDED_FAIL,
   BUY_CREDIT_SUCCESS,
-  BUY_CREDIT_FAIL
+  BUY_CREDIT_FAIL,
+  SUBMIT_INTEREST_ITEM_SUCCESS,
+  SUBMIT_INTEREST_ITEM_FAIL
 } from './../actions/types';
 
 import { REHYDRATE } from 'redux-persist/constants';
@@ -67,6 +69,10 @@ export default (state = INITIAL_STATE, action) => {
     case BUY_CREDIT_SUCCESS:
       return { ...state, message: 'Purchase successful', credit: action.payload }
     case BUY_CREDIT_FAIL:
+      return { ...state, message: action.payload }
+    case SUBMIT_INTEREST_ITEM_SUCCESS:
+      return { ...state, message: action.payload }
+    case SUBMIT_INTEREST_ITEM_FAIL:
       return { ...state, message: action.payload }
     case REHYDRATE:
       var incoming = action.payload.profile;

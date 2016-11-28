@@ -16,7 +16,9 @@ import {
   EVENT_ADDED_SUCCESSFUL,
   EVENT_ADDED_FAIL,
   BUY_CREDIT_SUCCESS,
-  BUY_CREDIT_FAIL
+  BUY_CREDIT_FAIL,
+  SUBMIT_INTEREST_ITEM_SUCCESS,
+  SUBMIT_INTEREST_ITEM_FAIL
 } from './types';
 
 const profileUpdate = {
@@ -144,3 +146,31 @@ export function buyCredit(amount) {
       .catch((error) => dispatch({ type: BUY_CREDIT_FAIL, payload: 'Purchase failed' }))
   };
 };
+
+export function submitInterestItem(item, trendingData) {
+  const { currentUser } = firebase.auth();
+
+  var update = {};
+  Object.keys(item).forEach((key) => {
+    update['item' + (Number(key) + 1)] = item[key]
+  });
+
+  var newUpdates = {}
+  Object.keys(trendingData).forEach((key) => {
+    newUpdates['item' + (Number(key) + 1)] = {
+      title: trendingData[key][0],
+      value: trendingData[key][1]
+    }
+  });
+
+  Object.keys(newUpdates).forEach(
+    (key) => update[key] && (newUpdates[key].value += 1)
+  );
+
+  return (dispatch) => {
+    firebase.database().ref(`/`).update({
+      Trending: newUpdates
+    }).then(() => dispatch({ type: SUBMIT_INTEREST_ITEM_SUCCESS, payload: 'Thanks for your contribution to our database! Your will see more events of your choice!' }))
+      .catch((error) => dispatch({ type: SUBMIT_INTEREST_ITEM_FAIL, payload: 'Update trending statistic fail' }))
+  }
+}

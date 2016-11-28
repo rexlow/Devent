@@ -42,6 +42,11 @@ class AddInterest extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.createDataSource(nextProps);
+
+    if(nextProps.profile.message !== null) {
+      Alert.alert('Message', nextProps.profile.message)
+      this.props.resetMessage()
+    }
   }
 
   createDataSource({ items }) {
@@ -65,8 +70,18 @@ class AddInterest extends Component {
      this.setState({rowStates});
    }
 
+  submitItemHelper() {
+    if (_.isEmpty(this.state.rowStates)) {
+      Alert.alert(
+        'Message',
+        'Please select at least one item'
+      )
+    } else {
+      this.props.submitInterestItem(this.state.rowStates, this.props.trendingData)
+    }
+  }
+
   render() {
-    console.log(this.state.rowStates);
     const { centerEverything, skeleton, container, textContainer, contentContainer, listViewContainer,
       titleContainer, descContainer, title, desc, submitContainer, submitTitle } = styles;
     return (
@@ -90,9 +105,11 @@ class AddInterest extends Component {
         </View>
 
         <View style={[centerEverything, {paddingBottom: 10}]}>
-          <View style={[centerEverything, submitContainer]}>
-            <Text style={submitTitle}>Submit</Text>
-          </View>
+          <TouchableWithoutFeedback onPress={() => this.submitItemHelper()}>
+            <View style={[centerEverything, submitContainer]}>
+              <Text style={submitTitle}>Submit</Text>
+            </View>
+          </TouchableWithoutFeedback>
         </View>
 
       </View>
@@ -160,11 +177,12 @@ const styles = {
 }
 
 const mapStateToProps = (state) => {
-  const sortData = _.map(_.orderBy(state.api.trendingData, ['title'], ['asc']), _.values);
+  // const sortData = _.map(_.orderBy(state.api.trendingData, ['title'], ['asc']), _.values);
+  const sortData = _.map(_.orderBy(state.api.trendingData), _.values);
   const items = _.map(sortData, (val, uid) => {
     return { ...val, uid };
   })
-  return { items };
+  return { items, trendingData: sortData, profile: state.profile };
 }
 
 export default connect(mapStateToProps, actions)(AddInterest);
