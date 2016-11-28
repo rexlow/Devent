@@ -23,12 +23,20 @@ const add = (<MaterialIcon name="add" size={33} color="#aeaeae" />)
 const deviceWidth = require('Dimensions').get('window').width;
 const deviceHeight = require('Dimensions').get('window').height;
 
-
-
 class AddInterest extends Component {
 
+  constructor(props) {
+    super(props)
+    this.state = {
+      rowStates: {
+
+      }
+    }
+    this.renderRow = this.renderRow.bind(this)
+    this.rowUpdated = this.rowUpdated.bind(this)
+  }
+
   componentWillMount() {
-    // this.props.pullTrendingData();
     this.createDataSource(this.props);
   }
 
@@ -45,10 +53,20 @@ class AddInterest extends Component {
 
   //return arrays of event from events
   renderRow(item) {
-    return <InterestItem item={item} icon={computer}/>;
+    return <InterestItem
+              item={item}
+              icon={computer}
+              onPress={() => this.rowUpdated(item)} />;
   }
 
+  rowUpdated(item){
+     let rowStates = { ...this.state.rowStates }; // Make a copy of the object
+     rowStates[item.uid] = !rowStates[item.uid];  // If the item is not in the object, !undefined will be evaluated, which results in true, so the operation is safe
+     this.setState({rowStates});
+   }
+
   render() {
+    console.log(this.state.rowStates);
     const { centerEverything, skeleton, container, textContainer, contentContainer, listViewContainer,
       titleContainer, descContainer, title, desc, submitContainer, submitTitle } = styles;
     return (

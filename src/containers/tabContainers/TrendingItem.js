@@ -38,7 +38,7 @@ class TrendingItem extends Component {
             {pts &&
               <Animated.View style={[bar, points, {width: pts}]} />
             }
-            <Text style={styles.dataNumber}>{this.props.item[1]} %</Text>
+            <Text>{this.props.item[1]} %</Text>
           </View>
       </View>
     )
@@ -57,7 +57,8 @@ const styles = {
   },
   data: {
     flex: 2,
-    flexDirection: 'row'
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
   bar: {
     alignSelf: 'center',

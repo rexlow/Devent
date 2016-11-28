@@ -18,7 +18,13 @@ class InterestItem extends Component {
   render() {
     const { skeleton, centerEverything, container, textStyle } = styles;
     return(
-      <TouchableWithoutFeedback onPress={() => this.setState({ selected: !this.state.selected })}>
+      <TouchableWithoutFeedback
+        onPress={() => {
+          this.setState({ selected: !this.state.selected})
+          if (this.props.onPress) {
+            this.props.onPress(this.props.item)
+          }
+        }}>
         <View style={[centerEverything, container, { backgroundColor: this.state.selected ? '#635eb4' : '#e7e7e7'}]}>
           {this.props.icon}
           <Text style={textStyle}>{this.props.item[0]}</Text>
