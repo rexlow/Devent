@@ -77,7 +77,14 @@ class AddInterest extends Component {
         'Please select at least one item'
       )
     } else {
-      this.props.submitInterestItem(this.state.rowStates, this.props.trendingData)
+      Alert.alert(
+        'Message',
+        'Submit your preference?',
+        [
+          {text: 'Lets do this!', onPress: () => this.props.submitInterestItem(this.state.rowStates, this.props.trendingData) },
+          {text: 'Hmm, let me reselect', onPress: () => console.log('cancel')}
+        ]
+      )
     }
   }
 

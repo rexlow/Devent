@@ -47,14 +47,11 @@ class Trending extends Component {
     return(
       <View style={[container]}>
         <View style={[centerEverything, textContainer]}>
-          <View style={titleContainer}>
-            <Text style={[title]}>Trending Tech Terms</Text>
-          </View>
           <View style={descContainer}>
-            <Text style={[desc]}>Below are the terms tech advocates search most</Text>
+            <Text style={[desc]}>What do tech advocates care most now?</Text>
           </View>
         </View>
-        <View style={listContainer}>
+        <View style={[listContainer]}>
           <ListView
             contentContainerStyle={listViewContainer}
             enableEmptySections
@@ -82,8 +79,8 @@ const styles = {
     marginTop: 110
   },
   listContainer: {
-    flex: 8,
-    padding: 10
+    flex: 9,
+    padding: 12
   },
   listViewContainer: {
     paddingTop: 20
@@ -94,7 +91,7 @@ const styles = {
     left: 20
   },
   textContainer: {
-    flex: 2
+    flex: 1
   },
   titleContainer: {
     width: deviceWidth*0.8,
@@ -103,14 +100,14 @@ const styles = {
     width: deviceWidth*0.6,
   },
   title: {
-    fontSize: 20,
+    fontSize: 22,
     fontFamily: 'Helvetica Neue',
     fontWeight: '400',
     textAlign: 'center'
   },
   desc: {
     color: 'grey',
-    fontSize: 15,
+    fontSize: 16,
     fontFamily: 'Helvetica Neue',
     fontWeight: '300',
     textAlign: 'center'

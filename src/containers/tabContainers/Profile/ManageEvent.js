@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import {
   Alert,
   View,
+  ListView,
+  RefreshControl,
   Text,
   Image,
   TouchableWithoutFeedback,
@@ -15,17 +17,44 @@ import { connect } from 'react-redux';
 import * as actions from './../../../actions';
 import firebase from 'firebase';
 
+import EventItem from './../EventItem';
+
 const deviceWidth = require('Dimensions').get('window').width;
 const deviceHeight = require('Dimensions').get('window').height;
 
 class ManageEvent extends Component {
 
+  state = { isRefreshing: false }
+
+  componentWillMount() {
+    this.createDataSource(this.props);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.createDataSource(nextProps);
+    if (nextProps) {
+      this.setState({ isRefreshing: false })
+    }
+  }
+
+  createDataSource({ joinedEvent }) {
+    const ds = new ListView.DataSource({
+      rowHasChanged: (r1, r2) => r1 !== r2
+    });
+    this.dataSource = ds.cloneWithRows(joinedEvent);
+  }
+
+  //return arrays of event from events
+  renderRow(event) {
+    return <EventItem event={event} />;
+  }
+
   render() {
-    const { centerEverything, skeleton, container, textContainer, contentContainer, buttonContainer,
+    const { centerEverything, skeleton, container, textContainer, contentContainer, listViewContainer, buttonContainer,
       propWidth, titleContainer, descContainer, title, editTitle, desc, buttonStyle } = styles;
     return (
-      <View style={[centerEverything, container]}>
-        <View style={[centerEverything, textContainer]}>
+      <View style={[centerEverything, container, skeleton]}>
+        <View style={[centerEverything, textContainer, skeleton]}>
           <View style={titleContainer}>
             <Text style={[title]}>Event Place</Text>
           </View>
@@ -33,16 +62,30 @@ class ManageEvent extends Component {
             <Text style={[desc]}>One place to manage all your events.</Text>
           </View>
         </View>
-        <View style={[contentContainer]}>
-          <View style={[buttonContainer]}>
-            <ButtonComponent
-              style={buttonStyle}
-              type='primary'
-              shape='rectangle'
-              text="ADD EVENT"
-              onPress={() => Actions.addEvent()}
-            />
-          </View>
+        <View style={[contentContainer, skeleton]}>
+          <ListView
+            contentContainerStyle={listViewContainer}
+            enableEmptySections
+            dataSource={this.dataSource}
+            renderRow={this.renderRow}
+            refreshControl={
+              <RefreshControl
+                refreshing={this.state.isRefreshing}
+                onRefresh={this.onRefresh}
+                title="Loading data..."
+                progressBackgroundColor="#ffff00"
+              />
+            }
+          />
+        </View>
+        <View style={[buttonContainer]}>
+          <ButtonComponent
+            style={buttonStyle}
+            type='primary'
+            shape='rectangle'
+            text="ADD EVENT"
+            onPress={() => Actions.addEvent()}
+          />
         </View>
       </View>
     )
@@ -73,7 +116,14 @@ const styles = {
   },
   contentContainer: {
     flex: 8,
-    width: deviceWidth
+    width: deviceWidth,
+    marginBottom: 62 //prevent collision with button
+  },
+  listViewContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   buttonContainer: {
     width: deviceWidth,
@@ -116,4 +166,17 @@ const styles = {
   },
 }
 
-export default connect(null, actions)(ManageEvent);
+const mapStateToProps = (state) => {
+  let unfilteredJoinedEvent = state.profile.userGroup.joinedEvent
+  let eventList = state.api.eventList
+
+  var joinedEvent = []
+
+  Object.keys(eventList).forEach(
+    (key) => unfilteredJoinedEvent[key] && (joinedEvent.push({ ...eventList[key] }))
+  )
+
+  return { joinedEvent }
+}
+
+export default connect(mapStateToProps, actions)(ManageEvent);
