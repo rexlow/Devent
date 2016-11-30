@@ -89,11 +89,13 @@ class Profile extends Component {
 
     if(nextProps.profile.message !== null) {
       Alert.alert('Message', nextProps.profile.message)
+      this.props.getUserGroup() //refresh userGroup credit
+      this.props.resetMessage()
     }
 
     // live update credit
-    if (nextProps.profile.credit) {
-      this.setState({ userCredit: nextProps.profile.credit})
+    if (nextProps.profile.userGroup.credit) {
+      this.setState({ userCredit: nextProps.profile.userGroup.credit})
     }
   }
 
@@ -170,12 +172,12 @@ class Profile extends Component {
     AlertIOS.prompt(
       'Buy credit',
       'Enter amount of credit to buy',
-      text => this.buyTickerHelper(text)
+      text => this.buyCreditHelper(text)
     );
   }
 
-  buyTickerHelper(amount) {
-    const totalAmount = this.props.credit + _.toInteger(amount);
+  buyCreditHelper(amount) {
+    const totalAmount = this.props.profile.userGroup.credit + _.toInteger(amount);
     this.props.buyCredit(totalAmount)
   }
 

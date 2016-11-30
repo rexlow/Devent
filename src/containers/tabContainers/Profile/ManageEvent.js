@@ -1,4 +1,5 @@
 'use strict';
+import _ from 'lodash';
 import React, { Component } from 'react';
 import {
   Alert,
@@ -9,6 +10,11 @@ import {
   Image,
   TouchableWithoutFeedback,
 } from 'react-native';
+
+import ActionButton from 'react-native-action-button';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+const add = (<MaterialIcon name="add" size={28} color="white" />)
+
 import { Input, Spinner } from './../../../components/common';
 import ButtonComponent from 'react-native-button-component';
 
@@ -24,10 +30,20 @@ const deviceHeight = require('Dimensions').get('window').height;
 
 class ManageEvent extends Component {
 
-  state = { isRefreshing: false }
+  state = {
+    isRefreshing: false,
+    totalJoinedEvent: 0,
+    totalSpending: 0
+  }
 
   componentWillMount() {
     this.createDataSource(this.props);
+  }
+
+  componentDidMount() {
+    if (this.props.joinedEvent) {
+      this.calculateStatus()
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -49,12 +65,22 @@ class ManageEvent extends Component {
     return <EventItem event={event} />;
   }
 
+  calculateStatus() {
+    let events = this.props.joinedEvent
+    var totalPrice = 0
+    for (var i = 0; i < events.length; i++) {
+      totalPrice += events[i].cost
+    }
+    var roundedPrice = _.round(totalPrice, 2)
+    this.setState({ totalJoinedEvent: events.length, totalSpending: roundedPrice })
+  }
+
   render() {
     const { centerEverything, skeleton, container, textContainer, contentContainer, listViewContainer, buttonContainer,
-      propWidth, titleContainer, descContainer, title, editTitle, desc, buttonStyle } = styles;
+      propWidth, titleContainer, descContainer, title, editTitle, desc, buttonStyle, statusContainer, statusText } = styles;
     return (
-      <View style={[centerEverything, container, skeleton]}>
-        <View style={[centerEverything, textContainer, skeleton]}>
+      <View style={[centerEverything, container]}>
+        <View style={[centerEverything, textContainer]}>
           <View style={titleContainer}>
             <Text style={[title]}>Event Place</Text>
           </View>
@@ -62,7 +88,7 @@ class ManageEvent extends Component {
             <Text style={[desc]}>One place to manage all your events.</Text>
           </View>
         </View>
-        <View style={[contentContainer, skeleton]}>
+        <View style={[contentContainer]}>
           <ListView
             contentContainerStyle={listViewContainer}
             enableEmptySections
@@ -78,15 +104,16 @@ class ManageEvent extends Component {
             }
           />
         </View>
-        <View style={[buttonContainer]}>
-          <ButtonComponent
-            style={buttonStyle}
-            type='primary'
-            shape='rectangle'
-            text="ADD EVENT"
-            onPress={() => Actions.addEvent()}
-          />
+        <View style={statusContainer}>
+          <Text style={statusText}>Total Joined Event: {this.state.totalJoinedEvent}</Text>
+          <Text style={statusText}>Total Spending: RM {this.state.totalSpending}</Text>
         </View>
+        <ActionButton
+          buttonColor="rgba(134,29,186,1)"
+          offsetY={0}
+          offsetX={0}
+          icon={add}
+          onPress={() => Actions.addEvent()} />
       </View>
     )
   }
@@ -117,7 +144,7 @@ const styles = {
   contentContainer: {
     flex: 8,
     width: deviceWidth,
-    marginBottom: 62 //prevent collision with button
+    marginBottom: 50
   },
   listViewContainer: {
     justifyContent: 'center',
@@ -164,17 +191,34 @@ const styles = {
     borderRadius: 20,
     margin: 3
   },
+  statusContainer: {
+    position: 'absolute',
+    bottom: 0,
+    width: deviceWidth,
+    height: 50,
+    backgroundColor: '#221F1F',
+    justifyContent: 'center'
+  },
+  statusText: {
+    color: 'white',
+    fontSize: 14,
+    fontFamily: 'Helvetica Neue',
+    paddingLeft: 10,
+    fontWeight: '500'
+  }
 }
 
 const mapStateToProps = (state) => {
-  let unfilteredJoinedEvent = state.profile.userGroup.joinedEvent
-  let eventList = state.api.eventList
-
   var joinedEvent = []
 
-  Object.keys(eventList).forEach(
-    (key) => unfilteredJoinedEvent[key] && (joinedEvent.push({ ...eventList[key] }))
-  )
+  if (state.profile.userGroup.joinedEvent) {
+    let unfilteredJoinedEvent = state.profile.userGroup.joinedEvent
+    let eventList = state.api.eventList
+
+    Object.keys(eventList).forEach(
+      (key) => unfilteredJoinedEvent[key] && (joinedEvent.push({ ...eventList[key] }))
+    )
+  }
 
   return { joinedEvent }
 }

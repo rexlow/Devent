@@ -41,7 +41,7 @@ import {
       firstName: firstName,
       lastName: lastName,
       userGroup: 'Normal User',
-      creadit: 0
+      credit: 0
     });
  };
 

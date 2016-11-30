@@ -6,6 +6,7 @@ import {
   DID_PURCHASED,
   BUY_TICKET_SUCCESS,
   BUY_TICKET_FAIL,
+  RESET_TICKET_MESSAGE
 } from './types';
 
 const didPurchasedMessage = {
@@ -18,6 +19,12 @@ const successMessage = {
 
 const failMessage = {
   message: 'Something went wrong, please try again later'
+}
+
+export function resetTicketMessage() {
+  return {
+    type: RESET_TICKET_MESSAGE
+  }
 }
 
 function calculateWeightage(payload) {

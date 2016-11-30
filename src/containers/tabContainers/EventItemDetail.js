@@ -59,7 +59,6 @@ class EventItemDetail extends Component {
 
   buyTicketCallback(props) {
     if (props.api.message) {
-      console.log(props.api);
       const message = props.api.message.message;
       Alert.alert(
         'Message',
@@ -67,6 +66,8 @@ class EventItemDetail extends Component {
       [
         {text: 'Return', onPress: () => console.log('Return after ticket reducer')}
       ]);
+      this.props.getUserGroup() //refresh userGroup credit
+      this.props.resetTicketMessage()
     }
   }
 

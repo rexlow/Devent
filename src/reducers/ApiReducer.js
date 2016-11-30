@@ -9,7 +9,8 @@ import {
   UPDATE_USER_PROFILE_SUCCESSFUL,
   UPDATE_USER_PROFILE_FAIL,
   UPDATE_USER_PASSWORD_SUCCESSFUL,
-  UPDATE_USER_PASSWORD_FAIL
+  UPDATE_USER_PASSWORD_FAIL,
+  RESET_TICKET_MESSAGE
 } from './../actions/types';
 
 import { REHYDRATE } from 'redux-persist/constants'
@@ -28,6 +29,8 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, message: action.payload }
     case BUY_TICKET_FAIL:
       return { ...state, message: action.payload }
+    case RESET_TICKET_MESSAGE:
+      return { ...state, message: null }
     case REHYDRATE:
       var incoming = action.payload.api; //return double object, one for online one for local
       if(incoming){
