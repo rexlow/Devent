@@ -43,7 +43,6 @@ import {
          error: action.payload.error
        }
      case LOGOUT_USER:
-       Actions.auth({ type: 'reset' });
        return INITIAL_STATE;
      case RESET_PASSWORD_SUCCESS:
        return {

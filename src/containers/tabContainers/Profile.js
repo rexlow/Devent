@@ -148,7 +148,11 @@ class Profile extends Component {
       'Sign out',
       'Are you sure?',
       [
-        {text: 'Yes', onPress: () => this.props.logoutUser()},
+        {text: 'Yes', onPress: () => {
+          this.props.logoutUser()
+          Actions.auth({ type: 'reset' });
+          }
+        },
         {text: 'Cancel', onPress: () => console.log('sign out cancel')}
       ]
     )

@@ -18,12 +18,10 @@ import AdminEventItem from './AdminEventItem';
 class AdminPanel extends Component {
 
   componentWillMount() {
-    console.log(this.props);
     this.createDataSource(this.props)
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps.admin.adminMessage);
     if (nextProps.admin.adminMessage !== null) {
       Alert.alert('Successful', nextProps.admin.adminMessage)
       this.createDataSource(this.props)

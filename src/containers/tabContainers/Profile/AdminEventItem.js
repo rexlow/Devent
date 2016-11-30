@@ -73,7 +73,7 @@ class AdminEventItem extends Component {
   }
 
   render() {
-    // console.log(this.props.event);
+    console.log(this.props.event);
     const { address, artwork, cost, date, joinedUserCount,
             title, organizer, note, time, approved } = this.props.event;
 
@@ -82,7 +82,7 @@ class AdminEventItem extends Component {
     const { skeleton, centerEverything, container, imageContainer, contentContainer, textContainer,
             buttonContainer, imageStyle, titleStyle } = styles;
     return(
-      <TouchableWithoutFeedback onPress={() => Actions.eventItemDetail()}>
+      <TouchableWithoutFeedback onPress={() => Actions.eventItemDetail(this.props.event)}>
         <View style={container}>
           <View style={imageContainer}>
             <Image

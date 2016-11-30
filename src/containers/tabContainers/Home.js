@@ -74,11 +74,12 @@ class Home extends Component {
             />
           }
         />
-        <ActionButton buttonColor="rgba(231,76,60,1)" offsetY={0} offsetX={0}>
-          <ActionButton.Item buttonColor='#9b59b6' title="Search Event" onPress={() => Actions.search()}>
-            {search}
-          </ActionButton.Item>
-        </ActionButton>
+        <ActionButton
+          buttonColor='#9b59b6'
+          offsetY={0}
+          offsetX={0}
+          icon={search}
+          onPress={() => Actions.search()} />
       </View>
     )
   }
