@@ -4,7 +4,8 @@ import {
   View,
   Text,
   TouchableWithoutFeedback,
-  ListView
+  ListView,
+  LayoutAnimation
 } from 'react-native';
 
 import TrendingItem from './TrendingItem';
@@ -18,13 +19,21 @@ const deviceHeight = require('Dimensions').get('window').height;
 
 class Trending extends Component {
 
+  state = {
+    leadingItem: '',
+    second: '',
+    leadingPercent: 0
+  }
+
   componentWillMount() {
     this.props.pullTrendingData();
     this.createDataSource(this.props);
+    this.findLeadingItem(this.props)
   }
 
   componentWillReceiveProps(nextProps) {
     this.createDataSource(nextProps);
+    this.findLeadingItem(nextProps)
   }
 
   createDataSource({ items }) {
@@ -39,10 +48,21 @@ class Trending extends Component {
     return <TrendingItem item={item} />;
   }
 
+  findLeadingItem(data) {
+    if (data.items[0][0]) {
+      const percent = _.round((data.items[0][1] / data.items[1][1]), 2)
+      this.setState({
+        leadingItem: data.items[0][0],
+        second: data.items[1][0],
+        leadingPercent: percent
+      })
+    }
+  }
+
   render() {
     // console.log(this.props.trendingData.trendingData);
     const { skeleton, centerEverything, container, listViewContainer, makeItTop,
-    textContainer, titleContainer, descContainer, title, desc, listContainer } = styles;
+    textContainer, titleContainer, descContainer, title, desc, listContainer, statusContainer, statusText } = styles;
 
     return(
       <View style={[container]}>
@@ -58,6 +78,9 @@ class Trending extends Component {
             dataSource={this.dataSource}
             renderRow={this.renderRow}
           />
+        </View>
+        <View style={statusContainer}>
+          <Text style={statusText}>{this.state.leadingItem} seems to be the most popular thing right now followed by {this.state.second} by {this.state.leadingPercent} times!</Text>
         </View>
       </View>
     )
@@ -80,7 +103,8 @@ const styles = {
   },
   listContainer: {
     flex: 9,
-    padding: 12
+    padding: 12,
+    marginBottom: 50
   },
   listViewContainer: {
     paddingTop: 20
@@ -112,6 +136,21 @@ const styles = {
     fontWeight: '300',
     textAlign: 'center'
   },
+  statusContainer: {
+    position: 'absolute',
+    bottom: 0,
+    width: deviceWidth,
+    height: 50,
+    backgroundColor: '#221F1F',
+    justifyContent: 'center'
+  },
+  statusText: {
+    color: 'white',
+    fontSize: 14,
+    fontFamily: 'Helvetica Neue',
+    paddingLeft: 10,
+    fontWeight: '500'
+  }
 }
 
 const mapStateToProps = (state) => {

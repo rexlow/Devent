@@ -66,7 +66,7 @@ class Home extends Component {
 
     var eventLength = this.props.events.length
 
-    // const filteredEvents = this.props.events.filter(search)
+    //~ return -1 if query not found, found when >= 0
     const filteredEvents = this.props.events.filter(event => ~event.title.indexOf(searchText))
 
     if (filteredEvents) {
@@ -89,7 +89,7 @@ class Home extends Component {
              style={searchBar}
              value={this.state.searchText}
              onChange={this.setSearchText.bind(this)}
-             placeholder="Search Event 🕵" />
+             placeholder="Search Event " />
         </View>
         <View style={listContainer}>
           <ListView
@@ -123,20 +123,20 @@ const styles = {
     marginTop: 110,
   },
   searchBarContainer: {
-    flex: 1,
+    flex: 0.7,
     width: deviceWidth
   },
   searchBar: {
     paddingLeft: 30,
     fontSize: 16,
-    height: 40,
+    height: 35,
     width: deviceWidth,
     // flex: .1,
     borderWidth: 5,
     borderColor: '#E4E4E4',
   },
   listContainer: {
-    flex: 9,
+    flex: 9.3,
     width: deviceWidth
   },
   listViewContainer: {
@@ -144,23 +144,6 @@ const styles = {
     alignItems: 'center',
     flexDirection: 'row',
     flexWrap: 'wrap',
-  },
-  title: {
-    fontSize: 38,
-    letterSpacing: 9,
-    fontFamily: 'HelveticaNeue-Light',
-    paddingBottom: 10
-  },
-  desc: {
-    fontSize: 16,
-    letterSpacing: 0,
-    fontFamily: 'HelveticaNeue-Thin',
-    paddingBottom: 10
-  },
-  actionButtonIcon: {
-    fontSize: 20,
-    height: 22,
-    color: 'white',
   },
 }
 
