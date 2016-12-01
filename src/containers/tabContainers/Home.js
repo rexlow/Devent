@@ -8,6 +8,7 @@ import * as actions from './../../actions';
 import {
   View,
   Text,
+  TextInput,
   TouchableOpacity,
   ListView,
   RefreshControl
@@ -23,6 +24,9 @@ import {
 
 import EventItem from './EventItem';
 
+const deviceWidth = require('Dimensions').get('window').width;
+const deviceHeight = require('Dimensions').get('window').height;
+
 class Home extends Component {
 
   state = { isRefreshing: false }
@@ -36,7 +40,7 @@ class Home extends Component {
   componentWillReceiveProps(nextProps) {
     this.createDataSource(nextProps);
     if (nextProps) {
-      this.setState({ isRefreshing: false })
+      this.setState({ isRefreshing: false, searchText: '' })
     }
   }
 
@@ -57,39 +61,83 @@ class Home extends Component {
     this.props.pullEventData()
   }
 
+  setSearchText(event) {
+    let searchText = event.nativeEvent.text;
+
+    var eventLength = this.props.events.length
+
+    // const filteredEvents = this.props.events.filter(search)
+    const filteredEvents = this.props.events.filter(event => ~event.title.indexOf(searchText))
+
+    if (filteredEvents) {
+      var events = filteredEvents
+      this.createDataSource({ events })
+    } else {
+      var events = [] //return empty object as react native list view required
+      this.createDataSource({ events })
+    }
+
+    this.setState({ searchText })
+  }
+
   render() {
+    const { skeleton, container, listViewContainer, searchBarContainer, listContainer, searchBar } = styles
     return(
-      <View style={styles.container}>
-        <ListView
-          contentContainerStyle={styles.listViewContainer}
-          enableEmptySections
-          dataSource={this.dataSource}
-          renderRow={this.renderRow}
-          refreshControl={
-            <RefreshControl
-              refreshing={this.state.isRefreshing}
-              onRefresh={this.onRefresh}
-              title="Loading data..."
-              progressBackgroundColor="#ffff00"
-            />
-          }
-        />
-        <ActionButton
-          buttonColor='#9b59b6'
-          offsetY={0}
-          offsetX={0}
-          icon={search}
-          onPress={() => Actions.search()} />
+      <View style={[container]}>
+        <View style={[searchBarContainer]}>
+          <TextInput
+             style={searchBar}
+             value={this.state.searchText}
+             onChange={this.setSearchText.bind(this)}
+             placeholder="Search Event 🕵" />
+        </View>
+        <View style={listContainer}>
+          <ListView
+            contentContainerStyle={listViewContainer}
+            enableEmptySections
+            dataSource={this.dataSource}
+            renderRow={this.renderRow}
+            refreshControl={
+              <RefreshControl
+                refreshing={this.state.isRefreshing}
+                onRefresh={this.onRefresh}
+                title="Loading data..."
+                progressBackgroundColor="#ffff00"
+              />
+            }
+          />
+        </View>
       </View>
     )
   }
 }
 
 const styles = {
+  skeleton: {
+    borderWidth: 1,
+    borderColor: 'blue'
+  },
   container: {
     flex: 1,
     backgroundColor: '#F5F6F7',
     marginTop: 110,
+  },
+  searchBarContainer: {
+    flex: 1,
+    width: deviceWidth
+  },
+  searchBar: {
+    paddingLeft: 30,
+    fontSize: 16,
+    height: 40,
+    width: deviceWidth,
+    // flex: .1,
+    borderWidth: 5,
+    borderColor: '#E4E4E4',
+  },
+  listContainer: {
+    flex: 9,
+    width: deviceWidth
   },
   listViewContainer: {
     justifyContent: 'center',

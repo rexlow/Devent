@@ -51,25 +51,25 @@ class Search extends Component {
   }
 
   setSearchText(event) {
-   let searchText = event.nativeEvent.text;
-   this.setState({ searchText })
+    let searchText = event.nativeEvent.text;
 
-   var eventLength = this.props.events.length
-   var events = this.props.events
+    var eventLength = this.props.events.length
+    var events = this.props.events
 
-   const filteredEvents = this.props.events.filter(search)
-   console.log(filteredEvents);
+    // const filteredEvents = this.props.events.filter(search)
+    const filteredEvents = this.props.events.filter(event => ~event.title.indexOf(searchText))
 
-   function search() {
-     for (var i = 0; i < eventLength; i++) {
-       if (events[i].title === searchText) {
-         console.log(events[i].title)
-         return events[i];
-       }
-     }
-   }
+    if (filteredEvents) {
+      var events = filteredEvents
+      this.createDataSource({ events })
+    } else {
+      var events = []
+      this.createDataSource({ events })
+    }
 
+    this.setState({ searchText })
   }
+
 
   render() {
     const { skeleton, centerEverything, container, listViewContainer, makeItTop,

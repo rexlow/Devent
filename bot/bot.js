@@ -22,13 +22,13 @@ function updateData(Trending) {
   for (var key in Trending) {
     if (Trending.hasOwnProperty(key)) {
       if (Trending[key].title === 'IoT') {
-        Trending[key].value = Trending[key].value*1.05
+        Trending[key].value = Trending[key].value*1.02
       }
       if (Trending[key].title === 'React JS') {
-        Trending[key].value = Trending[key].value*1.05
+        Trending[key].value = Trending[key].value*1.02
       }
       if (Trending[key].title === 'Machine Learning') {
-        Trending[key].value = Trending[key].value*1.2
+        Trending[key].value = Trending[key].value*1.08
       }
       database.update({ Trending })
     }
