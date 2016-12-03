@@ -101,7 +101,7 @@ export function updateProfile(firstName, lastName, newPassword) {
   return (dispatch) => {
     if (newPassword !== '') {
       currentUser.updatePassword(newPassword)
-        .then(() => dispatch({ type: UPDATE_USER_PASSWORD_SUCCESSFUL, payload: passwordChangeSuccess }))
+        .then(() => dispatch({ type: UPDATE_USER_PASSWORD_SUCCESSFUL, payload: 'Your profile is being updated' }))
         .catch((error) => dispatch({ type: UPDATE_USER_PASSWORD_FAIL, payload: error.message }));
     }
     //update user database
@@ -172,7 +172,7 @@ export function submitInterestItem(item, trendingData) {
   return (dispatch) => {
     firebase.database().ref(`/`).update({
       Trending: newUpdates
-    }).then(() => dispatch({ type: SUBMIT_INTEREST_ITEM_SUCCESS, payload: 'Thanks for your contribution to our database! Your will see more events of your choice!' }))
+    }).then(() => dispatch({ type: SUBMIT_INTEREST_ITEM_SUCCESS, payload: 'Thanks for your contribution to our database! You will see more events of your choice in the future!' }))
       .catch((error) => dispatch({ type: SUBMIT_INTEREST_ITEM_FAIL, payload: 'Update trending statistic fail' }))
   }
 }

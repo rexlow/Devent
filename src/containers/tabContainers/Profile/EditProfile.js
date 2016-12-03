@@ -50,15 +50,18 @@ class EditProfile extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.propsMessage(nextProps)
+    this.resetButtonState()
   }
 
   propsMessage(props) {
-    console.log(props);
     if (props.message) {
-      Alert.alert('Success', props.message);
-      this.setState({ buttonState: 'save', password: '' })
       this.props.resetMessage();
+      Alert.alert('Success', props.message);
     }
+  }
+
+  resetButtonState() {
+    this.setState({ buttonState: 'save', password: '' })
   }
 
   updateProfile() {

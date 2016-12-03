@@ -40,7 +40,6 @@ class Register extends Component {
       signUp: {
         text: 'SIGN UP',
         onPress: () => {
-          this.setState({ buttonState: 'loading' });
           this.processRegister();
         },
       },
@@ -59,9 +58,19 @@ class Register extends Component {
     LayoutAnimation.easeInEaseOut();
   }
 
+  validateEmail = (email) => {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
+  };
+
   processRegister() {
     const { email, password, firstName, lastName } = this.state;
-    this.props.registerUser(email, password, firstName, lastName);
+    if (!this.validateEmail(email)) {
+      Alert.alert('Message', 'Please enter a valid email type')
+    } else {
+      this.setState({ buttonState: 'loading' });
+      this.props.registerUser(email, password, firstName, lastName);
+    }
   }
 
   processAuth(props) {
