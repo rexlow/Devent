@@ -13,8 +13,7 @@ import {
 
 import ActionButton from 'react-native-action-button';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
-const add = (<MaterialIcon name="add" size={28} color="white" />)
-const event = (<MaterialIcon name="event" size={28} color="white" />)
+const update = (<MaterialIcon name="done" size={28} color="white" />)
 
 import { Input, Spinner } from './../../../components/common';
 import ButtonComponent from 'react-native-button-component';
@@ -29,7 +28,7 @@ import EventItem from './../EventItem';
 const deviceWidth = require('Dimensions').get('window').width;
 const deviceHeight = require('Dimensions').get('window').height;
 
-class ManageEvent extends Component {
+class ManageCreatedEvent extends Component {
 
   state = {
     isRefreshing: false,
@@ -39,12 +38,6 @@ class ManageEvent extends Component {
 
   componentWillMount() {
     this.createDataSource(this.props);
-  }
-
-  componentDidMount() {
-    if (this.props.joinedEvent) {
-      this.calculateStatus()
-    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -66,16 +59,6 @@ class ManageEvent extends Component {
     return <EventItem event={event} />;
   }
 
-  calculateStatus() {
-    let events = this.props.joinedEvent
-    var totalPrice = 0
-    for (var i = 0; i < events.length; i++) {
-      totalPrice += events[i].cost
-    }
-    var roundedPrice = _.round(totalPrice, 2)
-    this.setState({ totalJoinedEvent: events.length, totalSpending: roundedPrice })
-  }
-
   render() {
     const { centerEverything, skeleton, container, textContainer, contentContainer, listViewContainer, buttonContainer,
       propWidth, titleContainer, descContainer, title, editTitle, desc, buttonStyle, statusContainer, statusText } = styles;
@@ -83,10 +66,10 @@ class ManageEvent extends Component {
       <View style={[centerEverything, container]}>
         <View style={[centerEverything, textContainer]}>
           <View style={titleContainer}>
-            <Text style={[title]}>Event Place</Text>
+            <Text style={[title]}>Event Editor</Text>
           </View>
           <View style={descContainer}>
-            <Text style={[desc]}>One place to manage all your events.</Text>
+            <Text style={[desc]}>Update your event like a breeze!</Text>
           </View>
         </View>
         <View style={[contentContainer]}>
@@ -105,18 +88,11 @@ class ManageEvent extends Component {
             }
           />
         </View>
-        <View style={statusContainer}>
-          <Text style={statusText}>Total Joined Event: {this.state.totalJoinedEvent}</Text>
-          <Text style={statusText}>Total Spending: RM {this.state.totalSpending}</Text>
-        </View>
-        <ActionButton buttonColor="rgba(134,29,186,1)" offsetX={0} offsetY={0}>
-          <ActionButton.Item buttonColor='#0057e7' title="Manage Event" onPress={() => Actions.manageCreatedEvent()}>
-            {event}
-          </ActionButton.Item>
-          <ActionButton.Item buttonColor='#ff0065' title="Create Event" onPress={() => Actions.addEvent()}>
-            {add}
-          </ActionButton.Item>
-        </ActionButton>
+        <ActionButton
+          buttonColor="rgba(240,0,0,1)"
+          offsetX={0}
+          offsetY={0}
+          icon={update} />
       </View>
     )
   }
@@ -193,21 +169,6 @@ const styles = {
     width: deviceWidth*0.7,
     borderRadius: 20,
     margin: 3
-  },
-  statusContainer: {
-    position: 'absolute',
-    bottom: 0,
-    width: deviceWidth,
-    height: 50,
-    backgroundColor: '#221F1F',
-    justifyContent: 'center'
-  },
-  statusText: {
-    color: 'white',
-    fontSize: 14,
-    fontFamily: 'Helvetica Neue',
-    paddingLeft: 10,
-    fontWeight: '500'
   }
 }
 
@@ -226,4 +187,4 @@ const mapStateToProps = (state) => {
   return { joinedEvent }
 }
 
-export default connect(mapStateToProps, actions)(ManageEvent);
+export default connect(mapStateToProps, actions)(ManageCreatedEvent);

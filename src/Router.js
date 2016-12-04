@@ -21,6 +21,7 @@ import AddInterest from './containers/tabContainers/Profile/AddInterest';
 import AdminPanel from './containers/tabContainers/Profile/AdminPanel';
 import EditProfile from './containers/tabContainers/Profile/EditProfile';
 import ManageEvent from './containers/tabContainers/Profile/ManageEvent';
+import ManageCreatedEvent from './containers/tabContainers/Profile/ManageCreatedEvent';
 import AddEvent from './containers/tabContainers/Profile/AddEvent';
 import AdminEventItem from './containers/tabContainers/Profile/AdminEventItem';
 
@@ -91,6 +92,10 @@ class RouterComponent extends Component {
             <Scene
               key="manageEvent"
               component={ManageEvent}
+              leftButtonIconStyle={{tintColor: '#FFF'}} />
+            <Scene
+              key="manageCreatedEvent"
+              component={ManageCreatedEvent}
               leftButtonIconStyle={{tintColor: '#FFF'}} />
             <Scene
               key="addEvent"

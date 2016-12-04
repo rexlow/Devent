@@ -104,17 +104,18 @@ class AddEvent extends Component {
   }
 
   propsMessage(props) {
+    console.log(props);
     if (props.profile.eventArtwork) {
       this.setImage(props.profile.eventArtwork)
     }
 
     if (props.profile.message) {
-      this.setState({ buttonState: 'submitEvent' });
       Alert.alert('Message', props.profile.message.message, [
         {text: 'Ok', onPress: () => Actions.pop()}
       ])
       this.props.resetMessage()
     }
+    this.setState({ buttonState: 'submitEvent' });
   }
 
   setImage(url) {
@@ -131,8 +132,7 @@ class AddEvent extends Component {
         organizer       !== '' &&
         cost            !== '' &&
         address         !== '' &&
-        note            !== '' &&
-        artworkToUpload !== '') {
+        note            !== '' ) {
       this.setState({ buttonState: 'loading' });
       this.props.submitEvent(title, date, time, organizer, cost, address, note, artworkToUpload);
     } else {
@@ -169,7 +169,9 @@ class AddEvent extends Component {
           const source = {uri: response.uri, isStatic: true};
         }
 
-        this.setState({ artworkUrl: '' });
+        this.setState({ artworkUrl: source.uri }) //a temporary fix
+
+        // this.setState({ artworkUrl: '' });
         uploadImage(response.uri)
           .then(url => {
             this.setState({ artworkToUpload: url })

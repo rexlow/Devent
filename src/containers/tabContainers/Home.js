@@ -131,8 +131,8 @@ const styles = {
     fontSize: 16,
     height: 35,
     width: deviceWidth,
-    // flex: .1,
     borderWidth: 5,
+    borderRadius: 10,
     borderColor: '#E4E4E4',
   },
   listContainer: {

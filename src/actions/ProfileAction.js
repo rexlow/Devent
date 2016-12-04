@@ -132,8 +132,8 @@ export function submitEvent(title, date, time, organizer, cost, address, note, a
       note: note,
       artwork: artwork,
       approved: false
-    }).then(() => dispatch({ type: EVENT_ADDED_SUCCESSFUL, payload: eventAddedSuccessful }))
-      .catch((error) => dispatch({ type: EVENT_ADDED_FAIL, payload: anomaly }))
+    }).then(() => dispatch({ type: EVENT_ADDED_SUCCESSFUL, payload: 'Congratz! You event is now being added' }))
+      .catch((error) => dispatch({ type: EVENT_ADDED_FAIL, payload: 'Something went wrong, please try again later' }))
   }
 };
 
