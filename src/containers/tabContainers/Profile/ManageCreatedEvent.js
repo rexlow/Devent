@@ -47,11 +47,11 @@ class ManageCreatedEvent extends Component {
     }
   }
 
-  createDataSource({ joinedEvent }) {
+  createDataSource({ createdEvent }) {
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     });
-    this.dataSource = ds.cloneWithRows(joinedEvent);
+    this.dataSource = ds.cloneWithRows(createdEvent);
   }
 
   //return arrays of event from events
@@ -173,18 +173,17 @@ const styles = {
 }
 
 const mapStateToProps = (state) => {
-  var joinedEvent = []
+  var createdEvent = []
+  const currentUser = state.auth.user.uid
 
-  if (state.profile.userGroup.joinedEvent) {
-    let unfilteredJoinedEvent = state.profile.userGroup.joinedEvent
+  if (state.api.eventList) {
     let eventList = state.api.eventList
-
     Object.keys(eventList).forEach(
-      (key) => unfilteredJoinedEvent[key] && (joinedEvent.push({ ...eventList[key] }))
+      (key) => (_.isMatch(eventList[key].eventOwner, currentUser)) && (createdEvent.push({ ...eventList[key] }))
     )
   }
 
-  return { joinedEvent }
+  return { createdEvent }
 }
 
 export default connect(mapStateToProps, actions)(ManageCreatedEvent);

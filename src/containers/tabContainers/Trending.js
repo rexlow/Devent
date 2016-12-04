@@ -28,7 +28,7 @@ class Trending extends Component {
   componentWillMount() {
     this.props.pullTrendingData();
     this.createDataSource(this.props);
-    this.findLeadingItem(this.props)
+    // this.findLeadingItem(this.props)
   }
 
   componentWillReceiveProps(nextProps) {

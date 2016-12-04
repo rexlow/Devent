@@ -50,6 +50,7 @@ export function pullEventData() {
 };
 
 export function pullTrendingData() {
+  console.log('pulling trending data');
   const { currentUser } = firebase.auth();
   return (dispatch) => {
     firebase.database().ref(`/Trending`)
