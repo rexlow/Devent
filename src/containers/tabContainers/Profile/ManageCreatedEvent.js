@@ -11,10 +11,6 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 
-import ActionButton from 'react-native-action-button';
-import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
-const update = (<MaterialIcon name="done" size={28} color="white" />)
-
 import { Input, Spinner } from './../../../components/common';
 import ButtonComponent from 'react-native-button-component';
 
@@ -23,7 +19,7 @@ import { connect } from 'react-redux';
 import * as actions from './../../../actions';
 import firebase from 'firebase';
 
-import EventItem from './../EventItem';
+import CreatedEventItem from './CreatedEventItem';
 
 const deviceWidth = require('Dimensions').get('window').width;
 const deviceHeight = require('Dimensions').get('window').height;
@@ -32,8 +28,6 @@ class ManageCreatedEvent extends Component {
 
   state = {
     isRefreshing: false,
-    totalJoinedEvent: 0,
-    totalSpending: 0
   }
 
   componentWillMount() {
@@ -56,7 +50,7 @@ class ManageCreatedEvent extends Component {
 
   //return arrays of event from events
   renderRow(event) {
-    return <EventItem event={event} />;
+    return <CreatedEventItem event={event} />;
   }
 
   render() {
@@ -88,11 +82,6 @@ class ManageCreatedEvent extends Component {
             }
           />
         </View>
-        <ActionButton
-          buttonColor="rgba(240,0,0,1)"
-          offsetX={0}
-          offsetY={0}
-          icon={update} />
       </View>
     )
   }
