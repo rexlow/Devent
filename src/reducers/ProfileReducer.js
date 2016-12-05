@@ -14,6 +14,8 @@ import {
   UPDATE_USER_PASSWORD_FAIL,
   EVENT_ADDED_SUCCESSFUL,
   EVENT_ADDED_FAIL,
+  UPDATE_EVENT_SUCCESSFUL,
+  UPDATE_EVENT_FAIL,
   BUY_CREDIT_SUCCESS,
   BUY_CREDIT_FAIL,
   SUBMIT_INTEREST_ITEM_SUCCESS,
@@ -65,6 +67,10 @@ export default (state = INITIAL_STATE, action) => {
     case EVENT_ADDED_SUCCESSFUL:
       return { ...state, message: action.payload }
     case EVENT_ADDED_FAIL:
+      return { ...state, message: action.payload }
+    case UPDATE_EVENT_SUCCESSFUL:
+      return { ...state, message: action.payload }
+    case UPDATE_EVENT_FAIL:
       return { ...state, message: action.payload }
     case BUY_CREDIT_SUCCESS:
       return { ...state, message: 'Purchase successful', credit: action.payload }

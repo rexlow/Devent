@@ -15,6 +15,8 @@ import {
   UPDATE_USER_PASSWORD_FAIL,
   EVENT_ADDED_SUCCESSFUL,
   EVENT_ADDED_FAIL,
+  UPDATE_EVENT_SUCCESSFUL,
+  UPDATE_EVENT_FAIL,
   BUY_CREDIT_SUCCESS,
   BUY_CREDIT_FAIL,
   SUBMIT_INTEREST_ITEM_SUCCESS,
@@ -134,6 +136,25 @@ export function submitEvent(title, date, time, organizer, cost, address, note, a
       approved: false
     }).then(() => dispatch({ type: EVENT_ADDED_SUCCESSFUL, payload: 'Congratz! You event is now being added' }))
       .catch((error) => dispatch({ type: EVENT_ADDED_FAIL, payload: 'Something went wrong, please try again later' }))
+  }
+};
+
+export function updateEvent(title, date, time, organizer, cost, address, note, artwork, eventID) {
+  const { currentUser } = firebase.auth();
+  return (dispatch) => {
+    firebase.database().ref(`/Event/${eventID}`).update({
+      eventOwner: currentUser.uid,
+      title: title,
+      date: date,
+      time: time,
+      organizer: organizer,
+      cost: cost,
+      address: address,
+      note: note,
+      artwork: artwork,
+      approved: false
+    }).then(() => dispatch({ type: UPDATE_EVENT_SUCCESSFUL, payload: 'Congratz! You event is now updated and is waiting for approval!' }))
+      .catch((error) => dispatch({ type: UPDATE_EVENT_FAIL, payload: 'Something went wrong, please try again later' }))
   }
 };
 

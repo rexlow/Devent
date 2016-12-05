@@ -71,7 +71,7 @@ class EditCreatedEvent extends Component {
 
   constructor(props) {
     super(props)
-    const { title, date, time, cost, note, organizer, address, artwork } = this.props;
+    const { title, date, time, cost, note, organizer, address, artwork, uid } = this.props;
     this.state = {
       title,
       date,
@@ -80,6 +80,7 @@ class EditCreatedEvent extends Component {
       note,
       organizer,
       address,
+      uid,
       artworkUrl: artwork,
       artworkToUpload: '',
       buttonState: 'submitEvent'
@@ -113,7 +114,7 @@ class EditCreatedEvent extends Component {
       'Update Event',
       'Finish editing?',
       [
-        {text: 'Submit edited event', onPress: () => console.log('yes')},
+        {text: 'Submit edited event', onPress: () => this.updateEvent()},
         {text: 'Resume editing', onPress: () => console.log('no')}
       ]
     )
@@ -140,8 +141,8 @@ class EditCreatedEvent extends Component {
     });
   }
 
-  submitEventHelper() {
-    const { title, date, time, organizer, cost, address, note, artworkToUpload } = this.state;
+  updateEvent() {
+    const { title, date, time, organizer, cost, address, note, artworkToUpload, uid } = this.state;
     if (title           !== '' &&
         date            !== '' &&
         time            !== '' &&
@@ -150,7 +151,7 @@ class EditCreatedEvent extends Component {
         address         !== '' &&
         note            !== '' ) {
       this.setState({ buttonState: 'loading' });
-      this.props.submitEvent(title, date, time, organizer, cost, address, note, artworkToUpload);
+      this.props.updateEvent(title, date, time, organizer, cost, address, note, artworkToUpload, uid);
     } else {
       Alert.alert('Error', 'Please make sure you have all the fields filled in.')
     }

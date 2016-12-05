@@ -43,6 +43,9 @@ export const UPDATE_USER_PASSWORD_FAIL = 'update_user_password_successful';
 export const EVENT_ADDED_SUCCESSFUL = 'event_added_successful';
 export const EVENT_ADDED_FAIL = 'event_added_fail';
 
+export const UPDATE_EVENT_SUCCESSFUL = 'update_event_successful';
+export const UPDATE_EVENT_FAIL = 'update_event_fail';
+
 export const APPROVE_EVENT_SUCCESSFUL = 'approve_event_success';
 export const APPROVE_EVENT_FAIL = 'approve_event_fail';
 
