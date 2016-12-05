@@ -63,7 +63,7 @@ class ManageCreatedEvent extends Component {
             <Text style={[title]}>Event Editor</Text>
           </View>
           <View style={descContainer}>
-            <Text style={[desc]}>Update your event like a breeze!</Text>
+            <Text style={[desc]}>Select an event to edit</Text>
           </View>
         </View>
         <View style={[contentContainer]}>
@@ -162,14 +162,18 @@ const styles = {
 }
 
 const mapStateToProps = (state) => {
-  var createdEvent = []
   const currentUser = state.auth.user.uid
+  const stateEventList = state.api.eventList
+  var createdEvent = []
 
-  if (state.api.eventList) {
-    let eventList = state.api.eventList
-    Object.keys(eventList).forEach(
-      (key) => (_.isMatch(eventList[key].eventOwner, currentUser)) && (createdEvent.push({ ...eventList[key] }))
-    )
+  const testItem = _.map(state.api.eventList, (val, uid) => {
+    return { ...val, uid }
+  })
+
+  for (var i = 0; i < testItem.length; i++) {
+    if (_.isMatch(testItem[i].eventOwner, currentUser)) {
+      createdEvent.push({ ...testItem[i]})
+    }
   }
 
   return { createdEvent }

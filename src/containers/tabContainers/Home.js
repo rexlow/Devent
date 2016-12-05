@@ -148,7 +148,7 @@ const styles = {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state)
+  // console.log(state)
 
   //had to use pickBy instead of filter because of data mutation
   const filteredEvents = _.pickBy(state.api.eventList, {'approved': true})
