@@ -56,6 +56,7 @@ const uploadImage = (uri, mime = 'application/octet-stream') => {
       })
       .then((url) => {
         resolve(url)
+        reject((error) => console.log(error))
       })
       .catch((error) => {
         reject(error)
@@ -169,7 +170,7 @@ class AddEvent extends Component {
           const source = {uri: response.uri, isStatic: true};
         }
 
-        this.setState({ artworkUrl: source.uri }) //a temporary fix
+        // this.setState({ artworkUrl: source.uri }) //a temporary fix
 
         // this.setState({ artworkUrl: '' });
         uploadImage(response.uri)

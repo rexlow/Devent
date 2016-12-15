@@ -181,8 +181,20 @@ class Profile extends Component {
   }
 
   buyCreditHelper(amount) {
-    const totalAmount = this.props.profile.userGroup.credit + _.toInteger(amount);
-    this.props.buyCredit(totalAmount)
+    if(parseInt(amount) || parseFloat(amount)) {
+      if (parseInt(amount)) {
+        var newAmount = parseInt(amount)
+      } else if (parseFloat(amount)) {
+        var newAmount = parseFloat(amount)
+      }
+      const totalAmount = this.props.profile.userGroup.credit + newAmount;
+      this.props.buyCredit(totalAmount)
+    } else {
+      Alert.alert(
+        'Alert',
+        'Please enter a valid value'
+      )
+    }
   }
 
   render() {

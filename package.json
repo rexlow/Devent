@@ -6,7 +6,7 @@
     "start": "node node_modules/react-native/local-cli/cli.js start"
   },
   "dependencies": {
-    "firebase": "^3.5.1",
+    "firebase": "^3.6.0",
     "lodash": "^4.16.6",
     "mobile-center-analytics": "^0.1.3",
     "mobile-center-crashes": "^0.1.3",
